@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+.userstop{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.userstop h3{
+    font-family: 'Open Sans', sans-serif;
+}
+.userhome{
+    margin: 50px;
+    overflow: auto;
+    height: 100vh;
+}

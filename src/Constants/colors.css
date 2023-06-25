@@ -1,0 +1,11 @@
+:root {
+    --primary-color: #3e04c3;
+    --secondary-color: #5721d4;
+    --text-color: #efebeb;
+    --text-black:rgb(8, 8, 8);
+    --nav-color:#D5DFEA;
+    --red-color:rgb(235, 12, 12);
+    --grey:#b8b8ba;
+
+    /* Add more color variables as needed */
+  }

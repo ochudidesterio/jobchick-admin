@@ -1,0 +1,8 @@
+.unpublished-home{
+    margin: 50px;
+    overflow: auto;
+    height: 100vh;
+}
+.unpublished-home h3{
+    font-family: 'Open Sans', sans-serif;
+}

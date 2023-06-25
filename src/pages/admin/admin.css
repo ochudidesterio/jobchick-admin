@@ -1,0 +1,13 @@
+.admintop{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.adminhome{
+    margin: 50px;
+    overflow: auto;
+    height: 100vh;
+}
+.admintop h3{
+    font-family: 'Open Sans', sans-serif;
+}

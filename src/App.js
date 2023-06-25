@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import React from 'react'
+import Login from './Login';
+import Main from './Main'
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { getIsLoggedIn, setIsLoggedIn } from './redux/slices/UsersSlice';
+import { useDispatch } from 'react-redux/es/hooks/useDispatch';
+import './App.css'
+
+const App = () => {
+  const dispatch = useDispatch()
+  const isLoggedIn = useSelector(getIsLoggedIn)
+
+  const handleLogin = () => {
+    // Perform login logic
+    dispatch(setIsLoggedIn(true))
+  };
+
+  const handleLogout = () => {
+    // Perform logout logic
+    dispatch(setIsLoggedIn(false))
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <div>
+      {isLoggedIn ? (
+        <Main onLogout={handleLogout} />
+      ) : (
+        <Login onLogin={handleLogin} />
+      )}
+    </div> 
+  )
 }
 
-export default App;
+export default App

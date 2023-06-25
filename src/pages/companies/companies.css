@@ -1,0 +1,13 @@
+.companytop{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.companyhome{
+    margin: 50px;
+    overflow: auto;
+    height: 100vh;
+}
+.companytop h3{
+    font-family: 'Open Sans', sans-serif;
+}

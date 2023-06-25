@@ -1,0 +1,12 @@
+.logoContainer{
+     justify-content: "center";
+     align-items: center;
+    background-color:"#179CBD" ;
+   
+}
+.logo-img{
+    background-color:"#179CBD" ;
+    object-fit: cover;
+    width: 200;
+    height: 100;
+}

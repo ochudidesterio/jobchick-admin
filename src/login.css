@@ -1,0 +1,28 @@
+.login-gome{
+    display: flex;
+  justify-content: center;
+  height: 100vh;
+  background-color:#179CBD ;
+
+}
+/* .home-content{
+    height: 300px;
+    width: 300px;
+} */
+.login-form{
+    width: 400px;
+    background-color:#fff ;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 30px;
+    border-radius: 15px;
+
+}
+.logo{
+    width: 400px;
+    height: 150px;
+    background-color:#179CBD ;
+}
+.log-img{
+    width: 100%;
+}
