@@ -11,3 +11,17 @@
 .companytop h3{
     font-family: 'Open Sans', sans-serif;
 }
+.form-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.form-row-left,.form-row-right{
+    width: 100%;
+}
+.form-row-left{
+    margin-right: 4px;
+}
+.form-row-right{
+    margin-left: 4px;
+}

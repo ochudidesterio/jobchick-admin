@@ -1,66 +1,129 @@
 import { Menu } from "antd";
 import { useState } from "react";
-import {Routes,Route,useNavigate} from 'react-router-dom'
-import { TeamOutlined ,ProfileOutlined, BankOutlined, HeartOutlined, UserOutlined, LogoutOutlined } from "@ant-design/icons";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import {
+  TeamOutlined,
+  ProfileOutlined,
+  BankOutlined,
+  HeartOutlined,
+  UserOutlined,
+  LogoutOutlined,
+  ClusterOutlined 
+} from "@ant-design/icons";
 import Companies from "./pages/companies/Companies";
 import AdminUsers from "./pages/admin/AdminUsers";
 import Unpublished from "./pages/unpublished/Unpublished";
 import Logo from "./components/logo/Logo";
 import Users from "./pages/users/Users";
 import Jobs from "./pages/jobs/Jobs";
+import Category from "./pages/Categories/Category";
 
-const Main = ({onLogout}) => {
+const Main = ({ onLogout }) => {
   const [selectedKey, setSelectedKey] = useState("/");
 
   const navigate = useNavigate();
 
   const handleMenuClick = (key) => {
     setSelectedKey(key);
-    if(key==='signout'){
-      onLogout()
-    }else{
+    if (key === "signout") {
+      onLogout();
+    } else {
       navigate(key);
     }
-    
-      
-    
   };
   return (
-    <div style={{display:'flex',flexDirection:"row"}}>
+    <div style={{ display: "flex", flexDirection: "row" }}>
       <Menu
-        style={{ width: "200px" } }
+        style={{ width: "200px" }}
         mode="vertical"
         selectedKeys={[selectedKey]}
         onClick={({ key }) => handleMenuClick(key)}
-        
       >
-        <div style={{backgroundColor:"#179CBD",height:"150px",paddingTop:"50px"} }>
-        <Logo/>
+        <div
+          style={{
+            backgroundColor: "#179CBD",
+            height: "150px",
+            paddingTop: "50px",
+          }}
+        >
+          <Logo />
         </div>
-        <Menu.Item key="/" icon={<TeamOutlined style={{fontSize:"16px"}}/>} style={{fontSize:"16px",fontFamily:"Open Sans"}}  className="menu-item">Users</Menu.Item>
-        <Menu.Item key="/companies" icon={<BankOutlined style={{fontSize:"16px"}} />} style={{fontSize:"16px",fontFamily:"Open Sans"}} className="menu-item" >Companies</Menu.Item>
-        <Menu.Item key="/jobs" icon={<ProfileOutlined style={{fontSize:"16px"}} />} style={{fontSize:"16px",fontFamily:"Open Sans"}} className="menu-item">Published Jobs</Menu.Item>
-<Menu.Item key="/unpublished" icon={<HeartOutlined style={{fontSize:"16px"}}/>} style={{fontSize:"16px",fontFamily:"Open Sans"}} className="menu-item">Unpublished Jobs</Menu.Item>
-        <Menu.Item key="/adminusers" icon={<UserOutlined style={{fontSize:"16px"}}/>} style={{fontSize:"16px",fontFamily:"Open Sans"}} className="menu-item">Admin Users</Menu.Item>
-        <Menu.Item key="signout" icon={<LogoutOutlined style={{fontSize:"16px"}}/>} style={{fontSize:"16px",fontFamily:"Open Sans"}} danger='true' className="menu-item">Sign Out</Menu.Item>
+        <Menu.Item
+          key="/"
+          icon={<TeamOutlined style={{ fontSize: "16px" }} />}
+          style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+          className="menu-item"
+        >
+          Users
+        </Menu.Item>
+        <Menu.Item
+          key="/companies"
+          icon={<BankOutlined style={{ fontSize: "16px" }} />}
+          style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+          className="menu-item"
+        >
+          Companies
+        </Menu.Item>
+        <Menu.Item
+          key="/jobs"
+          icon={<ProfileOutlined style={{ fontSize: "16px" }} />}
+          style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+          className="menu-item"
+        >
+          Published Jobs
+        </Menu.Item>
+        <Menu.Item
+          key="/unpublished"
+          icon={<HeartOutlined style={{ fontSize: "16px" }} />}
+          style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+          className="menu-item"
+        >
+          Unpublished Jobs
+        </Menu.Item>
+        <Menu.Item
+          key="/adminusers"
+          icon={<UserOutlined style={{ fontSize: "16px" }} />}
+          style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+          className="menu-item"
+        >
+          Admin Users
+        </Menu.Item>
+        <Menu.Item
+          key="/categories"
+          icon={<ClusterOutlined style={{ fontSize: "16px" }} />}
+          style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+          className="menu-item"
+        >
+          Categories
+        </Menu.Item>
+
+        <Menu.Item
+          key="signout"
+          icon={<LogoutOutlined style={{ fontSize: "16px" }} />}
+          style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+          danger="true"
+          className="menu-item"
+        >
+          Sign Out
+        </Menu.Item>
       </Menu>
       <Content />
     </div>
-
   );
 };
-function Content(){
-  return <div className="content" style={{flex:"1"}}>
-    <Routes>
-      <Route path="/" element={<Users/>} />
-      <Route path="/companies" element={<Companies/>}/>
-      <Route path="/adminusers" element={<AdminUsers/>}/>
-      <Route path="/unpublished" element={<Unpublished/>}/>
-      <Route path="/jobs" element={<Jobs/>}/>
-
-    </Routes>
-  </div>
+function Content() {
+  return (
+    <div className="content" style={{ flex: "1" }}>
+      <Routes>
+        <Route path="/" element={<Users />} />
+        <Route path="/companies" element={<Companies />} />
+        <Route path="/adminusers" element={<AdminUsers />} />
+        <Route path="/unpublished" element={<Unpublished />} />
+        <Route path="/categories" element={<Category/>}/>
+        <Route path="/jobs" element={<Jobs />} />
+      </Routes>
+    </div>
+  );
 }
 
 export default Main;
-

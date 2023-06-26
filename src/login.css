@@ -12,8 +12,8 @@
 .login-form{
     width: 400px;
     background-color:#fff ;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 70px;
+    padding-right: 70px;
     padding-bottom: 30px;
     border-radius: 15px;
 
@@ -22,7 +22,12 @@
     width: 400px;
     height: 150px;
     background-color:#179CBD ;
+    display: flex;
+    justify-content: center;
+    align-items :center;
+    
 }
 .log-img{
-    width: 100%;
+    width: 50%;
+    margin: auto;
 }

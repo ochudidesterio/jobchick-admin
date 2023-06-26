@@ -95,7 +95,7 @@ const Login = ({ onLogin }) => {
         </div>
         <div className="login-form">
           <TextField
-            label="Email"
+            label="אימייל"
             variant="outlined"
             value={email}
             className="input"
@@ -120,7 +120,7 @@ const Login = ({ onLogin }) => {
           />
 
           <TextField
-            label="Password"
+            label="סיסמא"
             variant="outlined"
             type={showPassword ? "text" : "password"}
             fullWidth

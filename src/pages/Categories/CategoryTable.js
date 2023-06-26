@@ -1,37 +1,18 @@
-import React from 'react'
-import { useSelector } from 'react-redux/es/exports'
-import { getCompanies } from '../../redux/slices/CompaniesSlice'
+import React from "react";
+import { useSelector } from "react-redux/es/exports";
 import { Menu, Dropdown } from "antd";
 import { EllipsisOutlined } from "@ant-design/icons";
+import { getCategories } from "../../redux/slices/CategorySlice";
 
+const CategoryTable = () => {
+  const categories = useSelector(getCategories);
 
-
-export const CompaniesTable = ({openCreateJob}) => {
- const companies = useSelector(getCompanies)
-
-
-const handleMenuClick = (id, action) => {
-  switch (action) {
-    case 'profile':
-      console.log(`View Profile - Comapny ID: ${id}`);
-      break;
-    case 'createjob':
-      openCreateJob(id); // Pass the company ID to the openModal function
-      break;
-    case 'edit':
-      console.log(`Edit - Company ID: ${id}`);
-      break;
-    case 'delete':
-      console.log(`Delete - Company ID: ${id}`);
-      break;
-    default:
-      break;
-  }
+  const handleMenuClick = (id, action) => {
+    console.log(`Clicked on menu item: ${action}`);
+    console.log(`User ID: ${id}`);
   };
   const menu = (id) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
-      <Menu.Item key="profile">View Profile</Menu.Item>
-      <Menu.Item key="createjob">Create Job</Menu.Item>
       <Menu.Item key="edit">Edit</Menu.Item>
       <Menu.Item key="delete" danger="true">
         Delete
@@ -42,24 +23,18 @@ const handleMenuClick = (id, action) => {
     <table className="table">
       <thead>
         <tr>
+          
           <th>Name</th>
-          <th>Email</th>
-          <th>Location</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        {companies.map((item) => (
-          <tr
-            key={item.id}
+        {categories.map((item) => (
+          <tr key={item.id} className="tableRow">
             
-            className="tableRow"
-          >
             <td>{item.name}</td>
-            <td>{item.email}</td>
-            <td>{item.location}</td>
             <td>
-            <Dropdown
+              <Dropdown
                 overlay={menu(item.id)}
                 trigger={["click"]}
                 placement="bottomRight"
@@ -78,10 +53,12 @@ const handleMenuClick = (id, action) => {
                   }}
                 />
               </Dropdown>
-              </td>
+            </td>
           </tr>
         ))}
       </tbody>
     </table>
-  )
-}
+  );
+};
+
+export default CategoryTable;
