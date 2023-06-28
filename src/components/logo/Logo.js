@@ -9,7 +9,7 @@ const Logo = () => {
       className="logo-img"
         src={LogoImgae}
         alt="CompanyLogo"
-        style={{width:"100%"}}
+        style={{width:"50%"}}
         
       />
     </div></>

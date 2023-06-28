@@ -22,12 +22,14 @@
     width: 400px;
     height: 150px;
     background-color:#179CBD ;
+    justify-content: space-around;
     display: flex;
-    justify-content: center;
     align-items :center;
+    padding-left: 70px;
+    padding-right: 70px;
     
 }
 .log-img{
-    width: 50%;
+    width: 40%;
     margin: auto;
 }

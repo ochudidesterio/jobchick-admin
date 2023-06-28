@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
@@ -7,9 +7,13 @@ import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { getCategories } from "../redux/slices/CategorySlice";
+import { getTypes } from "../redux/slices/TypesSlice";
+import { getRegions } from "../redux/slices/RegionSlice";
 
 const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange }) => {
- const categories = useSelector(getCategories)
+  const categories = useSelector(getCategories);
+  const types = useSelector(getTypes);
+  const regions = useSelector(getRegions);
 
   return (
     <Modal
@@ -49,32 +53,6 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange }) => {
                 <div className="form-row-right">
                   <TextField
                     fullWidth
-                    label="Type"
-                    placeholder="Contract/Full time/part time etc"
-                    margin="normal"
-                    name="type"
-                    size="small"
-                    value={jobData.type}
-                    onChange={onChange}
-                  />
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-row-left">
-                  <TextField
-                    fullWidth
-                    label="Region"
-                    placeholder="Israel/USA/Europe"
-                    margin="normal"
-                    size="small"
-                    name="region"
-                    value={jobData.region}
-                    onChange={onChange}
-                  />
-                </div>
-                <div className="form-row-right">
-                  <TextField
-                    fullWidth
                     label="Level"
                     placeholder="Senior/Junior/Experienced/Beginner"
                     margin="normal"
@@ -85,16 +63,56 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange }) => {
                   />
                 </div>
               </div>
-              <TextField
+              <div className="form-row">
+                <div className="form-row-left">
+                  <TextField
                     fullWidth
-                    label="Salary"
-                    placeholder="$10k - $30k"
+                    select
+                    label="Region"
+                    placeholder="Select Region"
                     margin="normal"
                     size="small"
-                    name="salary"
-                    value={jobData.salary}
+                    name="regionId"
+                    value={jobData.regionId}
                     onChange={onChange}
-                  />
+                  >
+                    {regions.map((region) => (
+                      <MenuItem key={region.id} value={region.id}>
+                        {region.name}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </div>
+                <div className="form-row-right">
+                  <TextField
+                    fullWidth
+                    label="Type"
+                    select
+                    placeholder="Select Type"
+                    margin="normal"
+                    name="typeId"
+                    size="small"
+                    value={jobData.typeId}
+                    onChange={onChange}
+                  >
+                    {types.map((type) => (
+                      <MenuItem key={type.id} value={type.id}>
+                        {type.name}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </div>
+              </div>
+              <TextField
+                fullWidth
+                label="Salary"
+                placeholder="$10k - $30k"
+                margin="normal"
+                size="small"
+                name="salary"
+                value={jobData.salary}
+                onChange={onChange}
+              />
               {/* Render categories */}
               <TextField
                 fullWidth
@@ -125,7 +143,7 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange }) => {
                   marginTop: "10px",
                   width: "96.5%",
                   border: "1px solid grey",
-                  fontFamily:"Open Sans"
+                  fontFamily: "Open Sans",
                 }}
               />
 

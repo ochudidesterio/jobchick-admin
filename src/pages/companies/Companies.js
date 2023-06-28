@@ -10,6 +10,8 @@ import AddCompaniesModal from "../../modals/AddCompaniesModal";
 import { showErrorToast, showSuccessToast } from "../../Constants/Toasts";
 import { ToastContainer } from "react-toastify";
 import CreateJobModal from "../../modals/CreateJobModal";
+import { setTypes } from "../../redux/slices/TypesSlice";
+import { setRegions } from "../../redux/slices/RegionSlice";
 
 const Companies = () => {
   const dispatch = useDispatch();
@@ -52,8 +54,8 @@ const Companies = () => {
   //create job data
   const [jobData, setJobData] = useState({
     title: "",
-    type: "",
-    region: "",
+    typeId: "",
+    regionId: "",
     categoryId: "",
     description: "",
     level: "",
@@ -70,20 +72,18 @@ const Companies = () => {
       if (
         jobData.description === "" ||
         jobData.level === "" ||
-        jobData.region === "" ||
+        jobData.regionId === "" ||
         jobData.title === "" ||
-        jobData.type === ""
+        jobData.typeId === ""
       ) {
-        showErrorToast("Failed, all fields are required")
-      }else{
-        
+        showErrorToast("Failed, all fields are required");
+      } else {
         const response = await api.post("/job/create", jobData);
         if(response.status === 200){
           showSuccessToast("Created")
           handleCloseCreateJob();
 
         }
-
       }
     } catch (error) {}
 
@@ -118,6 +118,28 @@ const Companies = () => {
       console.log(error);
     }
   };
+  useEffect(() => {
+    fetchJobTypes();
+  });
+  const fetchJobTypes = async () => {
+    try {
+      const response = await api.get("/type/all");
+      if (response.status === 200) {
+        dispatch(setTypes(response.data));
+      }
+    } catch (error) {}
+  };
+  useEffect(()=>{fetchRegions()})
+  const fetchRegions = async ()=>{
+    try{
+      const response = await api.get("/region/all")
+      if(response.status === 200){
+        dispatch(setRegions(response.data))
+      }
+    }catch(error){
+
+    }
+  }
   return (
     <div className="companyhome">
       <ToastContainer position="top-right" />

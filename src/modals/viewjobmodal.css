@@ -1,0 +1,21 @@
+.view-job-desc {
+  
+  width: 100%;
+}
+
+
+.view-img-container {
+  width: 150px;
+  height: 150px;
+  background-color: aqua;
+  border-radius: 1000px;
+}
+.view-job-title,
+.view-job-image {
+  display: flex;
+  justify-content: center;
+}
+.description-view,.view-roles,.view-qualifications{
+    width: 90%;
+    margin: auto;
+}

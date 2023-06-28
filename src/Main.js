@@ -5,10 +5,12 @@ import {
   TeamOutlined,
   ProfileOutlined,
   BankOutlined,
-  HeartOutlined,
   UserOutlined,
   LogoutOutlined,
-  ClusterOutlined 
+  ClusterOutlined,
+  EnvironmentOutlined,
+  StarOutlined,
+  UploadOutlined
 } from "@ant-design/icons";
 import Companies from "./pages/companies/Companies";
 import AdminUsers from "./pages/admin/AdminUsers";
@@ -17,6 +19,8 @@ import Logo from "./components/logo/Logo";
 import Users from "./pages/users/Users";
 import Jobs from "./pages/jobs/Jobs";
 import Category from "./pages/Categories/Category";
+import Regions from "./pages/regions/Regions";
+import JobTypes from "./pages/jobtypes/JobTypes";
 
 const Main = ({ onLogout }) => {
   const [selectedKey, setSelectedKey] = useState("/");
@@ -43,7 +47,7 @@ const Main = ({ onLogout }) => {
           style={{
             backgroundColor: "#179CBD",
             height: "150px",
-            paddingTop: "50px",
+            alignItems:"center"
           }}
         >
           <Logo />
@@ -66,7 +70,7 @@ const Main = ({ onLogout }) => {
         </Menu.Item>
         <Menu.Item
           key="/jobs"
-          icon={<ProfileOutlined style={{ fontSize: "16px" }} />}
+          icon={<UploadOutlined style={{ fontSize: "16px" }} />}
           style={{ fontSize: "16px", fontFamily: "Open Sans" }}
           className="menu-item"
         >
@@ -74,7 +78,7 @@ const Main = ({ onLogout }) => {
         </Menu.Item>
         <Menu.Item
           key="/unpublished"
-          icon={<HeartOutlined style={{ fontSize: "16px" }} />}
+          icon={<ProfileOutlined style={{ fontSize: "16px" }} />}
           style={{ fontSize: "16px", fontFamily: "Open Sans" }}
           className="menu-item"
         >
@@ -95,6 +99,22 @@ const Main = ({ onLogout }) => {
           className="menu-item"
         >
           Categories
+        </Menu.Item>
+        <Menu.Item
+          key="/types"
+          icon={<StarOutlined style={{ fontSize: "16px" }} />}
+          style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+          className="menu-item"
+        >
+          Job Types
+        </Menu.Item>
+        <Menu.Item
+          key="/regions"
+          icon={<EnvironmentOutlined style={{ fontSize: "16px" }} />}
+          style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+          className="menu-item"
+        >
+          Regions
         </Menu.Item>
 
         <Menu.Item
@@ -121,6 +141,8 @@ function Content() {
         <Route path="/unpublished" element={<Unpublished />} />
         <Route path="/categories" element={<Category/>}/>
         <Route path="/jobs" element={<Jobs />} />
+        <Route path="/regions" element={<Regions/>}/>
+        <Route path="/types" element={<JobTypes/>}/>
       </Routes>
     </div>
   );

@@ -4,16 +4,31 @@ import { EllipsisOutlined } from "@ant-design/icons";
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { getInActiveJobs } from '../../redux/slices/JobsSlice';
 
-const UpublishedTable = () => {
+const UpublishedTable = ({openAddRole,openAddQualification,openViewJob}) => {
     const inactiveJobs = useSelector(getInActiveJobs)
-    const handleMenuClick = (id, action) => {
-        console.log(`Clicked on menu item: ${action}`);
-        console.log(`User ID: ${id}`);
+    const handleMenuClick = (id,title, action) => {
+      switch (action) {
+        case 'view':
+          openViewJob(id); // Pass the ID to the openModal function
+          break;
+        case 'roles':
+          openAddRole(id,title); // Pass the ID to the openModal function
+          break;
+        case 'qualifications':
+          openAddQualification(id,title); // Pass the ID to the openModal function
+          break;
+        case 'delete':
+          console.log(`Delete - Company ID: ${id}`);
+          break;
+        default:
+          break;
+      }
       };
-      const menu = (id) => (
-        <Menu onClick={({ key }) => handleMenuClick(id, key)}>
-          <Menu.Item key="profile">View Profile</Menu.Item>
-          <Menu.Item key="edit">Edit</Menu.Item>
+      const menu = (id,title) => (
+        <Menu onClick={({ key }) => handleMenuClick(id,title, key)}>
+          <Menu.Item key="view">View</Menu.Item>
+          <Menu.Item key="roles">Roles</Menu.Item>
+          <Menu.Item key="qualifications">Qualifications</Menu.Item>
           <Menu.Item key="delete" danger="true">
             Delete
           </Menu.Item>
@@ -37,7 +52,7 @@ const UpublishedTable = () => {
             <td>{item.region}</td>
             <td>
               <Dropdown
-                overlay={menu(item.id)}
+                overlay={menu(item.id,item.title)}
                 trigger={["click"]}
                 placement="bottomRight"
               >

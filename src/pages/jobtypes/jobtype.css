@@ -1,0 +1,13 @@
+.jobtype-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.jobtype-top h3{
+    font-family: 'Open Sans', sans-serif;
+}
+.jobtype-home{
+    margin: 50px;
+    overflow: auto;
+    height: 100vh;
+}
