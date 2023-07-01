@@ -42,7 +42,7 @@ const JobsTable = ({openViewJob,openEditJob}) => {
         </tr>
       </thead>
       <tbody>
-        {jobs.map((item) => (
+        {jobs.length !==0 && jobs.map((item) => (
           <tr key={item.id} className="tableRow">
             <td>{item.title}</td>
             <td>{item.company.name}</td>
