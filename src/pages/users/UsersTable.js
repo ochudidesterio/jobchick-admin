@@ -4,17 +4,33 @@ import { getUsers } from "../../redux/slices/UsersSlice";
 import { Menu, Dropdown } from "antd";
 import { EllipsisOutlined } from "@ant-design/icons";
 
-const UsersTable = () => {
+const UsersTable = ({ openViewProfile,openEditProfile,openChangePassword }) => {
   const users = useSelector(getUsers);
 
   const handleMenuClick = (id, action) => {
-    console.log(`Clicked on menu item: ${action}`);
-    console.log(`User ID: ${id}`);
+    switch (action) {
+      case "profile":
+        openViewProfile(id); // Pass the ID to the openModal function
+        break;
+      case "edit":
+        openEditProfile(id);
+        break;
+      case "password":
+        openChangePassword(id)
+        break;
+
+      case "delete":
+        console.log(`Delete - Company ID: ${id}`);
+        break;
+      default:
+        break;
+    }
   };
   const menu = (id) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
       <Menu.Item key="profile">View Profile</Menu.Item>
       <Menu.Item key="edit">Edit</Menu.Item>
+      <Menu.Item key="password">Change Password</Menu.Item>
       <Menu.Item key="delete" danger="true">
         Delete
       </Menu.Item>

@@ -6,14 +6,14 @@ import { EllipsisOutlined } from "@ant-design/icons";
 
 
 
-export const CompaniesTable = ({openCreateJob}) => {
+export const CompaniesTable = ({openCreateJob,openCompanyProfile}) => {
  const companies = useSelector(getCompanies)
 
 
 const handleMenuClick = (id, action) => {
   switch (action) {
     case 'profile':
-      console.log(`View Profile - Comapny ID: ${id}`);
+      openCompanyProfile(id)
       break;
     case 'createjob':
       openCreateJob(id); // Pass the company ID to the openModal function
@@ -30,7 +30,7 @@ const handleMenuClick = (id, action) => {
   };
   const menu = (id) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
-      <Menu.Item key="profile">View Profile</Menu.Item>
+      <Menu.Item key="profile">View</Menu.Item>
       <Menu.Item key="createjob">Create Job</Menu.Item>
       <Menu.Item key="edit">Edit</Menu.Item>
       <Menu.Item key="delete" danger="true">

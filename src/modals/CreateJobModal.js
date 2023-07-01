@@ -31,7 +31,7 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange }) => {
         <h5>Create Job</h5>
         <div
           style={{
-            maxHeight: 300,
+            maxHeight: "95vh",
             overflow: "auto",
           }}
         >

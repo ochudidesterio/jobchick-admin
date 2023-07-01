@@ -3,7 +3,7 @@ import api from "../../api/api";
 import CustomAddButton from "../../components/CustomAddButton";
 import "./companies.css";
 import { useDispatch } from "react-redux/es/exports";
-import { setCompanies } from "../../redux/slices/CompaniesSlice";
+import { setCompanies, setSelectedCompany } from "../../redux/slices/CompaniesSlice";
 import { setCategories } from "../../redux/slices/CategorySlice";
 import { CompaniesTable } from "./CompaniesTable";
 import AddCompaniesModal from "../../modals/AddCompaniesModal";
@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import CreateJobModal from "../../modals/CreateJobModal";
 import { setTypes } from "../../redux/slices/TypesSlice";
 import { setRegions } from "../../redux/slices/RegionSlice";
+import ViewCompanyProfileModal from "../../modals/ViewCompanyProfileModal";
 
 const Companies = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,10 @@ const Companies = () => {
   //create job modal
   const [showCreateJob, setCreateJob] = useState(false);
   const handleCloseCreateJob = () => setCreateJob(false);
+
+  //create job modal
+  const [showViewCompany, setViewCompany] = useState(false);
+  const handleCloseViewCompany = () => setViewCompany(false);
 
   //create company data
   const [formData, setFormData] = useState({
@@ -105,6 +110,17 @@ const Companies = () => {
     setCreateJob(true); // Open the modal
   };
 
+  const openCompanyProfile = (id)=>{
+    api.get(`/company/get/${id}`)
+    .then((res)=>{
+      if(res.status === 200){
+        dispatch(setSelectedCompany(res.data))
+        setViewCompany(true)
+      }
+    })
+    .catch((e)=>console.log(e))
+  }
+
   useEffect(() => {
     fetchCategories();
   });
@@ -150,7 +166,7 @@ const Companies = () => {
           <CustomAddButton onClick={handleShow} name="Add Company" />
         </div>
       </div>
-      <CompaniesTable openCreateJob={openCreateJob} />
+      <CompaniesTable openCreateJob={openCreateJob} openCompanyProfile={openCompanyProfile} />
       <AddCompaniesModal
         open={showModal}
         onClose={handleClose}
@@ -165,6 +181,10 @@ const Companies = () => {
         jobData={jobData}
         onChange={handleJobInputChange}
       />
+      <ViewCompanyProfileModal
+      open={showViewCompany}
+      onClose={handleCloseViewCompany}
+       />
     </div>
   );
 };
