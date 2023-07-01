@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { getIsLoggedIn, setIsLoggedIn } from './redux/slices/UsersSlice';
 import { useDispatch } from 'react-redux/es/hooks/useDispatch';
 import './App.css'
-import Footer from './components/footer/Footer';
+import Footer from './components/footer/Footer.js';
 
 const App = () => {
   const dispatch = useDispatch()
