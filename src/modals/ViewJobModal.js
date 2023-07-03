@@ -15,6 +15,7 @@ import ViewJobTable from "../components/ViewJobTable";
 import api from "../api/api";
 const ViewJobModal = ({ open, onClose }) => {
   const job = useSelector(getSelectedJob);
+  console.log("Jobs",job)
   const roles = useSelector(getRoles);
   const qualifications = useSelector(getQualifications);
 

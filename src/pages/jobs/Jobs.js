@@ -28,6 +28,7 @@ const Jobs = () => {
       console.log("jobsRes",response.data)
       if (response.status === 200) {
         dispatch(setActiveJobs(response.data));
+        setViewJobs(false)
       }
     } catch (error) {}
   };
