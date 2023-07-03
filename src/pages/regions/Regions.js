@@ -6,21 +6,49 @@ import { useDispatch } from "react-redux";
 import { setRegions } from "../../redux/slices/RegionSlice";
 import RegionsTable from "./RegionsTable";
 import { ToastContainer } from "react-toastify";
-import { showSuccessToast } from "../../Constants/Toasts";
+import { showErrorToast, showSuccessToast } from "../../Constants/Toasts";
 import AddRegionModal from "../../modals/AddRegionModal";
+import EditRegionModal from "../../modals/EditRegionModal";
 const Regions = () => {
   const dispatch = useDispatch();
   //add category modal
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
+
+  //show edit modal
+  const [showEditModal, setShowEditModal] = useState(false);
+  const handleCloseEdit = () => setShowEditModal(false);
+   //update  data
+   const [updateData, setUpdateData] = useState({
+    name: "",
+    id:""
+  });
   //create category data
   const [regionData, setRegionData] = useState({
     name: "",
   });
+  const handleEditRegionInputChange = (e) => {
+    const { name, value } = e.target;
+    setUpdateData({ ...updateData, [name]: value });
+  };
   const handleRegionInputChange = (e) => {
     const { name, value } = e.target;
     setRegionData({ ...regionData, [name]: value });
+  };
+  const handleEditRegionFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+       const response = await api.post(`/region/update/${updateData.id}/${updateData.name}`);
+      console.log("Edit",updateData)
+      if (response.status === 200) {
+        showSuccessToast("updated");
+      }else{
+        showErrorToast("Failed")
+      }
+    } catch (error) {}
+    handleCloseEdit();
+    //window.location.reload()
   };
   const handleRegionFormSubmit = async (e) => {
     e.preventDefault();
@@ -44,6 +72,20 @@ const Regions = () => {
       }
     } catch (error) {}
   };
+
+  const editRegion =(id)=>{
+    api.get(`/region/get/${id}`)
+    .then((res)=>{
+      if(res.status === 200){
+        setUpdateData({
+          id:res.data.id,
+          name:res.data.name,
+        })
+        setShowEditModal(true)
+      }
+    })
+    .catch((e)=>console.log(e))
+  }
   return (
     <div className="regions-home">
       <ToastContainer position="top-right" />
@@ -52,7 +94,7 @@ const Regions = () => {
         <h3>Regions</h3>
         <CustomAddButton onClick={handleShow} name="Add Region" />
       </div>
-      <RegionsTable />
+      <RegionsTable editRegion={editRegion} />
       <AddRegionModal
         open={showModal}
         onClose={handleClose}
@@ -60,6 +102,13 @@ const Regions = () => {
         onSubmit={handleRegionFormSubmit}
         formData={regionData}
       />
+      <EditRegionModal 
+      open={showEditModal}
+      onClose={handleCloseEdit}
+      onChange={handleEditRegionInputChange}
+      onSubmit={handleEditRegionFormSubmit}
+      formData={updateData}
+       />
     </div>
   );
 };

@@ -6,8 +6,9 @@ import "./category.css";
 import { setCategories } from "../../redux/slices/CategorySlice";
 import CategoryTable from "./CategoryTable";
 import { ToastContainer } from "react-toastify";
-import { showSuccessToast } from "../../Constants/Toasts";
+import { showErrorToast, showSuccessToast } from "../../Constants/Toasts";
 import AddCategoryModal from "../../modals/AddCategoryModal";
+import EditCategoryModal from "../../modals/EditCategoryModal";
 
 
 const Category = () => {
@@ -16,10 +17,25 @@ const Category = () => {
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
+
+   //show edit modal
+   const [showEditModal, setShowEditModal] = useState(false);
+   const handleCloseEdit = () => setShowEditModal(false);
+    //update  data
+    const [updateData, setUpdateData] = useState({
+     name: "",
+     id:""
+   });
+
   //create category data
   const [categoryData, setCategoryData] = useState({
     name: "",
   });
+
+  const handleEditCategoryInputChange = (e) => {
+    const { name, value } = e.target;
+    setUpdateData({ ...updateData, [name]: value });
+  };
   const handleCategoryInputChange = (e) => {
     const { name, value } = e.target;
     setCategoryData({ ...categoryData, [name]: value });
@@ -36,6 +52,21 @@ const Category = () => {
     //window.location.reload()
   };
 
+  const handleEditCategoryFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+       const response = await api.post(`/category/update/${updateData.id}/${updateData.name}`);
+      console.log("Edit",updateData)
+      if (response.status === 200) {
+        showSuccessToast("updated");
+      }else{
+        showErrorToast("Failed")
+      }
+    } catch (error) {}
+    handleCloseEdit();
+    //window.location.reload()
+  };
+
   useEffect(() => {
     fetchCategories();
   });
@@ -48,6 +79,19 @@ const Category = () => {
       }
     } catch (error) {}
   };
+  const editCategory = (id)=>{
+    api.get(`/category/get/${id}`)
+    .then((res)=>{
+      if(res.status === 200){
+        setUpdateData({
+          id:res.data.id,
+          name:res.data.name,
+        })
+        setShowEditModal(true)
+      }
+    })
+    .catch((e)=>console.log(e))
+  }
   return (
     <div className="category-home">
       <ToastContainer position="top-right" />
@@ -57,13 +101,20 @@ const Category = () => {
           <CustomAddButton onClick={handleShow} name="Add Category" />
         </div>
       </div>
-      <CategoryTable />
+      <CategoryTable editCategory={editCategory} />
       <AddCategoryModal
       open={showModal}
       onClose={handleClose}
       onSubmit={handleCategoryFormSubmit}
       formData={categoryData}
       onChange={handleCategoryInputChange}
+       />
+       <EditCategoryModal 
+       open={showEditModal}
+       onClose={handleCloseEdit}
+       onChange={handleEditCategoryInputChange}
+       onSubmit = {handleEditCategoryFormSubmit}
+       formData={updateData}
        />
     </div>
   );

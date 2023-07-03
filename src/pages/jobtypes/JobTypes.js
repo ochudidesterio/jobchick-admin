@@ -7,8 +7,9 @@ import { setTypes } from '../../redux/slices/TypesSlice'
 import JobTypeTable from './JobTypeTable'
 import { ToastContainer } from "react-toastify";
 
-import { showSuccessToast } from '../../Constants/Toasts'
+import { showErrorToast, showSuccessToast } from '../../Constants/Toasts'
 import AddJobTypeModal from '../../modals/AddJobTypeModal'
+import EditTypeModal from '../../modals/EditTypesModal'
 
 const JobTypes = () => {
     const dispatch = useDispatch()
@@ -16,10 +17,25 @@ const JobTypes = () => {
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
+
+   //add category modal
+   const [showEditModal, setShowEditModal] = useState(false);
+   const handleEditClose = () => setShowEditModal(false);
   //create category data
   const [jobTypeData, setJobTypeData] = useState({
     name: "",
   });
+
+   //update  data
+   const [updateData, setUpdateData] = useState({
+    name: "",
+    id:""
+  });
+
+  const handleEditTypeInputChange = (e) => {
+    const { name, value } = e.target;
+    setUpdateData({ ...updateData, [name]: value });
+  };
   const handleJobTypeInputChange = (e) => {
     const { name, value } = e.target;
     setJobTypeData({ ...jobTypeData, [name]: value });
@@ -27,12 +43,28 @@ const JobTypes = () => {
   const handleJobTypeFormSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log("JobType",jobTypeData)
       const response = await api.post("/type/create", jobTypeData);
       if (response.status === 200) {
         showSuccessToast("Created");
       }
     } catch (error) {}
     handleClose();
+    //window.location.reload()
+  };
+
+  const handleEditTypeFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+       const response = await api.post(`/type/update/${updateData.id}/${updateData.name}`);
+      console.log("Edit",updateData)
+      if (response.status === 200) {
+        showSuccessToast("updated");
+      }else{
+        showErrorToast("Failed")
+      }
+    } catch (error) {}
+    handleEditClose();
     //window.location.reload()
   };
     useEffect(()=>{fetchTypes()})
@@ -46,6 +78,19 @@ const JobTypes = () => {
             
         }
     }
+    const editType =(id)=>{
+      api.get(`/type/get/${id}`)
+    .then((res)=>{
+      if(res.status === 200){
+        setUpdateData({
+          id:res.data.id,
+          name:res.data.name,
+        })
+        setShowEditModal(true)
+      }
+    })
+    .catch((e)=>console.log(e))
+    }
   return (
     <div className='jobtype-home'>
             <ToastContainer position="top-right" />
@@ -54,7 +99,7 @@ const JobTypes = () => {
             <h3>Job Types</h3>
             <CustomAddButton onClick={handleShow} name="Add Type" />
         </div>
-        <JobTypeTable/>
+        <JobTypeTable editType={editType}/>
         <AddJobTypeModal
         open={showModal}
         onClose={handleClose}
@@ -62,6 +107,13 @@ const JobTypes = () => {
         onChange={handleJobTypeInputChange}
         onSubmit={handleJobTypeFormSubmit}
          />
+         <EditTypeModal
+         open={showEditModal}
+         onClose={handleEditClose}
+         onChange={handleEditTypeInputChange}
+         onSubmit={handleEditTypeFormSubmit}
+         formData={updateData}
+          />
     </div>
   )
 }

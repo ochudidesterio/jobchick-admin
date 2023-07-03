@@ -1,16 +1,26 @@
 import React from "react";
 import { useSelector } from "react-redux/es/exports";
 import { Menu, Dropdown } from "antd";
-import { EllipsisOutlined } from "@ant-design/icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 import { getTypes } from "../../redux/slices/TypesSlice";
 
-const JobTypeTable = () => {
+const JobTypeTable = ({editType}) => {
   const types = useSelector(getTypes)
 
   const handleMenuClick = (id, action) => {
-    console.log(`Clicked on menu item: ${action}`);
-    console.log(`User ID: ${id}`);
-  };
+    switch (action) {
+      case 'edit':
+        editType(id); // Pass the ID to the openModal function
+        break;
+      
+      case 'delete':
+        console.log(`Delete - Company ID: ${id}`);
+        break;
+      default:
+        break;
+    }
+    };
   const menu = (id) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
       <Menu.Item key="edit">Edit</Menu.Item>
@@ -39,17 +49,18 @@ const JobTypeTable = () => {
                 trigger={["click"]}
                 placement="bottomRight"
               >
-                <EllipsisOutlined
+                <FontAwesomeIcon
+                  icon={faEllipsisH}
                   style={{
                     fontSize: "25px",
-                    color: "black",
+                    color: "#696969",
                     transition: "color 0.3s",
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.color = "#179CBD";
                   }}
                   onMouseLeave={(e) => {
-                    e.target.style.color = "black";
+                    e.target.style.color = "#696969";
                   }}
                 />
               </Dropdown>

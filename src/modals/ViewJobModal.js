@@ -53,7 +53,7 @@ const ViewJobModal = ({ open, onClose }) => {
           <div className="view-img-container"></div>
         </div>
         <div className="view-job-title">
-          {/* <h4>{job.company.name}</h4> */}
+          <h4>{job.company.name !== null ? job.company.name :""}</h4>
         </div>
         <div className="view-job-desc">
           <ViewJobTable job={job} />

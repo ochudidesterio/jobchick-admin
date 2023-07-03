@@ -1,6 +1,7 @@
 import React from 'react'
 import { Menu, Dropdown } from "antd";
-import { EllipsisOutlined } from "@ant-design/icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { getInActiveJobs } from '../../redux/slices/JobsSlice';
 
@@ -56,17 +57,18 @@ const UpublishedTable = ({openAddRole,openAddQualification,openViewJob}) => {
                 trigger={["click"]}
                 placement="bottomRight"
               >
-                <EllipsisOutlined
+                <FontAwesomeIcon
+                  icon={faEllipsisH}
                   style={{
                     fontSize: "25px",
-                    color: "black",
+                    color: "#696969",
                     transition: "color 0.3s",
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.color = "#179CBD";
                   }}
                   onMouseLeave={(e) => {
-                    e.target.style.color = "black";
+                    e.target.style.color = "#696969";
                   }}
                 />
               </Dropdown>

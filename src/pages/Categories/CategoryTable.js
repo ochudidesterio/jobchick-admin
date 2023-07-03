@@ -1,15 +1,25 @@
 import React from "react";
 import { useSelector } from "react-redux/es/exports";
 import { Menu, Dropdown } from "antd";
-import { EllipsisOutlined } from "@ant-design/icons";
 import { getCategories } from "../../redux/slices/CategorySlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 
-const CategoryTable = () => {
+const CategoryTable = ({ editCategory }) => {
   const categories = useSelector(getCategories);
 
   const handleMenuClick = (id, action) => {
-    console.log(`Clicked on menu item: ${action}`);
-    console.log(`User ID: ${id}`);
+    switch (action) {
+      case "edit":
+        editCategory(id); // Pass the ID to the openModal function
+        break;
+
+      case "delete":
+        console.log(`Delete - Company ID: ${id}`);
+        break;
+      default:
+        break;
+    }
   };
   const menu = (id) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
@@ -23,7 +33,6 @@ const CategoryTable = () => {
     <table className="table">
       <thead>
         <tr>
-          
           <th>Name</th>
           <th>Action</th>
         </tr>
@@ -31,7 +40,6 @@ const CategoryTable = () => {
       <tbody>
         {categories.map((item) => (
           <tr key={item.id} className="tableRow">
-            
             <td>{item.name}</td>
             <td>
               <Dropdown
@@ -39,17 +47,18 @@ const CategoryTable = () => {
                 trigger={["click"]}
                 placement="bottomRight"
               >
-                <EllipsisOutlined
+                <FontAwesomeIcon
+                  icon={faEllipsisH}
                   style={{
                     fontSize: "25px",
-                    color: "black",
+                    color: "#696969",
                     transition: "color 0.3s",
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.color = "#179CBD";
                   }}
                   onMouseLeave={(e) => {
-                    e.target.style.color = "black";
+                    e.target.style.color = "#696969";
                   }}
                 />
               </Dropdown>
