@@ -13,7 +13,7 @@ import RolesList from "../components/RolesList";
 import QualificationList from "../components/QualificationList";
 import ViewJobTable from "../components/ViewJobTable";
 import api from "../api/api";
-const ViewJobModal = ({ open, onClose }) => {
+const ViewJobModal = ({ open, onClose ,company}) => {
   const job = useSelector(getSelectedJob);
   console.log("Jobs",job)
   const roles = useSelector(getRoles);
@@ -54,7 +54,7 @@ const ViewJobModal = ({ open, onClose }) => {
           <div className="view-img-container"></div>
         </div>
         <div className="view-job-title">
-          <h4>{job.company.name !== null ? job.company.name :""}</h4>
+          <h4>{company !== null ? company.name :""}</h4>
         </div>
         <div className="view-job-desc">
           <ViewJobTable job={job} />

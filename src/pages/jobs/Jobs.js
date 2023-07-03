@@ -19,6 +19,9 @@ const Jobs = () => {
   const [showEditJob, setShowEditJob] = useState(false);
   const handleShowEditJob = () => setShowEditJob(false);
 
+  //job company
+  const [company,setCompany] = useState(null)
+
   useEffect(() => {
     getJobs();
   });
@@ -47,6 +50,7 @@ const Jobs = () => {
           if (res.status === 200) {
             dispatch(setSelectedJob(res.data));
             setViewJobs(true);
+            setCompany(res.data.company)
             api.get(`/job/roles/${jobId}`).then((roles) => {
               dispatch(setRoles(roles.data));
             });
@@ -62,7 +66,7 @@ const Jobs = () => {
     <div className="jobshome">
       <h3>Active Jobs</h3>
       <JobsTable openViewJob={openViewJob} openEditJob={openEditJob} />
-      <ViewJobModal open={showViewJobs} onClose={handleShowViewJob} />
+      <ViewJobModal open={showViewJobs} onClose={handleShowViewJob} company={company} />
       <EditJobModal open={showEditJob} onClose={handleShowEditJob} />
     </div>
   );
