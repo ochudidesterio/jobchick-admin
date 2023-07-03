@@ -28,10 +28,8 @@ const Jobs = () => {
   const getJobs = async () => {
     try {
       const response = await api.get("/job/all/active");
-      console.log("jobsRes",response.data)
       if (response.status === 200) {
         dispatch(setActiveJobs(response.data));
-        setViewJobs(false)
       }
     } catch (error) {}
   };

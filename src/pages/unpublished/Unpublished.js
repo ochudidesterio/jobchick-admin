@@ -31,6 +31,8 @@ const Unpublished = () => {
   const [showViewJobs, setViewJobs] = useState(false);
   const handleShowViewJob = () => setViewJobs(false);
 
+    //job company
+    const [company,setCompany] = useState(null)
   //roles data
   const [roleData, setRolesData] = useState({
     jobId: "",
@@ -107,6 +109,7 @@ const Unpublished = () => {
         .then((res) => {
           if (res.status === 200) {
             dispatch(setSelectedJob(res.data));
+            setCompany(res.data.company)
             setViewJobs(true);
             api.get(`/job/roles/${jobId}`).then((roles) => {
               dispatch(setRoles(roles.data));
@@ -156,7 +159,7 @@ const Unpublished = () => {
         onChange={handleQualificationsInputChange}
         title={selectedJobName}
       />
-      <ViewJobModal open={showViewJobs} onClose={handleShowViewJob} />
+      <ViewJobModal open={showViewJobs} onClose={handleShowViewJob} company={company} />
     </div>
   );
 };
