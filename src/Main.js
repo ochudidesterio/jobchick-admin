@@ -1,5 +1,5 @@
 import { Menu } from "antd";
-import { useState } from "react";
+import { useState, useEffect,useCallback } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import {
   TeamOutlined,
@@ -10,7 +10,7 @@ import {
   ClusterOutlined,
   EnvironmentOutlined,
   StarOutlined,
-  UploadOutlined
+  UploadOutlined,
 } from "@ant-design/icons";
 import Companies from "./pages/companies/Companies";
 import AdminUsers from "./pages/admin/AdminUsers";
@@ -21,9 +21,16 @@ import Jobs from "./pages/jobs/Jobs";
 import Category from "./pages/Categories/Category";
 import Regions from "./pages/regions/Regions";
 import JobTypes from "./pages/jobtypes/JobTypes";
+import { useDispatch } from "react-redux/es/hooks/useDispatch";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import { getLoggedInUser } from "./redux/slices/UsersSlice";
+import api from "./api/api";
+import { setCompany } from "./redux/slices/CompaniesSlice";
 
 const Main = ({ onLogout }) => {
   const [selectedKey, setSelectedKey] = useState("/");
+  const loggedUser = useSelector(getLoggedInUser);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -35,6 +42,25 @@ const Main = ({ onLogout }) => {
       navigate(key);
     }
   };
+
+  const fetchCompanyUsers = useCallback(async () => {
+    try {
+      const res = await api.get(`/company/admin/${loggedUser.id}`);
+      if (res.status === 200) {
+        dispatch(setCompany(res.data));
+      }
+    } catch (error) {}
+  }, [dispatch, loggedUser]);
+  
+  useEffect(() => {
+    if (loggedUser && loggedUser.role === "ADMIN") {
+      fetchCompanyUsers();
+    }
+  }, [fetchCompanyUsers, loggedUser]);
+  
+
+  
+
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
       <Menu
@@ -47,7 +73,7 @@ const Main = ({ onLogout }) => {
           style={{
             backgroundColor: "#179CBD",
             height: "150px",
-            alignItems:"center"
+            alignItems: "center",
           }}
         >
           <Logo />
@@ -60,14 +86,16 @@ const Main = ({ onLogout }) => {
         >
           Users
         </Menu.Item>
-        <Menu.Item
-          key="/companies"
-          icon={<BankOutlined style={{ fontSize: "16px" }} />}
-          style={{ fontSize: "16px", fontFamily: "Open Sans" }}
-          className="menu-item"
-        >
-          Companies
-        </Menu.Item>
+        {loggedUser.role === "SUPERADMIN" && (
+          <Menu.Item
+            key="/companies"
+            icon={<BankOutlined style={{ fontSize: "16px" }} />}
+            style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+            className="menu-item"
+          >
+            Companies
+          </Menu.Item>
+        )}
         <Menu.Item
           key="/jobs"
           icon={<UploadOutlined style={{ fontSize: "16px" }} />}
@@ -84,38 +112,43 @@ const Main = ({ onLogout }) => {
         >
           Unpublished Jobs
         </Menu.Item>
-        <Menu.Item
-          key="/adminusers"
-          icon={<UserOutlined style={{ fontSize: "16px" }} />}
-          style={{ fontSize: "16px", fontFamily: "Open Sans" }}
-          className="menu-item"
-        >
-          Admin Users
-        </Menu.Item>
-        <Menu.Item
-          key="/categories"
-          icon={<ClusterOutlined style={{ fontSize: "16px" }} />}
-          style={{ fontSize: "16px", fontFamily: "Open Sans" }}
-          className="menu-item"
-        >
-          Categories
-        </Menu.Item>
-        <Menu.Item
-          key="/types"
-          icon={<StarOutlined style={{ fontSize: "16px" }} />}
-          style={{ fontSize: "16px", fontFamily: "Open Sans" }}
-          className="menu-item"
-        >
-          Job Types
-        </Menu.Item>
-        <Menu.Item
-          key="/regions"
-          icon={<EnvironmentOutlined style={{ fontSize: "16px" }} />}
-          style={{ fontSize: "16px", fontFamily: "Open Sans" }}
-          className="menu-item"
-        >
-          Regions
-        </Menu.Item>
+        {loggedUser.role === "SUPERADMIN" && (
+          <>
+            {" "}
+            <Menu.Item
+              key="/adminusers"
+              icon={<UserOutlined style={{ fontSize: "16px" }} />}
+              style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+              className="menu-item"
+            >
+              Admin Users
+            </Menu.Item>
+            <Menu.Item
+              key="/categories"
+              icon={<ClusterOutlined style={{ fontSize: "16px" }} />}
+              style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+              className="menu-item"
+            >
+              Categories
+            </Menu.Item>
+            <Menu.Item
+              key="/types"
+              icon={<StarOutlined style={{ fontSize: "16px" }} />}
+              style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+              className="menu-item"
+            >
+              Job Types
+            </Menu.Item>
+            <Menu.Item
+              key="/regions"
+              icon={<EnvironmentOutlined style={{ fontSize: "16px" }} />}
+              style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+              className="menu-item"
+            >
+              Regions
+            </Menu.Item>
+          </>
+        )}
 
         <Menu.Item
           key="signout"
@@ -139,10 +172,10 @@ function Content() {
         <Route path="/companies" element={<Companies />} />
         <Route path="/adminusers" element={<AdminUsers />} />
         <Route path="/unpublished" element={<Unpublished />} />
-        <Route path="/categories" element={<Category/>}/>
+        <Route path="/categories" element={<Category />} />
         <Route path="/jobs" element={<Jobs />} />
-        <Route path="/regions" element={<Regions/>}/>
-        <Route path="/types" element={<JobTypes/>}/>
+        <Route path="/regions" element={<Regions />} />
+        <Route path="/types" element={<JobTypes />} />
       </Routes>
     </div>
   );

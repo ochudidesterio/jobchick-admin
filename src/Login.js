@@ -61,7 +61,7 @@ const Login = ({ onLogin }) => {
         const response = await api.post("/auth/authenticate", loginData);
         if (response.data.message === "Successful") {
             fetchAminDetails(response.data.id)
-          if (response.data.role === "ADMIN") {
+          if (response.data.role === "SUPERADMIN" || response.data.role === "ADMIN") {
             onLogin();
           } else {
             setEmailError("Only Admins are allowed");

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const companiesInitState ={
     companies:[],
     selectedCompany:{},
+    company:{},
 }
 const companySlice =createSlice({
     name:"companies",
@@ -13,11 +14,16 @@ const companySlice =createSlice({
         },
         setSelectedCompany:(state,{payload})=>{
             state.selectedCompany = payload
+        },
+        setCompany:(state,{payload})=>{
+            state.company = payload
         }
     },
 })
 export const {setCompanies} = companySlice.actions
 export const {setSelectedCompany} = companySlice.actions
+export const {setCompany} = companySlice.actions
 export const getCompanies  =(state)=>state.companies.companies
+export const getCompany  =(state)=>state.companies.company
 export const getSelectedCompany =(state)=>state.companies.selectedCompany
 export default companySlice.reducer

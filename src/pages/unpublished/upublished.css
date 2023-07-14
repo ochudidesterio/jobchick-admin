@@ -3,6 +3,11 @@
     overflow: auto;
     height: 100vh;
 }
+.unpublished-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .unpublished-home h3{
     font-family: 'Open Sans', sans-serif;
 }

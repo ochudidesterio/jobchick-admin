@@ -13,18 +13,19 @@ import RolesList from "../components/RolesList";
 import QualificationList from "../components/QualificationList";
 import ViewJobTable from "../components/ViewJobTable";
 import api from "../api/api";
-const ViewJobModal = ({ open, onClose ,company}) => {
+import { getLoggedInUser } from "../redux/slices/UsersSlice";
+const ViewJobModal = ({ open, onClose, company }) => {
   const job = useSelector(getSelectedJob);
-  console.log("Jobs",job)
   const roles = useSelector(getRoles);
   const qualifications = useSelector(getQualifications);
+  const loggedInUser = useSelector(getLoggedInUser)
 
   const handlePublish = async (id) => {
     try {
       const response = await api.post(`/job/publish/${id}`);
-      if(response.status === 200){
-        window.location.reload()
-}
+      if (response.status === 200) {
+        window.location.reload();
+      }
     } catch (error) {}
   };
 
@@ -54,7 +55,7 @@ const ViewJobModal = ({ open, onClose ,company}) => {
           <div className="view-img-container"></div>
         </div>
         <div className="view-job-title">
-          <h4>{company !== null ? company.name :""}</h4>
+          <h4>{company !== null ? company.name : ""}</h4>
         </div>
         <div className="view-job-desc">
           <ViewJobTable job={job} />
@@ -68,17 +69,19 @@ const ViewJobModal = ({ open, onClose ,company}) => {
           <div className="view-qualifications">
             <QualificationList qualifications={qualifications} />
           </div>
-          {job.status === "INACTIVE" && <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Button
-              variant="contained"
-              style={{ backgroundColor: "#179CBD", textTransform: "none" }}
-              onClick={() => {
-                handlePublish(job.id)
-              }}
-            >
-              Publish
-            </Button>
-          </div>}
+          {job.status === "INACTIVE" && loggedInUser && loggedInUser.role==="ADMIN" && (
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button
+                variant="contained"
+                style={{ backgroundColor: "#179CBD", textTransform: "none" }}
+                onClick={() => {
+                  handlePublish(job.id);
+                }}
+              >
+                Publish
+              </Button>
+            </div>
+          )}
         </div>
       </Box>
     </Modal>

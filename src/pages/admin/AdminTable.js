@@ -2,8 +2,9 @@ import React from 'react'
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { getAdmins } from '../../redux/slices/UsersSlice';
 import { Menu, Dropdown } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
+
+import { EyeOutlined } from "@ant-design/icons";
+
 
 const AdminTable = () => {
     const admins = useSelector(getAdmins)
@@ -53,18 +54,17 @@ const AdminTable = () => {
                 trigger={["click"]}
                 placement="bottomRight"
               >
-                <FontAwesomeIcon
-                  icon={faEllipsisH}
+                 <EyeOutlined
                   style={{
-                    fontSize: "25px",
-                    color: "#696969",
-                    transition: "color 0.3s",
+                    fontSize: '16px',
+                    color: '#696969',
+                    transition: 'color 0.3s',
                   }}
                   onMouseEnter={(e) => {
-                    e.target.style.color = "#179CBD";
+                    e.target.style.color = '#179CBD';
                   }}
                   onMouseLeave={(e) => {
-                    e.target.style.color = "#696969";
+                    e.target.style.color = '#696969';
                   }}
                 />
               </Dropdown>

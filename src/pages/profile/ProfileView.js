@@ -1,32 +1,45 @@
 import React from "react";
 import "./profileview.css";
 
-const ProfileView = ({user}) => {
+const ProfileView = ({ user }) => {
   // Keys to exclude from the table display
-  const excludeKeys = ["message", "id", "profileImage"];
+  const excludeKeys = ["message", "id", "profileImage", "role"];
   const keyLabels = {
-    
     phoneNumber: "Phone Number",
     firstName: "First Name",
-    lastName: "Last name",
+    lastName: "Last Name",
     email: "Email",
     authUsername: "Username",
     gender: "Gender",
-    proffession: "Proffession",
+    proffession: "Profession",
     age: "Age",
+    education: "Education Level",
+    skills: "Skills",
+    languages: "Languages",
   };
 
   // Filter the user object to exclude the keys
   const filteredUser = Object.fromEntries(
     Object.entries(user).filter(([key]) => !excludeKeys.includes(key))
   );
+
   return (
     <table className="table">
       <tbody>
         {Object.entries(filteredUser).map(([key, value]) => (
           <tr key={key} className="tableRow">
             <td>{keyLabels[key]}</td>
-            <td>{value}</td>
+            <td>
+              {Array.isArray(value) ? (
+                <ul className="borderList">
+                  {value.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              ) : (
+                value
+              )}
+            </td>
           </tr>
         ))}
       </tbody>

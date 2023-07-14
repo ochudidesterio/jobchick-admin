@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <div className="footer">
     <hr />
-      <p>{`Powered by Deslabs © Copy Write 2010 - ${new Date().getFullYear()}`}</p>
+      <p>{`Powered by Deslabs © Copy Write 2018 - ${new Date().getFullYear()}`}</p>
     </div>
   );
 };

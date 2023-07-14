@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux/es/exports";
 import { getUsers } from "../../redux/slices/UsersSlice";
 import { Menu, Dropdown } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
+import { EyeOutlined } from "@ant-design/icons";
+
 
 const UsersTable = ({ openViewProfile,openEditProfile,openChangePassword }) => {
   const users = useSelector(getUsers);
@@ -30,11 +30,11 @@ const UsersTable = ({ openViewProfile,openEditProfile,openChangePassword }) => {
   const menu = (id) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
       <Menu.Item key="profile">View Profile</Menu.Item>
-      <Menu.Item key="edit">Edit</Menu.Item>
+      {/* <Menu.Item key="edit">Edit</Menu.Item>
       <Menu.Item key="password">Change Password</Menu.Item>
       <Menu.Item key="delete" danger="true">
         Delete
-      </Menu.Item>
+      </Menu.Item> */}
     </Menu>
   );
   return (
@@ -63,18 +63,17 @@ const UsersTable = ({ openViewProfile,openEditProfile,openChangePassword }) => {
                 trigger={["click"]}
                 placement="bottomRight"
               >
-                <FontAwesomeIcon
-                  icon={faEllipsisH}
+                <EyeOutlined
                   style={{
-                    fontSize: "25px",
-                    color: "#696969",
-                    transition: "color 0.3s",
+                    fontSize: '16px',
+                    color: '#696969',
+                    transition: 'color 0.3s',
                   }}
                   onMouseEnter={(e) => {
-                    e.target.style.color = "#179CBD";
+                    e.target.style.color = '#179CBD';
                   }}
                   onMouseLeave={(e) => {
-                    e.target.style.color = "#696969";
+                    e.target.style.color = '#696969';
                   }}
                 />
               </Dropdown>

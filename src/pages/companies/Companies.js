@@ -7,12 +7,12 @@ import { setCompanies, setSelectedCompany } from "../../redux/slices/CompaniesSl
 import { setCategories } from "../../redux/slices/CategorySlice";
 import { CompaniesTable } from "./CompaniesTable";
 import AddCompaniesModal from "../../modals/AddCompaniesModal";
-import { showErrorToast, showSuccessToast } from "../../Constants/Toasts";
+import {  showSuccessToast } from "../../Constants/Toasts";
 import { ToastContainer } from "react-toastify";
-import CreateJobModal from "../../modals/CreateJobModal";
 import { setTypes } from "../../redux/slices/TypesSlice";
 import { setRegions } from "../../redux/slices/RegionSlice";
 import ViewCompanyProfileModal from "../../modals/ViewCompanyProfileModal";
+import AddUserModal from "../../modals/AddUserModal";
 
 const Companies = () => {
   const dispatch = useDispatch();
@@ -24,9 +24,11 @@ const Companies = () => {
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
-  //create job modal
-  const [showCreateJob, setCreateJob] = useState(false);
-  const handleCloseCreateJob = () => setCreateJob(false);
+ 
+
+   //create admin modal
+   const [showCreateAdmin, setCreateAdmin] = useState(false);
+   const handleCloseCreateAdmin = () => setCreateAdmin(false);
 
   //create job modal
   const [showViewCompany, setViewCompany] = useState(false);
@@ -38,13 +40,25 @@ const Companies = () => {
     email: "",
     location: "",
   });
+
+  const [adminData, setAdminData] = useState({
+    username: "",
+   email: "",
+    password: "",
+  });
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+  const handleAdminInputChange = (e) => {
+    const { name, value } = e.target;
+    setAdminData({ ...adminData, [name]: value });
+  };
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
+     
       const response = await api.post("/company/create", formData);
       if (response.status === 200) {
         showSuccessToast("Created");
@@ -53,47 +67,28 @@ const Companies = () => {
     handleClose();
     //window.location.reload()
   };
+
+  const handleAdminFormSubmit = async (e) => {
+    e.preventDefault();
+    const data ={
+      authUsername:adminData.username,
+      email:adminData.email,
+      password:adminData.password
+    }
+    try{
+      const res = await api.post(`/user/add/admin/${selectedCompanyId}`,data)
+      if (res.status === 200) {
+        showSuccessToast("Created");
+      }
+    }catch(e){}
+
+    handleCloseCreateAdmin()
+    //window.location.reload()
+  };
   useEffect(() => {
     fetchCompanies();
   });
-  //create job data
-  const [jobData, setJobData] = useState({
-    title: "",
-    typeId: "",
-    regionId: "",
-    categoryId: "",
-    description: "",
-    level: "",
-    companyId: "",
-  });
-  const handleJobInputChange = (e) => {
-    const { name, value } = e.target;
-    setJobData({ ...jobData, [name]: value });
-  };
-  const handleJobFormSubmit = async (e) => {
-    jobData.companyId = selectedCompanyId;
-    e.preventDefault();
-    try {
-      if (
-        jobData.description === "" ||
-        jobData.level === "" ||
-        jobData.regionId === "" ||
-        jobData.title === "" ||
-        jobData.typeId === ""
-      ) {
-        showErrorToast("Failed, all fields are required");
-      } else {
-        const response = await api.post("/job/create", jobData);
-        if(response.status === 200){
-          showSuccessToast("Created")
-          handleCloseCreateJob();
-
-        }
-      }
-    } catch (error) {}
-
-    //window.location.reload()
-  };
+  
   useEffect(() => {
     fetchCompanies();
   });
@@ -105,10 +100,7 @@ const Companies = () => {
       }
     } catch (error) {}
   };
-  const openCreateJob = (companyId) => {
-    setSelectedCompanyId(companyId); // Update the selected company ID
-    setCreateJob(true); // Open the modal
-  };
+ 
 
   const openCompanyProfile = (id)=>{
     api.get(`/company/get/${id}`)
@@ -119,6 +111,11 @@ const Companies = () => {
       }
     })
     .catch((e)=>console.log(e))
+  }
+
+  const openCreateAdmin= (id)=>{
+    setSelectedCompanyId(id)
+    setCreateAdmin(true)
   }
 
   useEffect(() => {
@@ -166,7 +163,7 @@ const Companies = () => {
           <CustomAddButton onClick={handleShow} name="Add Company" />
         </div>
       </div>
-      <CompaniesTable openCreateJob={openCreateJob} openCompanyProfile={openCompanyProfile} />
+      <CompaniesTable  openCreateAdmin={openCreateAdmin} openCompanyProfile={openCompanyProfile} />
       <AddCompaniesModal
         open={showModal}
         onClose={handleClose}
@@ -174,17 +171,18 @@ const Companies = () => {
         formData={formData}
         onChange={handleInputChange}
       />
-      <CreateJobModal
-        open={showCreateJob}
-        onClose={handleCloseCreateJob}
-        onSubmit={handleJobFormSubmit}
-        jobData={jobData}
-        onChange={handleJobInputChange}
-      />
+      
       <ViewCompanyProfileModal
       open={showViewCompany}
       onClose={handleCloseViewCompany}
        />
+       <AddUserModal 
+       open={showCreateAdmin}
+       onClose={handleCloseCreateAdmin}
+       onSubmit={handleAdminFormSubmit}
+       formData={adminData}
+       onChange={handleAdminInputChange}
+        />
     </div>
   );
 };

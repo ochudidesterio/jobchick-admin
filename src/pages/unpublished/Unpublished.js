@@ -14,9 +14,24 @@ import { showErrorToast, showSuccessToast } from "../../Constants/Toasts";
 import { ToastContainer } from "react-toastify";
 import AddQualificationsModal from "../../modals/AddQualificationsModal";
 import ViewJobModal from "../../modals/ViewJobModal";
+import CreateJobModal from "../../modals/CreateJobModal";
+
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import { getLoggedInUser } from "../../redux/slices/UsersSlice";
+import { getCompany } from "../../redux/slices/CompaniesSlice";
+import CustomAddButton from "../../components/CustomAddButton";
 
 const Unpublished = () => {
   const dispatch = useDispatch();
+  const loggedUser = useSelector(getLoggedInUser);
+  const mycompany = useSelector(getCompany);
+  //unpublished job response
+  let jobres;
+
+  //create job modal
+  const [showCreateJob, setCreateJob] = useState(false);
+  const handleCloseCreateJob = () => setCreateJob(false);
+  const handleShowCreateJob =()=>setCreateJob(true)
 
   const [selectedJobId, setSelectedJobId] = useState(null);
   const [selectedJobName, setSelectedJobName] = useState(null);
@@ -31,8 +46,8 @@ const Unpublished = () => {
   const [showViewJobs, setViewJobs] = useState(false);
   const handleShowViewJob = () => setViewJobs(false);
 
-    //job company
-    const [company,setCompany] = useState(null)
+  //job company
+  const [company, setCompany] = useState(null);
   //roles data
   const [roleData, setRolesData] = useState({
     jobId: "",
@@ -43,6 +58,44 @@ const Unpublished = () => {
     qualification: "",
     jobId: "",
   });
+
+  //create job data
+  const [jobData, setJobData] = useState({
+    title: "",
+    typeId: "",
+    regionId: "",
+    categoryId: "",
+    description: "",
+    level: "",
+    companyId: "",
+  });
+  const handleJobInputChange = (e) => {
+    const { name, value } = e.target;
+    setJobData({ ...jobData, [name]: value });
+  };
+  const handleJobFormSubmit = async (e) => {
+    jobData.companyId = mycompany.id;
+    e.preventDefault();
+    try {
+      if (
+        jobData.description === "" ||
+        jobData.level === "" ||
+        jobData.regionId === "" ||
+        jobData.title === "" ||
+        jobData.typeId === ""
+      ) {
+        showErrorToast("Failed, all fields are required");
+      } else {
+        const response = await api.post("/job/create", jobData);
+        if (response.status === 200) {
+          showSuccessToast("Created");
+          handleCloseCreateJob();
+        }
+      }
+    } catch (error) {}
+
+    //window.location.reload()
+  };
 
   //qualifications input
   const handleQualificationsInputChange = (e) => {
@@ -66,6 +119,7 @@ const Unpublished = () => {
       );
       if (response.status === 200) {
         showSuccessToast("Added");
+        setQualificationData("")
         handleCloseShowAddQualifications();
       } else {
         showErrorToast("Failed");
@@ -81,13 +135,14 @@ const Unpublished = () => {
       const response = await api.post("/job/roles/create", roleData);
       if (response.status === 200) {
         showSuccessToast("Added");
+        setRolesData("")
         handleCloseCreateRoles();
       } else {
         showErrorToast("Failed");
       }
     } catch (error) {}
   };
- 
+
   //show roles modal
   const openAddRole = (jobId, title) => {
     setSelectedJobId(jobId);
@@ -109,7 +164,7 @@ const Unpublished = () => {
         .then((res) => {
           if (res.status === 200) {
             dispatch(setSelectedJob(res.data));
-            setCompany(res.data.company)
+            setCompany(res.data.company);
             setViewJobs(true);
             api.get(`/job/roles/${jobId}`).then((roles) => {
               dispatch(setRoles(roles.data));
@@ -128,16 +183,25 @@ const Unpublished = () => {
   });
   const getInActiveJobs = async () => {
     try {
-      const response = await api.get("/job/all/inactive");
-      if (response.status === 200) {
-        dispatch(setInActiveJobs(response.data));
+      if (loggedUser && loggedUser.role === "ADMIN") {
+        jobres = await api.get(`/job/company/inactive/${mycompany.id}`);
+      } else {
+        jobres = await api.get("/job/all/inactive");
+      }
+      if (jobres.status === 200) {
+        dispatch(setInActiveJobs(jobres.data));
       }
     } catch (error) {}
   };
   return (
     <div className="unpublished-home">
       <ToastContainer position="top-right" />
-      <h3>Unpublished Jobs</h3>
+      <div className="unpublished-top">
+        <h3>Unpublished Jobs</h3>
+        {loggedUser && loggedUser.role === "ADMIN" && (
+          <CustomAddButton onClick={handleShowCreateJob} name="Create a Job" />
+        )}
+      </div>
       <UpublishedTable
         openAddRole={openAddRole}
         openAddQualification={openAddQualification}
@@ -159,7 +223,19 @@ const Unpublished = () => {
         onChange={handleQualificationsInputChange}
         title={selectedJobName}
       />
-      <ViewJobModal open={showViewJobs} onClose={handleShowViewJob} company={company} />
+      <ViewJobModal
+        open={showViewJobs}
+        onClose={handleShowViewJob}
+        company={company}
+      />
+
+      <CreateJobModal
+        open={showCreateJob}
+        onClose={handleCloseCreateJob}
+        onSubmit={handleJobFormSubmit}
+        jobData={jobData}
+        onChange={handleJobInputChange}
+      />
     </div>
   );
 };

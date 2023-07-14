@@ -5,7 +5,8 @@ const jobsInitState ={
     inactivejobs:[],
     selectedJob:{},
     roles:[],
-    qualifications:[]
+    qualifications:[],
+    like:{}
 }
 const jobsSlice =createSlice({
     name:"jobs",
@@ -25,6 +26,9 @@ const jobsSlice =createSlice({
         },
         setQualifications:(state,{payload})=>{
             state.qualifications=payload
+        },
+        setIsLikedJob:(state,{payload})=>{
+            state.like = payload
         }
     },
 })
@@ -33,9 +37,11 @@ export const {setInActiveJobs} = jobsSlice.actions
 export const {setSelectedJob} = jobsSlice.actions
 export const {setQualifications} = jobsSlice.actions
 export const {setRoles}=jobsSlice.actions
+export const {setIsLikedJob}=jobsSlice.actions
 export const getActiveJobs  =(state)=>state.jobs.activejobs
 export const getInActiveJobs  =(state)=>state.jobs.inactivejobs
 export const getSelectedJob =(state)=>state.jobs.selectedJob
 export const getRoles =(state)=>state.jobs.roles
+export const getIsLikedJob =(state)=>state.jobs.like
 export const getQualifications =(state)=>state.jobs.qualifications
 export default jobsSlice.reducer

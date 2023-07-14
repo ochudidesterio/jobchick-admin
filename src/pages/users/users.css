@@ -12,3 +12,21 @@
     overflow: auto;
     height: 100vh;
 }
+.borderList {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+  }
+  
+  .borderList li {
+    border: 1px solid grey;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-right: 2px;
+  }
+  .profile-tabs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  

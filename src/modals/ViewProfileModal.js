@@ -1,31 +1,51 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import PersonIcon from "@mui/icons-material/Person";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import ProfileView from "../pages/profile/ProfileView";
-import LikesView from "../pages/profile/LikesView";
-import DislikeView from "../pages/profile/DislikeView";
-import MatchPageView from "../pages/profile/MatchPageView";
+
 import GalleryView from "../pages/profile/GalleryView";
 import { useSelector } from "react-redux";
-import { getSelectedUser } from "../redux/slices/UsersSlice";
+import { getLoggedInUser, getSelectedUser } from "../redux/slices/UsersSlice";
 import Profile from "../assets/profile.png"
+import { IconButton } from "@mui/material";
+import api from "../api/api";
+import { getIsLikedJob } from "../redux/slices/JobsSlice";
 
 
-const ViewProfileModal = ({ open, onClose }) => {
+
+
+
+const ViewProfileModal = ({ open, onClose,companyId,jobId }) => {
     const user = useSelector(getSelectedUser);
+    const likedJob = useSelector(getIsLikedJob)
+    const loggedInUser = useSelector(getLoggedInUser)
 
   const [selectedTab, setSelectedTab] = useState(0);
+  const [liked, setLiked] = useState(false);
+ 
 
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
+  const handleThumbClick = async () => {
+    const res = await api.post(`/job/admin/like/${likedJob.id}/${!liked}`)
+    if(res.data === "updated"){
+      setLiked(!liked);
+    }
+  };
+ 
+  useEffect(()=>{
+    if(likedJob.likedBack !== null){
+      setLiked(likedJob.likedBack)
+    }
+  },[likedJob])
 
   return (
     <Modal
@@ -35,10 +55,11 @@ const ViewProfileModal = ({ open, onClose }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        
       }}
     >
       <Box
-        sx={{ width: 700, p: 2, bgcolor: "background.paper", borderRadius: 2,
+        sx={{ width: "70vw", p: 2, bgcolor: "background.paper", borderRadius: 2,
         height:"100%",
         maxHeight: "90vh", // Set a maximum height for the modal
           overflow: "auto", // Enable scrolling when content exceeds the height
@@ -57,6 +78,7 @@ const ViewProfileModal = ({ open, onClose }) => {
             )}
           </div>
         </div>
+        <div className="profile-tabs">
         <Tabs
           value={selectedTab}
           onChange={handleTabChange}
@@ -71,40 +93,10 @@ const ViewProfileModal = ({ open, onClose }) => {
               alignItems: "center",
               justifyContent: "flex-start",
               textTransform: "none",
+              marginRight: "30px",
             }}
           />
-          <Tab
-            icon={<FavoriteIcon style={{ marginTop: "6", fontSize: "15" }} />}
-            label="Likes"
-            sx={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "flex-start",
-              textTransform: "none",
-            }}
-          />
-          <Tab
-            icon={<ThumbDownIcon style={{ marginTop: "6", fontSize: "15" }} />}
-            label="Dislikes"
-            sx={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "flex-start",
-              textTransform: "none",
-            }}
-          />
-          <Tab
-            icon={
-              <CheckCircleIcon style={{ marginTop: "6", fontSize: "15" }} />
-            }
-            label="Matched"
-            sx={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "flex-start",
-              textTransform: "none",
-            }}
-          />
+          
 
           <Tab
             icon={
@@ -116,18 +108,33 @@ const ViewProfileModal = ({ open, onClose }) => {
               alignItems: "center",
               justifyContent: "flex-start",
               textTransform: "none",
+              marginRight: "30px",
             }}
           />
+         
         </Tabs>
+        {loggedInUser && loggedInUser.role === "ADMIN" && <IconButton onClick={handleThumbClick}>
+            {liked ? (
+              <ThumbUpIcon
+                sx={{ color: "red" }}
+                fontSize="default"
+              />
+            ) : (
+              <ThumbDownIcon
+                sx={{ color: "black" }}
+                fontSize="default"
+              />
+            )}
+          </IconButton>}
+
+        </div>
         <div
           style={{
             marginTop: 20,
           }}
         >
           {selectedTab === 0 && <ProfileView user={user}/>}
-          {selectedTab === 1 && <LikesView />}
-          {selectedTab === 2 && <DislikeView />}
-          {selectedTab === 3 && <MatchPageView />}
+       
           {selectedTab === 4 && <GalleryView />}
         </div>
       </Box>
