@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const jobsInitState ={
-    activejobs:[],
+    activeLikedJobs:[],
+    activeUnLikedJobs:[],
     inactivejobs:[],
     selectedJob:{},
     roles:[],
@@ -12,8 +13,11 @@ const jobsSlice =createSlice({
     name:"jobs",
     initialState:jobsInitState,
     reducers:{
-        setActiveJobs:(state,{payload})=>{
-            state.activejobs = payload
+        setActiveLikedJobs:(state,{payload})=>{
+            state.activeLikedJobs = payload
+        },
+        setActiveUnLikedJobs:(state,{payload})=>{
+            state.activeUnLikedJobs = payload
         },
         setInActiveJobs:(state,{payload})=>{
             state.inactivejobs = payload
@@ -32,13 +36,15 @@ const jobsSlice =createSlice({
         }
     },
 })
-export const {setActiveJobs} = jobsSlice.actions
+export const {setActiveLikedJobs} = jobsSlice.actions
+export const {setActiveUnLikedJobs} = jobsSlice.actions
 export const {setInActiveJobs} = jobsSlice.actions
 export const {setSelectedJob} = jobsSlice.actions
 export const {setQualifications} = jobsSlice.actions
 export const {setRoles}=jobsSlice.actions
 export const {setIsLikedJob}=jobsSlice.actions
-export const getActiveJobs  =(state)=>state.jobs.activejobs
+export const getActiveLikedJobs  =(state)=>state.jobs.activeLikedJobs
+export const getActiveUnLikedJobs  =(state)=>state.jobs.activeUnLikedJobs
 export const getInActiveJobs  =(state)=>state.jobs.inactivejobs
 export const getSelectedJob =(state)=>state.jobs.selectedJob
 export const getRoles =(state)=>state.jobs.roles

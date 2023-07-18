@@ -8,6 +8,7 @@ const usersInitState ={
     selectedUser:{},
     isLoggedIn:false,
     jobLikeUsers:[],
+    jobMatchUsers:[],
 }
 const usersSlice =createSlice({
     name:"users",
@@ -33,6 +34,9 @@ const usersSlice =createSlice({
         },
         setJobLikeUsers:(state,{payload})=>{
             state.jobLikeUsers = payload
+        },
+        setJobMatchUsers:(state,{payload})=>{
+            state.jobMatchUsers = payload
         }
     },
 })
@@ -43,6 +47,7 @@ export const {setSelectedAdmin} = usersSlice.actions
 export const {setIsLoggedIn} = usersSlice.actions
 export const {setLoggedInUser} = usersSlice.actions
 export const {setJobLikeUsers} = usersSlice.actions
+export const {setJobMatchUsers} = usersSlice.actions
 export const getUsers  =(state)=>state.users.users
 export const getSelectedUser =(state)=>state.users.selectedUser
 export const getAdmins  =(state)=>state.users.admins
@@ -50,5 +55,6 @@ export const getSelectedAdmin =(state)=>state.users.selectedAdmin
 export const getIsLoggedIn =(state)=>state.users.isLoggedIn
 export const getLoggedInUser =(state)=>state.users.loggedInUser
 export const getJobLikeUsers =(state)=>state.users.jobLikeUsers
+export const getJobMatchUsers =(state)=>state.users.jobMatchUsers
 
 export default usersSlice.reducer

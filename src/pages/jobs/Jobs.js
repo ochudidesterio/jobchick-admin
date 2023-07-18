@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./jobs.css";
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
 import api from "../../api/api";
-import { setActiveJobs, setIsLikedJob } from "../../redux/slices/JobsSlice";
+import {  setActiveLikedJobs, setActiveUnLikedJobs, setIsLikedJob } from "../../redux/slices/JobsSlice";
 import { setSelectedJob } from "../../redux/slices/JobsSlice";
 import { setRoles } from "../../redux/slices/JobsSlice";
 import { setQualifications } from "../../redux/slices/JobsSlice";
@@ -14,6 +14,7 @@ import { getCompany } from "../../redux/slices/CompaniesSlice";
 import {
   getLoggedInUser,
   setJobLikeUsers,
+  setJobMatchUsers,
   setSelectedUser,
 } from "../../redux/slices/UsersSlice";
 import JobLikesModal from "../../modals/JobLikesModal";
@@ -44,7 +45,8 @@ const Jobs = () => {
   const [company, setCompany] = useState(null);
 
   //JOBRESPONSE
-  let jobres;
+  let activeLikedJobs;
+  let activeUnLikedJobs;
 
   useEffect(() => {
     getJobs();
@@ -52,12 +54,18 @@ const Jobs = () => {
   const getJobs = async () => {
     try {
       if (loggedUser && loggedUser.role === "ADMIN") {
-        jobres = await api.get(`/job/company/active/${mycompany.id}`);
+        activeLikedJobs = await api.get(`/job/company/active/${mycompany.id}/liked`);
+        activeUnLikedJobs = await api.get(`/job/company/active/${mycompany.id}/unliked`);
+
       } else {
-        jobres = await api.get("/job/all/active");
+        activeLikedJobs = await api.get("/job/all/active/liked");
+        activeUnLikedJobs = await api.get("/job/all/active/unliked");
       }
-      if (jobres.status === 200) {
-        dispatch(setActiveJobs(jobres.data));
+      if (activeLikedJobs.status === 200) {
+        dispatch(setActiveLikedJobs(activeLikedJobs.data));
+      }
+      if(activeUnLikedJobs.status === 200){
+        dispatch(setActiveUnLikedJobs(activeUnLikedJobs.data))
       }
     } catch (error) {}
   };
@@ -73,10 +81,18 @@ const Jobs = () => {
     setJobTitle(title);
     setSelectedJobId(jobId)
     try {
+      //likes
       api
-        .get(`/user/company/${mycompany.id}/job/${jobId}`)
+        .get(`/user/company/${mycompany.id}/job/${jobId}/liked`)
         .then((res) => {
           dispatch(setJobLikeUsers(res.data));
+        })
+        .catch((e) => console.log(e));
+        //matches
+        api
+        .get(`/user/company/${mycompany.id}/job/${jobId}/matched`)
+        .then((res) => {
+          dispatch(setJobMatchUsers(res.data));
         })
         .catch((e) => console.log(e));
     } catch (e) {}

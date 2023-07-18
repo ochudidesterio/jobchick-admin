@@ -43,11 +43,12 @@ const ViewJobModal = ({ open, onClose, company }) => {
     >
       <Box
         sx={{
-          width: "80%",
+          width: "75vw",
           p: 2,
           bgcolor: "background.paper",
           borderRadius: 2,
-          maxHeight: "80vh", // Set a maximum height for the modal
+          height:"100%",
+          maxHeight: "90vh", // Set a maximum height for the modal
           overflow: "auto", // Enable scrolling when content exceeds the height
         }}
       >

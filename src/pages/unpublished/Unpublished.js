@@ -49,15 +49,31 @@ const Unpublished = () => {
   //job company
   const [company, setCompany] = useState(null);
   //roles data
-  const [roleData, setRolesData] = useState({
-    jobId: "",
-    role: "",
-  });
+  // const [roleData, setRolesData] = useState({
+  //   jobId: "",
+  //   role: "",
+  // });
+
+  const [roleData, setRolesData] = useState([
+    {
+      id: 1,
+      role: "",
+    },
+  ]);
+  
+
   //qualifications data
-  const [qualificationData, setQualificationData] = useState({
-    qualification: "",
-    jobId: "",
-  });
+  // const [qualificationData, setQualificationData] = useState({
+  //   qualification: "",
+  //   jobId: "",
+  // });
+
+  const [qualificationData, setQualificationData] = useState([
+    {
+      id: 1,
+      qualification: "",
+    },
+  ]);
 
   //create job data
   const [jobData, setJobData] = useState({
@@ -98,28 +114,65 @@ const Unpublished = () => {
   };
 
   //qualifications input
-  const handleQualificationsInputChange = (e) => {
-    const { name, value } = e.target;
-    setQualificationData({ ...qualificationData, [name]: value });
+  // const handleQualificationsInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setQualificationData({ ...qualificationData, [name]: value });
+  // };
+
+  const handleQualificationsInputChange = (e,id) => {
+    const { value } = e.target;
+    setQualificationData((prevState) =>
+      prevState.map((qualification) => (qualification.id === id ? { ...qualification, qualification: value } : qualification))
+    );
   };
   //roles input
-  const handleRolesInputChange = (e) => {
-    const { name, value } = e.target;
-    setRolesData({ ...roleData, [name]: value });
+  // const handleRolesInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setRolesData({ ...roleData, [name]: value });
+  // };
+
+  const handleRolesInputChange = (e, id) => {
+    const { value } = e.target;
+    setRolesData((prevState) =>
+      prevState.map((role) => (role.id === id ? { ...role, role: value } : role))
+    );
   };
+  
 
   //qualification submit
+  // const handleQualificationSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     qualificationData.jobId = selectedJobId;
+  //     const response = await api.post(
+  //       "/job/qualifications/create",
+  //       qualificationData
+  //     );
+  //     if (response.status === 200) {
+  //       showSuccessToast("Added");
+  //       setQualificationData("")
+  //       handleCloseShowAddQualifications();
+  //     } else {
+  //       showErrorToast("Failed");
+  //     }
+  //   } catch (error) {}
+  // };
   const handleQualificationSubmit = async (e) => {
     e.preventDefault();
     try {
-      qualificationData.jobId = selectedJobId;
-      const response = await api.post(
-        "/job/qualifications/create",
-        qualificationData
+      const responses = await Promise.all(
+        qualificationData.map(({ qualification }) =>
+         api.post("/job/qualifications/create", { jobId: selectedJobId, qualification })
+       )
       );
-      if (response.status === 200) {
+
+      const successResponses = responses.filter(
+        (res) => res.status === 200
+      ).length;
+
+      if (successResponses === qualificationData.length) {
         showSuccessToast("Added");
-        setQualificationData("")
+        setQualificationData([{ id: Date.now(), qualification: "" }]); // Reset the qualificationData to a single empty role object
         handleCloseShowAddQualifications();
       } else {
         showErrorToast("Failed");
@@ -129,19 +182,28 @@ const Unpublished = () => {
   //roles submit
   const handleRolesSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      roleData.jobId = selectedJobId;
-      const response = await api.post("/job/roles/create", roleData);
-      if (response.status === 200) {
+      const responses = await Promise.all(
+        roleData.map(({ role }) =>
+        api.post("/job/roles/create", { jobId: selectedJobId, role })
+       )
+      );
+  
+      const successResponses = responses.filter(
+        (res) => res.status === 200
+      ).length;
+  
+      if (successResponses === roleData.length) {
         showSuccessToast("Added");
-        setRolesData("")
+        setRolesData([{ id: Date.now(), role: "" }]); // Reset the roleData to a single empty role object
         handleCloseCreateRoles();
       } else {
         showErrorToast("Failed");
       }
     } catch (error) {}
   };
+  
 
   //show roles modal
   const openAddRole = (jobId, title) => {
@@ -207,14 +269,30 @@ const Unpublished = () => {
         openAddQualification={openAddQualification}
         openViewJob={openViewJob}
       />
-      <AddRolesModal
+      {/* <AddRolesModal
         open={showCreateRoles}
         onClose={handleCloseCreateRoles}
         onSubmit={handleRolesSubmit}
         roleData={roleData}
         onChange={handleRolesInputChange}
         title={selectedJobName}
-      />
+      /> */}
+
+<AddRolesModal
+  open={showCreateRoles}
+  onClose={handleCloseCreateRoles}
+  onSubmit={handleRolesSubmit}
+  roleData={roleData}
+  onChange={handleRolesInputChange}
+  title={selectedJobName}
+  onAddRole={() =>
+    setRolesData((prevState) => [
+      ...prevState,
+      { id: Date.now(), role: "" },
+    ])
+  }
+/>
+
       <AddQualificationsModal
         open={showAddQualification}
         onClose={handleCloseShowAddQualifications}
@@ -222,6 +300,12 @@ const Unpublished = () => {
         data={qualificationData}
         onChange={handleQualificationsInputChange}
         title={selectedJobName}
+        onAddQualification={() =>
+          setQualificationData((prevState) => [
+            ...prevState,
+            { id: Date.now(), qualification: "" },
+          ])
+        }
       />
       <ViewJobModal
         open={showViewJobs}

@@ -11,6 +11,7 @@ const AddQualificationsModal = ({
   data,
   onChange,
   title,
+  onAddQualification
 }) => {
   return (
     <Modal
@@ -23,7 +24,9 @@ const AddQualificationsModal = ({
       }}
     >
       <Box
-        sx={{ width: 700, p: 2, bgcolor: "background.paper", borderRadius: 2 }}
+        sx={{ width: "75vw",
+        height:"100%",
+        maxHeight: "90vh", p: 2, bgcolor: "background.paper", borderRadius: 2 }}
       >
         <h5>Add Qualifications to {title}</h5>
         <div
@@ -33,28 +36,38 @@ const AddQualificationsModal = ({
           }}
         >
           <form onSubmit={onSubmit}>
-            <TextareaAutosize
-              placeholder="Add qualification"
-              minRows={2}
-              maxRows={5}
-              name="qualification"
-              value={data.qualification}
-              onChange={onChange}
-              style={{
-                padding: "10px",
-                marginTop: "10px",
-                width: "96.5%",
-                border: "1px solid grey",
-                fontFamily: "Open Sans",
-              }}
-            />
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            {data.map((qualification) => (
+              <TextareaAutosize
+                key={qualification.id}
+                placeholder="Enter qualification"
+                minRows={2}
+                maxRows={5}
+                name="qualification"
+                value={qualification.qualification}
+                onChange={(e) => onChange(e, qualification.id)}
+                style={{
+                  padding: "10px",
+                  marginTop: "10px",
+                  width: "96.5%",
+                  border: "1px solid grey",
+                  fontFamily: "Open Sans",
+                }}
+              />
+            ))}
+            <div style={{ display: "flex", justifyContent: "space-between",paddingRight:"10px" }}>
               <Button
                 variant="contained"
                 style={{ backgroundColor: "#179CBD" }}
                 type="submit"
               >
                 Save
+              </Button>
+              <Button
+                variant="contained"
+                style={{ backgroundColor: "#179CBD", marginLeft: 10 }}
+                onClick={onAddQualification}
+              >
+                +
               </Button>
             </div>
           </form>

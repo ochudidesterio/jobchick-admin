@@ -1,91 +1,39 @@
-import React from "react";
-import { useSelector } from "react-redux/es/hooks/useSelector";
-import { getActiveJobs } from "../../redux/slices/JobsSlice";
-import { Menu, Dropdown } from "antd";
-import { EyeOutlined } from "@ant-design/icons";
+import React,{useState} from "react";
 
-import { getLoggedInUser } from "../../redux/slices/UsersSlice";
+import { Tabs } from "antd";
+import LikeJobs from "../tabs/LikeJobs";
+import UnlikedJobs from "../tabs/UnlikedJobs";
 
-const JobsTable = ({ openViewJob, openEditJob,openViewLikes }) => {
-  const jobs = useSelector(getActiveJobs);
-  const loggedInUser = useSelector(getLoggedInUser)
-  const handleMenuClick = (id, action,title) => {
-    switch (action) {
-      case "view":
-        openViewJob(id); // Pass the ID to the openModal function
-        break;
-      case "likes":
-        openViewLikes(id,title); // Pass the ID to the openModal function
-        break;
-      case "edit":
-        openEditJob(id); // Pass the ID to the openModal function
-        break;
+const { TabPane } = Tabs;
 
-      case "delete":
-        console.log(`Delete - Company ID: ${id}`);
-        break;
-      default:
-        break;
-    }
+
+const JobsTable = ({ openViewJob, openEditJob, openViewLikes }) => {
+  const [activeTab, setActiveTab] = useState("tableA");
+
+  const handleTabChange = (key) => {
+    setActiveTab(key);
   };
-  const menu = (id,title) => (
-    <Menu onClick={({ key }) => handleMenuClick(id, key,title)}>
-      <Menu.Item key="view">View</Menu.Item>
-      {loggedInUser && loggedInUser.role === "ADMIN" && <>
-      <Menu.Item key="likes">Likes</Menu.Item>
-      <Menu.Item key="edit">Edit</Menu.Item>
-      <Menu.Item key="delete" danger="true">
-        Delete
-      </Menu.Item></>}
-    </Menu>
-  );
 
-  if (jobs.length === 0) {
-    return <p>No jobs available.</p>;
-  }
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Company</th>
-          <th>Region</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {jobs.length !== 0 &&
-          jobs.map((item) => (
-            <tr key={item.id} className="tableRow">
-              <td>{item.title}</td>
-              <td>{item.company.name}</td>
-              <td>{item.region}</td>
-              <td>
-                <Dropdown
-                  overlay={menu(item.id,item.title)}
-                  trigger={["click"]}
-                  placement="bottomRight"
-                >
-                  <EyeOutlined
-                  style={{
-                    fontSize: '16px',
-                    color: '#696969',
-                    transition: 'color 0.3s',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.color = '#179CBD';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.color = '#696969';
-                  }}
-                />
-                </Dropdown>
-              </td>
-            </tr>
-          ))}
-      </tbody>
-    </table>
+    <div>
+      <Tabs activeKey={activeTab} onChange={handleTabChange}>
+        <TabPane tab="Liked Jobs" key="tableA">
+          <LikeJobs
+            openViewJob={openViewJob}
+            openEditJob={openEditJob}
+            openViewLikes={openViewLikes}
+          />
+        </TabPane>
+        <TabPane tab="Unliked Jobs" key="tableB">
+          <UnlikedJobs
+            openViewJob={openViewJob}
+            openEditJob={openEditJob}
+          />
+        </TabPane>
+      </Tabs>
+    </div>
   );
 };
+
 
 export default JobsTable;

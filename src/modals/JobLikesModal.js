@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { useSelector } from "react-redux";
-import { getJobLikeUsers } from "../redux/slices/UsersSlice";
-import { EyeOutlined } from "@ant-design/icons";
+import { getJobLikeUsers, getJobMatchUsers } from "../redux/slices/UsersSlice";
+import { LikeOutlined, CheckCircleOutlined } from "@ant-design/icons";
+import { Tabs } from "antd";
+import Unmatched from "../pages/tabs/Unmatched";
+import Matched from "../pages/tabs/Matched";
 
-const JobLikesModal = ({ open, onClose, title,openUserProfile }) => {
-  const users = useSelector(getJobLikeUsers);
+const { TabPane } = Tabs;
 
-  const handleRowClick=(id)=>{
-    openUserProfile(id)
-  }
+const JobLikesModal = ({ open, onClose, title, openUserProfile }) => {
+  const likeUsers = useSelector(getJobLikeUsers);
+  const matchedUsers = useSelector(getJobMatchUsers);
+  const [activeTab, setActiveTab] = useState("unmatched");
+
+  const handleRowClick = (id) => {
+    openUserProfile(id);
+  };
+
+  const handleTabChange = (key) => {
+    setActiveTab(key);
+  };
 
   return (
     <Modal
@@ -32,34 +43,34 @@ const JobLikesModal = ({ open, onClose, title,openUserProfile }) => {
           borderRadius: 2,
         }}
       >
-        <h5>Users who liked {title}</h5>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Username</th>
-              <th>Phone Number</th>
-              <th>Email</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.length !==0 ? users.map((item) => (
-              <tr key={item.id} onClick={() => handleRowClick(item.id)}
-              className="tableRow">
-                <td>{item.firstName}</td>
-                <td>{item.lastName}</td>
-                <td>{item.authUsername}</td>
-                <td>{item.phoneNumber}</td>
-                <td>{item.email}</td>
-                <td>
-                  <EyeOutlined style={{ fontSize: "16px", color: "#696969" }} />
-                </td>
-              </tr>
-            )): "No Likes"}
-          </tbody>
-        </table>
+        <Tabs activeKey={activeTab} onChange={handleTabChange}>
+          <TabPane
+            key="unmatched"
+            tab={
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <LikeOutlined style={{ fontSize: "16px", marginRight: "5px" }} />
+                <span>Unmatched Users</span>
+              </div>
+            }
+          />
+          <TabPane
+            key="matched"
+            tab={
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <CheckCircleOutlined style={{ fontSize: "16px", marginRight: "5px" }} />
+                <span>Matched Users</span>
+              </div>
+            }
+          />
+        </Tabs>
+
+        {activeTab === "unmatched" && (
+          <Unmatched users={likeUsers} handleRowClick={handleRowClick} title={title} />
+        )}
+
+        {activeTab === "matched" && (
+          <Matched users={matchedUsers} handleRowClick={handleRowClick} title={title} />
+        )}
       </Box>
     </Modal>
   );
