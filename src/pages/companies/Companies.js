@@ -41,6 +41,12 @@ const Companies = () => {
     location: "",
   });
 
+  const initialAdminData = {
+    username: "",
+    email: "",
+    password: "",
+  };
+
   const [adminData, setAdminData] = useState({
     username: "",
    email: "",
@@ -79,6 +85,7 @@ const Companies = () => {
       const res = await api.post(`/user/add/admin/${selectedCompanyId}`,data)
       if (res.status === 200) {
         showSuccessToast("Created");
+        setAdminData(initialAdminData)
       }
     }catch(e){}
 

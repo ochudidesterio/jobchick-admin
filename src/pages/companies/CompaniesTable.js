@@ -4,8 +4,7 @@ import { getCompanies } from "../../redux/slices/CompaniesSlice";
 import { Menu, Dropdown } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
 
-
-export const CompaniesTable = ({  openCompanyProfile,openCreateAdmin }) => {
+export const CompaniesTable = ({ openCompanyProfile, openCreateAdmin }) => {
   const companies = useSelector(getCompanies);
 
   const handleMenuClick = (id, action) => {
@@ -13,7 +12,7 @@ export const CompaniesTable = ({  openCompanyProfile,openCreateAdmin }) => {
       case "profile":
         openCompanyProfile(id);
         break;
-      
+
       case "admin":
         openCreateAdmin(id); // Pass the company ID to the openModal function
         break;
@@ -55,8 +54,11 @@ export const CompaniesTable = ({  openCompanyProfile,openCreateAdmin }) => {
             <td>{item.name}</td>
             <td>{item.email}</td>
             <td>
-              {item.admin ? item.admin.firstName : ""}{" "}
-              {item.admin ? item.admin.lastName : ""}
+              {item.admin &&
+              item.admin.firstName !== null &&
+              item.admin.lastName !== null
+                ? item.admin.firstName + " " + item.admin.lastName
+                : item.admin && item.admin.authUsername}
             </td>
             <td>{item.admin ? item.admin.phoneNumber : ""}</td>
 
@@ -69,15 +71,15 @@ export const CompaniesTable = ({  openCompanyProfile,openCreateAdmin }) => {
               >
                 <EyeOutlined
                   style={{
-                    fontSize: '16px',
-                    color: '#696969',
-                    transition: 'color 0.3s',
+                    fontSize: "16px",
+                    color: "#696969",
+                    transition: "color 0.3s",
                   }}
                   onMouseEnter={(e) => {
-                    e.target.style.color = '#179CBD';
+                    e.target.style.color = "#179CBD";
                   }}
                   onMouseLeave={(e) => {
-                    e.target.style.color = '#696969';
+                    e.target.style.color = "#696969";
                   }}
                 />
               </Dropdown>

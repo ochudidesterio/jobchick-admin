@@ -33,6 +33,7 @@ const AdminTable = () => {
         <th>Username</th>
         <th>Phone Number</th>
         <th>Email</th>
+        <th>Company</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -48,6 +49,7 @@ const AdminTable = () => {
           <td>{item.authUsername}</td>
           <td>{item.phoneNumber}</td>
           <td>{item.email}</td>
+          <td>{item.company}</td>
           <td>
               <Dropdown
                 overlay={menu(item.id)}
