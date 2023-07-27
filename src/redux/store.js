@@ -5,6 +5,7 @@ import categoryReducer from "./slices/CategorySlice"
 import jobsReducer from "./slices/JobsSlice"
 import typesReducer from "./slices/TypesSlice"
 import regionsReducer from "./slices/RegionSlice"
+import packageReducer from "./slices/PremiumSlice"
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 // Configuration for Redux persist
@@ -18,6 +19,7 @@ const persistedJobReducer = persistReducer(persistConfig,jobsReducer)
 const persistedCategoryReducer = persistReducer(persistConfig,categoryReducer)
 const persistedTypesReducer = persistReducer(persistConfig,typesReducer)
 const persistedRegionsReducer = persistReducer(persistConfig,regionsReducer)
+const persistPackageReducer = persistReducer(persistConfig,packageReducer)
 //const persistedPropertiesReducer = persistReducer(persistConfig, propertiesReducer);
 export const store = configureStore({
     reducer:{
@@ -27,6 +29,7 @@ export const store = configureStore({
         categories:persistedCategoryReducer,
         types:persistedTypesReducer,
         regions:persistedRegionsReducer,
+        packages:persistPackageReducer,
     }
 })
 export const persistor = persistStore(store);

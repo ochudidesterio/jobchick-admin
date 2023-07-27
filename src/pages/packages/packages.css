@@ -1,0 +1,13 @@
+.packages-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.packages-top h3{
+    font-family: 'Open Sans', sans-serif;
+}
+.packages-home{
+    margin: 50px;
+    overflow: auto;
+    height: 100vh;
+}

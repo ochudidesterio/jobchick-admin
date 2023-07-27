@@ -11,6 +11,7 @@ import {
   EnvironmentOutlined,
   StarOutlined,
   UploadOutlined,
+  DollarOutlined
 } from "@ant-design/icons";
 import Companies from "./pages/companies/Companies";
 import AdminUsers from "./pages/admin/AdminUsers";
@@ -26,6 +27,7 @@ import { useSelector } from "react-redux/es/hooks/useSelector";
 import { getLoggedInUser } from "./redux/slices/UsersSlice";
 import api from "./api/api";
 import { setCompany } from "./redux/slices/CompaniesSlice";
+import Packages from "./pages/packages/Packages";
 
 const Main = ({ onLogout }) => {
   const [selectedKey, setSelectedKey] = useState("/");
@@ -147,6 +149,15 @@ const Main = ({ onLogout }) => {
             >
               Regions
             </Menu.Item>
+
+            <Menu.Item
+              key="/packages"
+              icon={<DollarOutlined style={{ fontSize: "16px" }} />}
+              style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+              className="menu-item"
+            >
+             Premium
+            </Menu.Item>
           </>
         )}
 
@@ -176,6 +187,7 @@ function Content() {
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/regions" element={<Regions />} />
         <Route path="/types" element={<JobTypes />} />
+        <Route path="/packages" element={<Packages/>} />
       </Routes>
     </div>
   );
