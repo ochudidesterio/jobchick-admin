@@ -5,12 +5,13 @@ import { EyeOutlined } from "@ant-design/icons";
 import { getPackages } from "../../redux/slices/PremiumSlice";
 
 
-const PackageTable = () => {
+const PackageTable = ({editPackage}) => {
   const packages = useSelector(getPackages)
 
   const handleMenuClick = (id, action) => {
     switch (action) {
       case 'edit':
+        editPackage(id)
          // Pass the ID to the openModal function
         break;
       

@@ -1,6 +1,7 @@
 import React ,{useState,useEffect} from 'react'
-import CustomAddButton from '../../components/CustomAddButton'
+//import CustomAddButton from '../../components/CustomAddButton'
 import AddPackageModal from '../../modals/AddPackageModal';
+import EditPackageModal from '../../modals/EditPackageModal';
 import { ToastContainer } from "react-toastify";
 import './packages.css'
 import { useDispatch } from 'react-redux/es/hooks/useDispatch';
@@ -14,16 +15,46 @@ const Packages = () => {
     const dispatch = useDispatch()
     const [showModal, setShowModal] = useState(false);
     const handleClose = () => setShowModal(false);
-    const handleShow = () => setShowModal(true);
+   // const handleShow = () => setShowModal(true);
+
+    //show edit modal
+  const [showEditModal, setShowEditModal] = useState(false);
+  const handleCloseEdit = () => setShowEditModal(false);
 
     const [premium,setPremium] = useState({
         name:'',
         price:'',
     })
 
+     //update  data
+   const [updateData, setUpdateData] = useState({
+    name: "",
+    price:"",
+    id:""
+  });
+
     const handlePremiumInputChange = (e) => {
         const { name, value } = e.target;
         setPremium({ ...premium, [name]: value });
+      };
+      const handleEditPremiumInputChange = (e) => {
+        const { name, value } = e.target;
+        setUpdateData({ ...updateData, [name]: value });
+      };
+      const handleEditPremiumFormSubmit = async (e) => {
+        e.preventDefault();
+        console.log("UpdateData",updateData)
+        try {
+           const response = await api.post(`/premium/update`,updateData);
+          console.log("Edit",updateData)
+          if (response.status === 200) {
+            showSuccessToast("updated");
+          }else{
+            showErrorToast("Failed")
+          }
+        } catch (error) {}
+        handleCloseEdit();
+        //window.location.reload()
       };
 
       const handlePremiumFormSubmit = async (e) => {
@@ -55,16 +86,31 @@ const Packages = () => {
         fetchPackages()
       })
 
+      const editPackage =(id)=>{
+        api.get(`/premium/get/${id}`)
+        .then((res)=>{
+          if(res.status === 200){
+            setUpdateData({
+              id:res.data.id,
+              name:res.data.name,
+              price:res.data.price
+            })
+            setShowEditModal(true)
+          }
+        })
+        .catch((e)=>console.log(e))
+      }
+
   return (
     <div className='packages-home'>
               <ToastContainer position="top-right" />
 
         <div className="packages-top">
             <h3>Premium Packages</h3>
-            <CustomAddButton name="Add Package" onClick={handleShow} />
+            {/* <CustomAddButton name="Add Package" onClick={handleShow} /> */}
         </div>
 
-        <PackageTable />
+        <PackageTable editPackage={editPackage} />
 
         <AddPackageModal
         open={showModal}
@@ -73,6 +119,14 @@ const Packages = () => {
         onSubmit={handlePremiumFormSubmit}
         formData={premium}
       />
+
+      <EditPackageModal
+      open={showEditModal}
+      onClose={handleCloseEdit}
+      onChange={handleEditPremiumInputChange}
+      onSubmit={handleEditPremiumFormSubmit}
+      formData={updateData}
+       />
     </div>
   )
 }
