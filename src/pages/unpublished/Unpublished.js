@@ -84,12 +84,18 @@ const Unpublished = () => {
     description: "",
     level: "",
     companyId: "",
+    latitude: -1.28303,
+    longitude: 36.8172313,
   });
+
+  const updateJobData = (newLat, newLng) => {
+    setJobData({ ...jobData, latitude: newLat, longitude: newLng });
+  };
   const handleJobInputChange = (e) => {
     const { name, value } = e.target;
     setJobData({ ...jobData, [name]: value });
   };
-  const handleJobFormSubmit = async (e) => {
+  const handleJobFormSubmit = async  (e) => {
     jobData.companyId = mycompany.id;
     e.preventDefault();
     try {
@@ -319,6 +325,7 @@ const Unpublished = () => {
         onSubmit={handleJobFormSubmit}
         jobData={jobData}
         onChange={handleJobInputChange}
+        upDateJobData={updateJobData}
       />
     </div>
   );

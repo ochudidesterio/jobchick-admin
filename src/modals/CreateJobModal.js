@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
@@ -9,11 +9,42 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { getCategories } from "../redux/slices/CategorySlice";
 import { getTypes } from "../redux/slices/TypesSlice";
 import { getRegions } from "../redux/slices/RegionSlice";
+import { Loader } from "@googlemaps/js-api-loader";
 
-const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange }) => {
+import Map from "../components/Map";
+
+
+const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobData }) => {
   const categories = useSelector(getCategories);
   const types = useSelector(getTypes);
   const regions = useSelector(getRegions);
+
+  const [mapLoaded, setMapLoaded] = useState(false);
+
+  useEffect(() => {
+    // Create a new instance of the Google Maps API Loader
+    const loader = new Loader({
+      apiKey: "AIzaSyAGetXjZiaiI3omBPzwey2e-CX8k_GtVjc", // Replace with your Google Maps API key
+      version: "weekly",
+      libraries: ["places"], // You can add more libraries if needed
+    });
+
+    // Load the Google Maps API
+    loader.load().then(() => {
+      setMapLoaded(true);
+    });
+  }, []);
+
+  // Function to handle long-press on the map
+  // CreateJobModal.js or your parent component
+  const handleMarkerDragEnd = (newLat, newLng) => {
+    // Handle the updated marker position here
+    console.log("Marker dragged to:", newLat, newLng);
+ 
+    upDateJobData(newLat,newLng)
+
+    // You can update the state or perform other actions as needed
+  };
 
   return (
     <Modal
@@ -31,7 +62,7 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange }) => {
         <h5>Create Job</h5>
         <div
           style={{
-            maxHeight: "95vh",
+            maxHeight: "80vh",
             overflow: "auto",
           }}
         >
@@ -146,10 +177,20 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange }) => {
                   fontFamily: "Open Sans",
                 }}
               />
+              <div style={{ height: "300px", width: "100%" }}>
+                {mapLoaded && (
+                  <Map
+                  
+                    lat={jobData.latitude}
+                    lng={jobData.longitude}
+                    onMarkerDragEnd={handleMarkerDragEnd}
+                  />
+                )}
+              </div>
 
               <Button
                 variant="contained"
-                style={{ backgroundColor: "#179CBD" }}
+                style={{ backgroundColor: "#179CBD",marginTop:"10px",marginBottom:"30px" }}
                 fullWidth
                 type="submit"
               >
