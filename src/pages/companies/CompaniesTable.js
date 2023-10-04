@@ -1,11 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux/es/exports";
 import { getCompanies } from "../../redux/slices/CompaniesSlice";
 import { Menu, Dropdown } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
+import TextField from "@mui/material/TextField";
+import { Search } from "@mui/icons-material";
 
 export const CompaniesTable = ({ openCompanyProfile, openCreateAdmin }) => {
   const companies = useSelector(getCompanies);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filterCompanies = (companies, query) => {
+    return companies.filter((item) => {
+      const name = item.name ? item.name.toLowerCase() : "";
+      const email = item.email ? item.name.toLowerCase() : "";
+      const phoneNumber = item.phoneNumber
+        ? item.phoneNumber.toLowerCase()
+        : "";
+
+      const location = item.location ? item.location.toLowerCase() : "";
+
+      return (
+        name.includes(query.toLowerCase()) ||
+        location.includes(query.toLowerCase()) ||
+        phoneNumber.includes(query.toLowerCase()) ||
+        email.includes(query.toLowerCase())
+      );
+    });
+  };
+
+  const filteredCompanies = filterCompanies(companies, searchQuery);
 
   const handleMenuClick = (id, action) => {
     switch (action) {
@@ -37,56 +61,85 @@ export const CompaniesTable = ({ openCompanyProfile, openCreateAdmin }) => {
     </Menu>
   );
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Admin</th>
-          <th>Contact</th>
-          <th>Location</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {companies.map((item) => (
-          <tr key={item.id} className="tableRow">
-            <td>{item.name}</td>
-            <td>{item.email}</td>
-            <td>
-              {item.admin &&
-              item.admin.firstName !== null &&
-              item.admin.lastName !== null
-                ? item.admin.firstName + " " + item.admin.lastName
-                : item.admin && item.admin.authUsername}
-            </td>
-            <td>{item.admin ? item.admin.phoneNumber : ""}</td>
-
-            <td>{item.location}</td>
-            <td>
-              <Dropdown
-                overlay={menu(item.id)}
-                trigger={["click"]}
-                placement="bottomRight"
-              >
-                <EyeOutlined
-                  style={{
-                    fontSize: "16px",
-                    color: "#696969",
-                    transition: "color 0.3s",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.color = "#179CBD";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.color = "#696969";
-                  }}
-                />
-              </Dropdown>
-            </td>
+    <>
+      <div className="seach-container">
+        <TextField
+          placeholder="Search ..."
+          margin="normal"
+          size="small"
+          className="search-input"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          InputProps={{
+            startAdornment: <Search style={{ color: "#179CBD" }} />,
+            style: {
+              borderRadius: "10px",
+              height: "35px",
+              borderWidth: "1px",
+              fontFamily: "Open Sans",
+            },
+          }}
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "#179CBD",
+                fontFamily: "Open Sans",
+              },
+            },
+          }}
+        />
+      </div>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Admin</th>
+            <th>Contact</th>
+            <th>Location</th>
+            <th>Action</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {filteredCompanies.map((item) => (
+            <tr key={item.id} className="tableRow">
+              <td>{item.name}</td>
+              <td>{item.email}</td>
+              <td>
+                {item.admin &&
+                item.admin.firstName !== null &&
+                item.admin.lastName !== null
+                  ? item.admin.firstName + " " + item.admin.lastName
+                  : item.admin && item.admin.authUsername}
+              </td>
+              <td>{item.admin ? item.admin.phoneNumber : ""}</td>
+
+              <td>{item.location}</td>
+              <td>
+                <Dropdown
+                  overlay={menu(item.id)}
+                  trigger={["click"]}
+                  placement="bottomRight"
+                >
+                  <EyeOutlined
+                    style={{
+                      fontSize: "16px",
+                      color: "#696969",
+                      transition: "color 0.3s",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.color = "#179CBD";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.color = "#696969";
+                    }}
+                  />
+                </Dropdown>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
   );
 };

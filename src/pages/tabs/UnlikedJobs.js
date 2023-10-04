@@ -1,14 +1,33 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { EyeOutlined } from "@ant-design/icons";
 import { Menu, Dropdown } from "antd";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import {  getActiveUnLikedJobs } from "../../redux/slices/JobsSlice";
 import { getLoggedInUser } from '../../redux/slices/UsersSlice';
+import TextField from "@mui/material/TextField";
+import { Search } from "@mui/icons-material";
 
 
 const UnLikedJobs = ({ openViewJob, openEditJob}) => {
     const jobs = useSelector(getActiveUnLikedJobs);
     const loggedInUser = useSelector(getLoggedInUser)
+    const [searchQuery, setSearchQuery] = useState("");
+
+    const filterJobs = (jobs, query) => {
+      return jobs.filter((job) => {
+        const title = job.title ? job.title.toLowerCase() : "";
+        const company = job.company.name ? job.company.name.toLowerCase() : "";
+        const region = job.region ? job.region.toLowerCase() : "";
+  
+        return (
+          title.includes(query.toLowerCase()) ||
+          company.includes(query.toLowerCase()) ||
+          region.includes(query.toLowerCase())
+        );
+      });
+    };
+    const filteredJobs = filterJobs(jobs, searchQuery);
+
     const handleMenuClick = (id, action,title) => {
       switch (action) {
         case "view":
@@ -37,11 +56,40 @@ const UnLikedJobs = ({ openViewJob, openEditJob}) => {
       </Menu>
     );
   
-    if (jobs.length === 0) {
+    if (filteredJobs.length === 0) {
       return <p>No jobs available.</p>;
     }
     return (
-      <table className="table">
+      <>
+      <div className="seach-container">
+        <TextField
+          placeholder="Search ..."
+          margin="normal"
+          size="small"
+          className="search-input"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          InputProps={{
+            startAdornment: <Search style={{ color: "#179CBD" }} />,
+            style: {
+              borderRadius: "5px",
+              height: "35px",
+              borderWidth: "1px",
+              fontFamily: "Open Sans",
+            },
+          }}
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "#179CBD",
+                fontFamily: "Open Sans",
+              },
+            },
+          }}
+        />
+      </div>
+
+<table className="table">
         <thead>
           <tr>
             <th>Title</th>
@@ -51,8 +99,8 @@ const UnLikedJobs = ({ openViewJob, openEditJob}) => {
           </tr>
         </thead>
         <tbody>
-          {jobs.length !== 0 &&
-            jobs.map((item) => (
+          {filteredJobs.length !== 0 &&
+            filteredJobs.map((item) => (
               <tr key={item.id} className="tableRow">
                 <td>{item.title}</td>
                 <td>{item.company.name}</td>
@@ -82,6 +130,7 @@ const UnLikedJobs = ({ openViewJob, openEditJob}) => {
             ))}
         </tbody>
       </table>
+      </>
     );
 }
 

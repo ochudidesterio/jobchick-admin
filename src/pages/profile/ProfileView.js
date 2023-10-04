@@ -3,7 +3,7 @@ import "./profileview.css";
 
 const ProfileView = ({ user }) => {
   // Keys to exclude from the table display
-  const excludeKeys = ["message", "id", "profileImage", "role","showProfile"];
+  const excludeKeys = ["message", "id", "profileImage", "role","showProfile","cvUrl"];
   const keyLabels = {
     phoneNumber: "Phone Number",
     firstName: "First Name",

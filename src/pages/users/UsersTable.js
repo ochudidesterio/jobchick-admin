@@ -1,87 +1,81 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux/es/exports";
 import { getUsers } from "../../redux/slices/UsersSlice";
-import { Menu, Dropdown } from "antd";
-import { EyeOutlined } from "@ant-design/icons";
+import UsersTableComponent from "./UsersTableComponent";
+import TextField from "@mui/material/TextField";
+import { Search } from "@mui/icons-material";
 
-
-const UsersTable = ({ openViewProfile,openEditProfile,openChangePassword }) => {
+const UsersTable = ({
+  openViewProfile,
+  openEditProfile,
+  openChangePassword,
+}) => {
   const users = useSelector(getUsers);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const handleMenuClick = (id, action) => {
-    switch (action) {
-      case "profile":
-        openViewProfile(id); // Pass the ID to the openModal function
-        break;
-      case "edit":
-        openEditProfile(id);
-        break;
-      case "password":
-        openChangePassword(id)
-        break;
+  const filterUsers = (users, query) => {
+    return users.filter((user) => {
+      const firstName = user.firstName ? user.firstName.toLowerCase() : "";
+      const lastName = user.lastName ? user.lastName.toLowerCase() : "";
+      const authUsername = user.authUsername
+        ? user.authUsername.toLowerCase()
+        : "";
+      const phoneNumber = user.phoneNumber
+        ? user.phoneNumber.toLowerCase()
+        : "";
+      const email = user.email ? user.email.toLowerCase() : "";
 
-      case "delete":
-        console.log(`Delete - Company ID: ${id}`);
-        break;
-      default:
-        break;
-    }
+      return (
+        firstName.includes(query.toLowerCase()) ||
+        lastName.includes(query.toLowerCase()) ||
+        authUsername.includes(query.toLowerCase()) ||
+        phoneNumber.includes(query.toLowerCase()) ||
+        email.includes(query.toLowerCase())
+      );
+    });
   };
-  const menu = (id) => (
-    <Menu onClick={({ key }) => handleMenuClick(id, key)}>
-      <Menu.Item key="profile">View Profile</Menu.Item>
-      {/* <Menu.Item key="edit">Edit</Menu.Item>
-      <Menu.Item key="password">Change Password</Menu.Item>
-      <Menu.Item key="delete" danger="true">
-        Delete
-      </Menu.Item> */}
-    </Menu>
-  );
+
+  const filteredUsers = filterUsers(users, searchQuery);
+
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
-          <th>Phone Number</th>
-          <th>Email</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {users.map((item) => (
-          <tr key={item.id} className="tableRow">
-            <td>{item.firstName}</td>
-            <td>{item.lastName}</td>
-            <td>{item.authUsername}</td>
-            <td>{item.phoneNumber}</td>
-            <td>{item.email}</td>
-            <td>
-              <Dropdown
-                overlay={menu(item.id)}
-                trigger={["click"]}
-                placement="bottomRight"
-              >
-                <EyeOutlined
-                  style={{
-                    fontSize: '16px',
-                    color: '#696969',
-                    transition: 'color 0.3s',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.color = '#179CBD';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.color = '#696969';
-                  }}
-                />
-              </Dropdown>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div>
+      <div className="seach-container">
+        <h3>Users</h3>
+        <TextField
+          placeholder="Search users.."
+          margin="normal"
+          size="small"
+          className="search-input"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          InputProps={{
+            startAdornment: <Search style={{ color: "#179CBD" }} />,
+            style: {
+              borderRadius: "5px",
+              height: "35px",
+              borderWidth: "1px",
+              fontFamily: "Open Sans",
+            },
+          }}
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "#179CBD",
+                fontFamily: "Open Sans",
+                
+              },
+            },
+          }}
+        />
+      </div>
+
+      <UsersTableComponent
+        userList={filteredUsers}
+        openChangePassword={openChangePassword}
+        openEditProfile={openEditProfile}
+        openViewProfile={openViewProfile}
+      />
+    </div>
   );
 };
 

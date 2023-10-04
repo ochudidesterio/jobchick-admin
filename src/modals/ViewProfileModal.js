@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect ,useCallback} from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
@@ -29,6 +29,28 @@ const ViewProfileModal = ({ open, onClose,companyId,jobId }) => {
 
   const [selectedTab, setSelectedTab] = useState(0);
   const [liked, setLiked] = useState(false);
+  const [images,setImages] = useState([])
+
+
+
+  const fetchImages = useCallback(
+    async()=>{
+      try {
+        if(user){
+          const response = await api.get(`/gallery/get/${user.id}`)
+        console.log("Images",response.data)
+        setImages(response.data)
+        }
+  
+      } catch (error) {
+        
+      }
+    },[user]
+  )
+  useEffect(()=>
+  {
+    fetchImages()
+  },[fetchImages])
  
 
   const handleTabChange = (event, newValue) => {
@@ -135,7 +157,7 @@ const ViewProfileModal = ({ open, onClose,companyId,jobId }) => {
         >
           {selectedTab === 0 && <ProfileView user={user}/>}
        
-          {selectedTab === 4 && <GalleryView />}
+          {selectedTab === 1 && <GalleryView images={images} />}
         </div>
       </Box>
     </Modal>
