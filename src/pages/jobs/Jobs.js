@@ -145,7 +145,7 @@ const Jobs = () => {
     } catch (error) {}
   };
   return (
-    <div className="jobshome">
+    <div dir="rtl" className="jobshome">
       <h3>Active Jobs</h3>
       <JobsTable
         openViewJob={openViewJob}

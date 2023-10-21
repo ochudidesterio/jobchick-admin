@@ -57,7 +57,7 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobDa
       }}
     >
       <Box
-        sx={{ width: 700, p: 2, bgcolor: "background.paper", borderRadius: 2 }}
+        sx={{ width: 700, p: 2,direction:"rtl", bgcolor: "background.paper", borderRadius: 2 }}
       >
         <h5>Create Job</h5>
         <div
@@ -67,9 +67,9 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobDa
           }}
         >
           {
-            <form onSubmit={onSubmit}>
-              <div className="form-row">
-                <div className="form-row-left">
+            <form dir="rtl" onSubmit={onSubmit}>
+              <div dir="rtl" className="form-row">
+                <div dir="rtl" className="form-row-left">
                   <TextField
                     fullWidth
                     label="Title"
@@ -79,9 +79,29 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobDa
                     size="small"
                     value={jobData.title}
                     onChange={onChange}
+                    InputLabelProps={{
+                      style: {
+                         transform: "right",
+                        left: "unset",
+                        right: "1.20rem",
+                        fontSize: "Medium",
+                        overflow: "unset",
+                        backgroundColor: "white", 
+                      },
+                    }}
+      
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        "& fieldset": {
+                          borderColor: "#179CBD",
+                          fontFamily: "Open Sans",
+                          textAlign:"right"
+                        },
+                      },
+                    }}
                   />
                 </div>
-                <div className="form-row-right">
+                <div dir="rtl" className="form-row-right">
                   <TextField
                     fullWidth
                     label="Level"
@@ -91,6 +111,26 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobDa
                     name="level"
                     value={jobData.level}
                     onChange={onChange}
+                    InputLabelProps={{
+                      style: {
+                         transform: "right",
+                        left: "unset",
+                        right: "1.20rem",
+                        fontSize: "Medium",
+                        overflow: "unset",
+                        backgroundColor: "white", 
+                      },
+                    }}
+      
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        "& fieldset": {
+                          borderColor: "#179CBD",
+                          fontFamily: "Open Sans",
+                          textAlign:"right"
+                        },
+                      },
+                    }}
                   />
                 </div>
               </div>
@@ -106,6 +146,26 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobDa
                     name="regionId"
                     value={jobData.regionId}
                     onChange={onChange}
+                    InputLabelProps={{
+                      style: {
+                         transform: "right",
+                        left: "unset",
+                        right: "1.20rem",
+                        fontSize: "Medium",
+                        overflow: "unset",
+                        backgroundColor: "white", 
+                      },
+                    }}
+      
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        "& fieldset": {
+                          borderColor: "#179CBD",
+                          fontFamily: "Open Sans",
+                          textAlign:"right"
+                        },
+                      },
+                    }}
                   >
                     {regions.map((region) => (
                       <MenuItem key={region.id} value={region.id}>
@@ -114,7 +174,7 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobDa
                     ))}
                   </TextField>
                 </div>
-                <div className="form-row-right">
+                <div dir="rtl" className="form-row-right">
                   <TextField
                     fullWidth
                     label="Type"
@@ -125,6 +185,26 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobDa
                     size="small"
                     value={jobData.typeId}
                     onChange={onChange}
+                    InputLabelProps={{
+                      style: {
+                         transform: "right",
+                        left: "unset",
+                        right: "1.20rem",
+                        fontSize: "Medium",
+                        overflow: "unset",
+                        backgroundColor: "white", 
+                      },
+                    }}
+      
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        "& fieldset": {
+                          borderColor: "#179CBD",
+                          fontFamily: "Open Sans",
+                          textAlign:"right"
+                        },
+                      },
+                    }}
                   >
                     {types.map((type) => (
                       <MenuItem key={type.id} value={type.id}>
@@ -155,6 +235,26 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobDa
                 name="categoryId"
                 value={jobData.categoryId}
                 onChange={onChange}
+                InputLabelProps={{
+                  style: {
+                     transform: "right",
+                    left: "unset",
+                    right: "1.20rem",
+                    fontSize: "Medium",
+                    overflow: "unset",
+                    backgroundColor: "white", 
+                  },
+                }}
+  
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#179CBD",
+                      fontFamily: "Open Sans",
+                      textAlign:"right"
+                    },
+                  },
+                }}
               >
                 {categories.map((category) => (
                   <MenuItem key={category.id} value={category.id}>

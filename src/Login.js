@@ -9,8 +9,12 @@ import { useDispatch } from "react-redux/es/hooks/useDispatch";
 import "./login.css";
 import api from "./api/api";
 import { setLoggedInUser } from "./redux/slices/UsersSlice";
+import { useTranslation } from 'react-i18next';
+import './rtl.css'
 
-const Login = ({ onLogin }) => {
+
+const Login = ({ onLogin}) => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -95,7 +99,8 @@ const Login = ({ onLogin }) => {
         </div>
         <div className="login-form">
           <TextField
-            label="אימייל"
+           label={t('email')}
+
             variant="outlined"
             value={email}
             className="input"
@@ -105,22 +110,46 @@ const Login = ({ onLogin }) => {
             onChange={(e) => setEmail(e.target.value)}
             InputProps={{
               startAdornment: <Email style={{ color: "#179CBD" }} />,
+              endAdornment: (
+                <InputAdornment position="end">
+                 
+                </InputAdornment>
+              ),
               style: { borderRadius: "20px", fontFamily: "Open Sans" },
             }}
+
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
                   borderColor: "#179CBD",
                   fontFamily: "Open Sans",
+                  textAlign:"right"
                 },
               },
+              
             }}
+               InputLabelProps={{
+              style: {
+                transform: "right",
+                left: "unset",
+                right: "1.20rem",
+                fontSize: "Medium",
+                
+                overflow: "unset",
+                
+              },
+            }}
+            
+
             error={Boolean(emailError)}
             helperText={emailError}
+            dir = "rtl"
+
           />
 
           <TextField
-            label="סיסמא"
+            label={t('password')}
+
             variant="outlined"
             type={showPassword ? "text" : "password"}
             fullWidth
@@ -148,11 +177,25 @@ const Login = ({ onLogin }) => {
                 "& fieldset": {
                   borderColor: "#179CBD",
                   fontFamily: "Open Sans",
+                  textAlign:"right"
                 },
+              },
+            }}
+
+            InputLabelProps={{
+              style: {
+                 transform: "right",
+                left: "unset",
+                right: "1.20rem",
+                fontSize: "Medium",
+                overflow: "unset",
+                backgroundColor: "white", 
               },
             }}
             error={Boolean(passwordError)}
             helperText={passwordError}
+            dir = "rtl"
+
           />
 
           <Button
@@ -162,7 +205,7 @@ const Login = ({ onLogin }) => {
             color="primary"
             onClick={handleLogin}
           >
-            Login
+            {t('login')}
           </Button>
         </div>
       </div>

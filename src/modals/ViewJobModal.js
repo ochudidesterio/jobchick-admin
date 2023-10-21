@@ -45,6 +45,7 @@ const ViewJobModal = ({ open, onClose, company }) => {
         sx={{
           width: "75vw",
           p: 2,
+          direction:"rtl",
           bgcolor: "background.paper",
           borderRadius: 2,
           height:"100%",
@@ -58,11 +59,11 @@ const ViewJobModal = ({ open, onClose, company }) => {
         <div className="view-job-title">
           <h4>{company !== null ? company.name : ""}</h4>
         </div>
-        <div className="view-job-desc">
+        <div  className="view-job-desc">
           <ViewJobTable job={job} />
           <div className="description-view">
             <h4>Description</h4>
-            <p>{job.description}</p>
+            <p dir="rtl">{job.description}</p>
           </div>
           <div className="view-roles">
             <RolesList roles={roles} />

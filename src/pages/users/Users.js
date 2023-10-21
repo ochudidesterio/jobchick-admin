@@ -17,6 +17,7 @@ import ViewProfileModal from "../../modals/ViewProfileModal";
 // import EditUserModal from "../../modals/EditUserModal";
 // import ChangePasswordModal from "../../modals/ChangePasswordModal";
 import { getCompany } from "../../redux/slices/CompaniesSlice";
+
 const Users = () => {
   const loggedUser = useSelector(getLoggedInUser);
   const mycompany = useSelector(getCompany);
@@ -67,7 +68,7 @@ const Users = () => {
  
 
   return (
-    <div className="userhome">
+    <div dir="rtl" className="userhome">
       <ToastContainer position="top-right" />
       
       <UsersTable

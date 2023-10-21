@@ -6,7 +6,7 @@ const RolesList = ({ roles }) => {
   }
 
   return (
-    <div>
+    <div >
       <h4>Roles and Responsibilities:</h4>
       <ol>
         {roles.map((role) => (

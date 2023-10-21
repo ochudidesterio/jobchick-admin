@@ -87,7 +87,7 @@ const Regions = () => {
     .catch((e)=>console.log(e))
   }
   return (
-    <div className="regions-home">
+    <div dir="rtl" className="regions-home">
       <ToastContainer position="top-right" />
 
       <div className="regions-top">

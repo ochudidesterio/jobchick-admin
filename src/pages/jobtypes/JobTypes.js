@@ -92,7 +92,7 @@ const JobTypes = () => {
     .catch((e)=>console.log(e))
     }
   return (
-    <div className='jobtype-home'>
+    <div dir='rtl' className='jobtype-home'>
             <ToastContainer position="top-right" />
 
         <div className="jobtype-top">

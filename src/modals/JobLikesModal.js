@@ -37,6 +37,7 @@ const JobLikesModal = ({ open, onClose, title, openUserProfile }) => {
         sx={{
           height: "100%",
           width: "70vw",
+          direction:"rtl",
           maxHeight: "90vh",
           p: 2,
           bgcolor: "background.paper",
@@ -48,7 +49,7 @@ const JobLikesModal = ({ open, onClose, title, openUserProfile }) => {
             key="unmatched"
             tab={
               <div style={{ display: "flex", alignItems: "center" }}>
-                <LikeOutlined style={{ fontSize: "16px", marginRight: "5px" }} />
+                <LikeOutlined style={{ fontSize: "16px", marginLeft: "5px" }} />
                 <span>Unmatched Users</span>
               </div>
             }
@@ -57,7 +58,7 @@ const JobLikesModal = ({ open, onClose, title, openUserProfile }) => {
             key="matched"
             tab={
               <div style={{ display: "flex", alignItems: "center" }}>
-                <CheckCircleOutlined style={{ fontSize: "16px", marginRight: "5px" }} />
+                <CheckCircleOutlined style={{ fontSize: "16px", marginLeft: "5px" }} />
                 <span>Matched Users</span>
               </div>
             }

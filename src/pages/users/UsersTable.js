@@ -5,11 +5,13 @@ import UsersTableComponent from "./UsersTableComponent";
 import TextField from "@mui/material/TextField";
 import { Search } from "@mui/icons-material";
 
+
 const UsersTable = ({
   openViewProfile,
   openEditProfile,
   openChangePassword,
 }) => {
+
   const users = useSelector(getUsers);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -57,6 +59,7 @@ const UsersTable = ({
               fontFamily: "Open Sans",
             },
           }}
+          dir = "rtl"
           sx={{
             "& .MuiOutlinedInput-root": {
               "& fieldset": {

@@ -58,7 +58,7 @@ const AdminUsers = () => {
   };
 
   return (
-    <div className="adminhome">
+    <div dir="rtl" className="adminhome">
       <ToastContainer position="top-right" />
 
       <div className="admintop">

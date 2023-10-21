@@ -15,7 +15,7 @@ const AddUserModal = ({title,open,onClose,onSubmit,formData,onChange}) => {
           justifyContent: "center",
         }}
       >
-        <Box sx={{ width: 400, p: 2, bgcolor: "background.paper", borderRadius:2
+        <Box sx={{ width: 400, direction:"rtl", p: 2, bgcolor: "background.paper", borderRadius:2
  }}>
           <h5>{title}</h5>
           <div style={{

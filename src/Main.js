@@ -64,10 +64,11 @@ const Main = ({ onLogout }) => {
   
 
   return (
-    <div style={{ display: "flex", flexDirection: "row" }}>
+    <div style={{ display: "flex", flexDirection: "row-reverse" }}>
       <Menu
         style={{ width: "200px" }}
         mode="vertical"
+        className="rtl"
         selectedKeys={[selectedKey]}
         onClick={({ key }) => handleMenuClick(key)}
       >
@@ -103,6 +104,7 @@ const Main = ({ onLogout }) => {
           icon={<UploadOutlined style={{ fontSize: "16px" }} />}
           style={{ fontSize: "16px", fontFamily: "Open Sans" }}
           className="menu-item"
+          direction="rtl"
         >
           Published Jobs
         </Menu.Item>

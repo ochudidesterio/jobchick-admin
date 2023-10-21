@@ -262,7 +262,7 @@ const Unpublished = () => {
     } catch (error) {}
   };
   return (
-    <div className="unpublished-home">
+    <div dir="rtl" className="unpublished-home">
       <ToastContainer position="top-right" />
       <div className="unpublished-top">
         <h3>Unpublished Jobs</h3>

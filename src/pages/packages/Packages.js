@@ -102,7 +102,7 @@ const Packages = () => {
       }
 
   return (
-    <div className='packages-home'>
+    <div dir='rtl' className='packages-home'>
               <ToastContainer position="top-right" />
 
         <div className="packages-top">

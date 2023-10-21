@@ -1,8 +1,12 @@
 import React from "react";
 import { Menu, Dropdown } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
+import { useTranslation } from 'react-i18next';
+
 
 const UsersTableComponent = ({ userList, openViewProfile, openEditProfile, openChangePassword }) => {
+  const {t} = useTranslation()
+
   const handleMenuClick = (id, action) => {
     switch (action) {
       case "profile":
@@ -30,14 +34,14 @@ const UsersTableComponent = ({ userList, openViewProfile, openEditProfile, openC
   );
 
   return (
-    <table className="table">
+    <table dir="rtl" className="table">
       <thead>
         <tr>
           <th>First Name</th>
           <th>Last Name</th>
           <th>Username</th>
           <th>Phone Number</th>
-          <th>Email</th>
+          <th>{t('email')}</th>
           <th>Action</th>
         </tr>
       </thead>

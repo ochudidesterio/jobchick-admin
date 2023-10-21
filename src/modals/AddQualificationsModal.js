@@ -26,6 +26,7 @@ const AddQualificationsModal = ({
       <Box
         sx={{ width: "75vw",
         height:"100%",
+        direction:"rtl",
         maxHeight: "90vh", p: 2, bgcolor: "background.paper", borderRadius: 2 }}
       >
         <h5>Add Qualifications to {title}</h5>

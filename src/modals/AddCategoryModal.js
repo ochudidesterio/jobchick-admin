@@ -15,7 +15,7 @@ const AddCategoryModal = ({open,onClose,onSubmit,formData,onChange}) => {
           justifyContent: "center",
         }}
       >
-        <Box sx={{ width: 400, p: 2, bgcolor: "background.paper", borderRadius:2
+        <Box sx={{ width: 400, p: 2, direction:"rtl", bgcolor: "background.paper", borderRadius:2
  }}>
           <h5>Add Category</h5>
           <div style={{
@@ -33,6 +33,26 @@ const AddCategoryModal = ({open,onClose,onSubmit,formData,onChange}) => {
               size='small'
               value={formData.name}
               onChange={onChange}
+              InputLabelProps={{
+                style: {
+                   transform: "right",
+                  left: "unset",
+                  right: "1.20rem",
+                  fontSize: "Medium",
+                  overflow: "unset",
+                  backgroundColor: "white", 
+                },
+              }}
+
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "#179CBD",
+                    fontFamily: "Open Sans",
+                    textAlign:"right"
+                  },
+                },
+              }}
             />
          
             

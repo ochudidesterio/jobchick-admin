@@ -26,7 +26,7 @@ const ProfileView = ({ user }) => {
   );
 
   return (
-    <table className="table">
+    <table dir="rtl" className="table">
       <tbody>
         {Object.entries(filteredUser).map(([key, value]) => (
           <tr key={key} className="tableRow">

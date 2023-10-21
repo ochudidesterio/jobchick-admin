@@ -161,7 +161,7 @@ const Companies = () => {
     }
   }
   return (
-    <div className="companyhome">
+    <div dir="rtl" className="companyhome">
       <ToastContainer position="top-right" />
 
       <div className="companytop">

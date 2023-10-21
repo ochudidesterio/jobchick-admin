@@ -93,7 +93,7 @@ const Category = () => {
     .catch((e)=>console.log(e))
   }
   return (
-    <div className="category-home">
+    <div dir="rtl" className="category-home">
       <ToastContainer position="top-right" />
       <div className="category-top">
         <h3>Categories</h3>

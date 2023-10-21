@@ -4,7 +4,7 @@ const GalleryView = ({ images }) => {
   console.log("Images", images);
 
   return (
-    <div className='gallery'>
+    <div dir='rtl' className='gallery'>
       {images.length === 0 ? (
         <p>No images available</p>
       ) : (

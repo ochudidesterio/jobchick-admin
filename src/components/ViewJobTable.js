@@ -2,7 +2,7 @@ import React from 'react'
 
 const ViewJobTable = ({job}) => {
   return (
-    <table
+    <table dir='rtl'
             style={{
               width: "90%",
               borderCollapse: "collapse",
@@ -15,7 +15,7 @@ const ViewJobTable = ({job}) => {
                   style={{
                     borderBottom: "1px solid #ddd",
                     padding: "8px",
-                    textAlign: "left",
+                    textAlign: "right",
                     fontWeight: "600",
                     fontFamily: "Open Sans",
                   }}
@@ -26,7 +26,7 @@ const ViewJobTable = ({job}) => {
                   style={{
                     borderBottom: "1px solid #ddd",
                     padding: "8px",
-                    textAlign: "left",
+                    textAlign: "right",
                     fontWeight: "600",
                     fontFamily: "Open Sans",
                   }}
@@ -37,7 +37,7 @@ const ViewJobTable = ({job}) => {
                   style={{
                     borderBottom: "1px solid #ddd",
                     padding: "8px",
-                    textAlign: "left",
+                    textAlign: "right",
                     fontWeight: "600",
                     fontFamily: "Open Sans",
                   }}
@@ -48,7 +48,7 @@ const ViewJobTable = ({job}) => {
                   style={{
                     borderBottom: "1px solid #ddd",
                     padding: "8px",
-                    textAlign: "left",
+                    textAlign: "right",
                     fontWeight: "600",
                     fontFamily: "Open Sans",
                   }}
@@ -59,7 +59,7 @@ const ViewJobTable = ({job}) => {
                   style={{
                     borderBottom: "1px solid #ddd",
                     padding: "8px",
-                    textAlign: "left",
+                    textAlign: "right",
                     fontWeight: "600",
                     fontFamily: "Open Sans",
                   }}

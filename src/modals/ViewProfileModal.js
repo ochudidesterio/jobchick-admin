@@ -81,7 +81,8 @@ const ViewProfileModal = ({ open, onClose,companyId,jobId }) => {
       }}
     >
       <Box
-        sx={{ width: "70vw", p: 2, bgcolor: "background.paper", borderRadius: 2,
+      
+        sx={{ width: "70vw", direction:"rtl", p: 2, bgcolor: "background.paper", borderRadius: 2,
         height:"100%",
         maxHeight: "90vh", // Set a maximum height for the modal
           overflow: "auto", // Enable scrolling when content exceeds the height
@@ -115,7 +116,7 @@ const ViewProfileModal = ({ open, onClose,companyId,jobId }) => {
               alignItems: "center",
               justifyContent: "flex-start",
               textTransform: "none",
-              marginRight: "30px",
+              marginLeft: "30px",
             }}
           />
           
@@ -130,7 +131,7 @@ const ViewProfileModal = ({ open, onClose,companyId,jobId }) => {
               alignItems: "center",
               justifyContent: "flex-start",
               textTransform: "none",
-              marginRight: "30px",
+              marginLeft: "30px",
             }}
           />
          
