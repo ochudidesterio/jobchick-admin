@@ -1,24 +1,29 @@
 import React from "react";
 import "./profileview.css";
+import { useTranslation } from 'react-i18next';
+
 
 const ProfileView = ({ user }) => {
   // Keys to exclude from the table display
+  const {t} = useTranslation()
+
   const excludeKeys = ["message", "id", "profileImage", "role","showProfile","cvUrl"];
   const keyLabels = {
-    phoneNumber: "Phone Number",
-    firstName: "First Name",
-    lastName: "Last Name",
-    email: "Email",
-    authUsername: "Username",
-    gender: "Gender",
-    proffession: "Profession",
-    age: "Age",
-    education: "Education Level",
-    skills: "Skills",
-    languages: "Languages",
-    bio:"Biography",
-    location:"From",
+    phoneNumber: t('phonenumber'),
+    firstName: t('firstname'),
+    lastName: t('lastname'),
+    email: t('email'),
+    authUsername: t('username'),
+    gender: t('gender'),
+    proffession: t('proffesion'),
+    age: t('age'),
+    education: t('educationlevel'),
+    skills: t('skills'),
+    languages: t('languages'),
+    bio:t('biography'),
+    location:t('from'),
   };
+
 
   // Filter the user object to exclude the keys
   const filteredUser = Object.fromEntries(

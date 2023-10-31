@@ -5,12 +5,15 @@ import { EyeOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { getInActiveJobs } from "../../redux/slices/JobsSlice";
 import { getLoggedInUser } from "../../redux/slices/UsersSlice";
+import { useTranslation } from 'react-i18next';
+
 
 const UpublishedTable = ({
   openAddRole,
   openAddQualification,
   openViewJob,
 }) => {
+  const {t} = useTranslation()
   const inactiveJobs = useSelector(getInActiveJobs);
   const loggedInUser = useSelector(getLoggedInUser)
   const handleMenuClick = (id, title, action) => {
@@ -33,7 +36,7 @@ const UpublishedTable = ({
   };
   const menu = (id, title) => (
     <Menu onClick={({ key }) => handleMenuClick(id, title, key)}>
-      <Menu.Item key="view">View</Menu.Item>
+      <Menu.Item key="view">{t('view')}</Menu.Item>
       {loggedInUser && loggedInUser.role === "ADMIN" && <>
       <Menu.Item key="roles">Roles</Menu.Item>
       <Menu.Item key="qualifications">Qualifications</Menu.Item>
@@ -51,10 +54,10 @@ const UpublishedTable = ({
     <table className="table">
       <thead>
         <tr>
-          <th>Title</th>
-          <th>Company</th>
-          <th>Region</th>
-          <th>Action</th>
+          <th>{t('title')}</th>
+          <th>{t('companies')}</th>
+          <th>{t('regions')}</th>
+          <th>{t('action')}</th>
         </tr>
       </thead>
       <tbody>

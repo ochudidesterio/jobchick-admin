@@ -28,8 +28,12 @@ import { getLoggedInUser } from "./redux/slices/UsersSlice";
 import api from "./api/api";
 import { setCompany } from "./redux/slices/CompaniesSlice";
 import Packages from "./pages/packages/Packages";
+import { useTranslation } from 'react-i18next';
+
 
 const Main = ({ onLogout }) => {
+  const { t } = useTranslation();
+
   const [selectedKey, setSelectedKey] = useState("/");
   const loggedUser = useSelector(getLoggedInUser);
   const dispatch = useDispatch();
@@ -87,7 +91,7 @@ const Main = ({ onLogout }) => {
           style={{ fontSize: "16px", fontFamily: "Open Sans" }}
           className="menu-item"
         >
-          Users
+          {t('users')}
         </Menu.Item>
         {loggedUser.role === "SUPERADMIN" && (
           <Menu.Item
@@ -96,7 +100,7 @@ const Main = ({ onLogout }) => {
             style={{ fontSize: "16px", fontFamily: "Open Sans" }}
             className="menu-item"
           >
-            Companies
+            {t('companies')}
           </Menu.Item>
         )}
         <Menu.Item
@@ -106,7 +110,7 @@ const Main = ({ onLogout }) => {
           className="menu-item"
           direction="rtl"
         >
-          Published Jobs
+          {t('publishedjobs')}
         </Menu.Item>
         <Menu.Item
           key="/unpublished"
@@ -114,7 +118,7 @@ const Main = ({ onLogout }) => {
           style={{ fontSize: "16px", fontFamily: "Open Sans" }}
           className="menu-item"
         >
-          Unpublished Jobs
+          {t('unpublishedjobs')}
         </Menu.Item>
         {loggedUser.role === "SUPERADMIN" && (
           <>
@@ -125,7 +129,7 @@ const Main = ({ onLogout }) => {
               style={{ fontSize: "16px", fontFamily: "Open Sans" }}
               className="menu-item"
             >
-              Admin Users
+              {t('adminusers')}
             </Menu.Item>
             <Menu.Item
               key="/categories"
@@ -133,7 +137,7 @@ const Main = ({ onLogout }) => {
               style={{ fontSize: "16px", fontFamily: "Open Sans" }}
               className="menu-item"
             >
-              Categories
+              {t('categories')}
             </Menu.Item>
             <Menu.Item
               key="/types"
@@ -141,7 +145,7 @@ const Main = ({ onLogout }) => {
               style={{ fontSize: "16px", fontFamily: "Open Sans" }}
               className="menu-item"
             >
-              Job Types
+              {t('jobtypes')}
             </Menu.Item>
             <Menu.Item
               key="/regions"
@@ -149,7 +153,7 @@ const Main = ({ onLogout }) => {
               style={{ fontSize: "16px", fontFamily: "Open Sans" }}
               className="menu-item"
             >
-              Regions
+              {t('regions')}
             </Menu.Item>
 
             <Menu.Item
@@ -158,7 +162,7 @@ const Main = ({ onLogout }) => {
               style={{ fontSize: "16px", fontFamily: "Open Sans" }}
               className="menu-item"
             >
-             Premium
+             {t('premium')}
             </Menu.Item>
           </>
         )}
@@ -170,7 +174,7 @@ const Main = ({ onLogout }) => {
           danger="true"
           className="menu-item"
         >
-          Sign Out
+          {t('signout')}
         </Menu.Item>
       </Menu>
       <Content />

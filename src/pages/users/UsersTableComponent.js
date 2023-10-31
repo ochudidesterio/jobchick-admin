@@ -28,7 +28,7 @@ const UsersTableComponent = ({ userList, openViewProfile, openEditProfile, openC
 
   const menu = (id) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
-      <Menu.Item key="profile">View Profile</Menu.Item>
+      <Menu.Item key="profile">{t('viewprofile')}</Menu.Item>
       {/* Add other menu items as needed */}
     </Menu>
   );
@@ -37,12 +37,12 @@ const UsersTableComponent = ({ userList, openViewProfile, openEditProfile, openC
     <table dir="rtl" className="table">
       <thead>
         <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
-          <th>Phone Number</th>
+          <th>{t('firstname')}</th>
+          <th>{t('lastname')}</th>
+          <th>{t('username')}</th>
+          <th>{t('phonenumber')}</th>
           <th>{t('email')}</th>
-          <th>Action</th>
+          <th>{t('action')}</th>
         </tr>
       </thead>
       <tbody>

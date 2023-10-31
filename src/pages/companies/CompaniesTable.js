@@ -5,8 +5,11 @@ import { Menu, Dropdown } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
 import TextField from "@mui/material/TextField";
 import { Search } from "@mui/icons-material";
+import { useTranslation } from 'react-i18next';
+
 
 export const CompaniesTable = ({ openCompanyProfile, openCreateAdmin }) => {
+  const {t}=useTranslation()
   const companies = useSelector(getCompanies);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -52,11 +55,11 @@ export const CompaniesTable = ({ openCompanyProfile, openCreateAdmin }) => {
   };
   const menu = (id) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
-      <Menu.Item key="profile">View</Menu.Item>
-      <Menu.Item key="edit">Edit</Menu.Item>
-      <Menu.Item key="admin">Create admin</Menu.Item>
+      <Menu.Item key="profile">{t('view')}</Menu.Item>
+      <Menu.Item key="edit">{t('edit')}</Menu.Item>
+      <Menu.Item key="admin">{t('createadmin')}</Menu.Item>
       <Menu.Item key="delete" danger="true">
-        Deactivate
+        {t('deactivate')}
       </Menu.Item>
     </Menu>
   );
@@ -64,7 +67,7 @@ export const CompaniesTable = ({ openCompanyProfile, openCreateAdmin }) => {
     <>
       <div className="seach-container">
         <TextField
-          placeholder="Search ..."
+          placeholder={t('search')}
           margin="normal"
           size="small"
           className="search-input"
@@ -92,12 +95,12 @@ export const CompaniesTable = ({ openCompanyProfile, openCreateAdmin }) => {
       <table className="table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Admin</th>
-            <th>Contact</th>
-            <th>Location</th>
-            <th>Action</th>
+            <th>{t('name')}</th>
+            <th>{t('email')}</th>
+            <th>{t('admin')}</th>
+            <th>{t('contact')}</th>
+            <th>{t('location')}</th>
+            <th>{t('action')}</th>
           </tr>
         </thead>
         <tbody>

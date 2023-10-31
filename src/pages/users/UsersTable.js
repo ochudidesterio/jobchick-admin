@@ -4,6 +4,8 @@ import { getUsers } from "../../redux/slices/UsersSlice";
 import UsersTableComponent from "./UsersTableComponent";
 import TextField from "@mui/material/TextField";
 import { Search } from "@mui/icons-material";
+import { useTranslation } from 'react-i18next';
+
 
 
 const UsersTable = ({
@@ -11,6 +13,8 @@ const UsersTable = ({
   openEditProfile,
   openChangePassword,
 }) => {
+
+  const{t} = useTranslation()
 
   const users = useSelector(getUsers);
   const [searchQuery, setSearchQuery] = useState("");
@@ -42,9 +46,9 @@ const UsersTable = ({
   return (
     <div>
       <div className="seach-container">
-        <h3>Users</h3>
+        <h3>{t('users')}</h3>
         <TextField
-          placeholder="Search users.."
+          placeholder={t('searchuser')}
           margin="normal"
           size="small"
           className="search-input"

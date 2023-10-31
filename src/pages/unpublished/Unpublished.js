@@ -20,8 +20,11 @@ import { useSelector } from "react-redux/es/hooks/useSelector";
 import { getLoggedInUser } from "../../redux/slices/UsersSlice";
 import { getCompany } from "../../redux/slices/CompaniesSlice";
 import CustomAddButton from "../../components/CustomAddButton";
+import { useTranslation } from 'react-i18next';
+
 
 const Unpublished = () => {
+  const {t} = useTranslation()
   const dispatch = useDispatch();
   const loggedUser = useSelector(getLoggedInUser);
   const mycompany = useSelector(getCompany);
@@ -265,7 +268,7 @@ const Unpublished = () => {
     <div dir="rtl" className="unpublished-home">
       <ToastContainer position="top-right" />
       <div className="unpublished-top">
-        <h3>Unpublished Jobs</h3>
+        <h3>{t('unpublishedjobs')}</h3>
         {loggedUser && loggedUser.role === "ADMIN" && (
           <CustomAddButton onClick={handleShowCreateJob} name="Create a Job" />
         )}

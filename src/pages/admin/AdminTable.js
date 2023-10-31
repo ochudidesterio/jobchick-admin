@@ -4,9 +4,12 @@ import { getAdmins } from '../../redux/slices/UsersSlice';
 import { Menu, Dropdown } from "antd";
 
 import { EyeOutlined } from "@ant-design/icons";
+import { useTranslation } from 'react-i18next';
+
 
 
 const AdminTable = () => {
+  const {t} = useTranslation()
     const admins = useSelector(getAdmins)
     const handleRowClick = (client) => {
         
@@ -17,8 +20,8 @@ const AdminTable = () => {
       };
       const menu = (id) => (
         <Menu onClick={({ key }) => handleMenuClick(id, key)}>
-          <Menu.Item key="profile">View Profile</Menu.Item>
-          <Menu.Item key="edit">Edit</Menu.Item>
+          <Menu.Item key="profile">{t('viewprofile')}</Menu.Item>
+          <Menu.Item key="edit">{t('edit')}</Menu.Item>
           <Menu.Item key="delete" danger="true">
             Delete
           </Menu.Item>
@@ -28,13 +31,13 @@ const AdminTable = () => {
     <table className="table">
     <thead>
       <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Username</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-        <th>Company</th>
-        <th>Action</th>
+        <th>{t('firstname')}</th>
+        <th>{t('lastname')}</th>
+        <th>{t('username')}</th>
+        <th>{t('phonenumber')}</th>
+        <th>{t('email')}</th>
+        <th>{t('companies')}</th>
+        <th>{t('action')}</th>
       </tr>
     </thead>
     <tbody>

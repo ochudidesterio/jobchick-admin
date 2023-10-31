@@ -1,8 +1,11 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next';
+
 
 const CompanyDetailTable = ({company}) => {
+  const {t} = useTranslation()
   return (
-    <table
+    <table dir='rtl'
             style={{
               width: "90%",
               borderCollapse: "collapse",
@@ -15,34 +18,37 @@ const CompanyDetailTable = ({company}) => {
                   style={{
                     borderBottom: "1px solid #ddd",
                     padding: "8px",
-                    textAlign: "left",
                     fontWeight: "600",
+                    textAlign: "right",
+
                     fontFamily: "Open Sans",
                   }}
                 >
-                  Name
+                  {t('name')}
                 </th>
                 <th
                   style={{
                     borderBottom: "1px solid #ddd",
                     padding: "8px",
-                    textAlign: "left",
                     fontWeight: "600",
+                    textAlign: "right",
+
                     fontFamily: "Open Sans",
                   }}
                 >
-                  Email
+                  {t('email')}
                 </th>
                 <th
                   style={{
                     borderBottom: "1px solid #ddd",
                     padding: "8px",
-                    textAlign: "left",
                     fontWeight: "600",
+                    textAlign: "right",
+
                     fontFamily: "Open Sans",
                   }}
                 >
-                  Location
+                  {t('location')}
                 </th>
                 
               

@@ -13,9 +13,12 @@ import { setTypes } from "../../redux/slices/TypesSlice";
 import { setRegions } from "../../redux/slices/RegionSlice";
 import ViewCompanyProfileModal from "../../modals/ViewCompanyProfileModal";
 import AddUserModal from "../../modals/AddUserModal";
+import { useTranslation } from 'react-i18next';
+
 
 const Companies = () => {
   const dispatch = useDispatch();
+  const {t }= useTranslation()
 
   //selected company
   const [selectedCompanyId, setSelectedCompanyId] = useState(null);
@@ -165,9 +168,9 @@ const Companies = () => {
       <ToastContainer position="top-right" />
 
       <div className="companytop">
-        <h3>Companies</h3>
+        <h3>{t('companies')}</h3>
         <div>
-          <CustomAddButton onClick={handleShow} name="Add Company" />
+          <CustomAddButton onClick={handleShow} name={t('addcompany')} />
         </div>
       </div>
       <CompaniesTable  openCreateAdmin={openCreateAdmin} openCompanyProfile={openCompanyProfile} />

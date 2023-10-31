@@ -1,6 +1,9 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next';
+
 
 const ViewJobTable = ({job}) => {
+  const {t} = useTranslation()
   return (
     <table dir='rtl'
             style={{
@@ -20,7 +23,7 @@ const ViewJobTable = ({job}) => {
                     fontFamily: "Open Sans",
                   }}
                 >
-                  Title
+                  {t('title')}
                 </th>
                 <th
                   style={{
@@ -31,7 +34,7 @@ const ViewJobTable = ({job}) => {
                     fontFamily: "Open Sans",
                   }}
                 >
-                  Category
+                  {t('categories')}
                 </th>
                 <th
                   style={{
@@ -42,7 +45,7 @@ const ViewJobTable = ({job}) => {
                     fontFamily: "Open Sans",
                   }}
                 >
-                  Region
+                  {t('regions')}
                 </th>
                 <th
                   style={{
@@ -53,7 +56,7 @@ const ViewJobTable = ({job}) => {
                     fontFamily: "Open Sans",
                   }}
                 >
-                  Type
+                  {t('type')}
                 </th>
                 <th
                   style={{
@@ -64,7 +67,7 @@ const ViewJobTable = ({job}) => {
                     fontFamily: "Open Sans",
                   }}
                 >
-                  Level
+                  {t('level')}
                 </th>
               </tr>
             </thead>

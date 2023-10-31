@@ -8,8 +8,11 @@ import AdminTable from "./AdminTable";
 import { showSuccessToast, showErrorToast } from "../../Constants/Toasts";
 import { ToastContainer } from "react-toastify";
 import AddAdminModal from "./AddAdminModal";
+import { useTranslation } from 'react-i18next';
+
 
 const AdminUsers = () => {
+  const {t} = useTranslation()
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);

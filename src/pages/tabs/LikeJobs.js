@@ -6,8 +6,11 @@ import { getActiveLikedJobs } from "../../redux/slices/JobsSlice";
 import { getLoggedInUser } from "../../redux/slices/UsersSlice";
 import TextField from "@mui/material/TextField";
 import { Search } from "@mui/icons-material";
+import { useTranslation } from 'react-i18next';
+
 
 const LikeJobs = ({ openViewJob, openEditJob, openViewLikes }) => {
+  const {t} = useTranslation()
   const jobs = useSelector(getActiveLikedJobs);
   const loggedInUser = useSelector(getLoggedInUser);
   const [searchQuery, setSearchQuery] = useState("");
@@ -48,11 +51,11 @@ const LikeJobs = ({ openViewJob, openEditJob, openViewLikes }) => {
   };
   const menu = (id, title) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key, title)}>
-      <Menu.Item key="view">View</Menu.Item>
+      <Menu.Item key="view">{t('view')}</Menu.Item>
       {loggedInUser && loggedInUser.role === "ADMIN" && (
         <>
-          <Menu.Item key="likes">Likes</Menu.Item>
-          <Menu.Item key="edit">Edit</Menu.Item>
+          <Menu.Item key="likes">{t('likes')}</Menu.Item>
+          <Menu.Item key="edit">{t('edit')}</Menu.Item>
           <Menu.Item key="delete" danger="true">
             Delete
           </Menu.Item>
@@ -68,7 +71,7 @@ const LikeJobs = ({ openViewJob, openEditJob, openViewLikes }) => {
     <>
       <div className="seach-container">
         <TextField
-          placeholder="Search ..."
+          placeholder={t('search')}
           margin="normal"
           size="small"
           className="search-input"
@@ -96,10 +99,10 @@ const LikeJobs = ({ openViewJob, openEditJob, openViewLikes }) => {
       <table className="table">
         <thead>
           <tr>
-            <th>Title</th>
-            <th>Company</th>
-            <th>Region</th>
-            <th>Action</th>
+            <th>{t('title')}</th>
+            <th>{t('companies')}</th>
+            <th>{t('regions')}</th>
+            <th>{t('action')}</th>
           </tr>
         </thead>
         <tbody>

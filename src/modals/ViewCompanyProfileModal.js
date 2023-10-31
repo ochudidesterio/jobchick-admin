@@ -16,9 +16,12 @@ import { useSelector } from "react-redux";
 import Profile from "../assets/profile.png"
 import { getSelectedCompany } from "../redux/slices/CompaniesSlice";
 import CompanyDetailTable from "../components/CompanyDetailTable";
+import { useTranslation } from 'react-i18next';
+
 
 
 const ViewCompanyProfileModal = ({ open, onClose }) => {
+  const{t} = useTranslation()
   const company = useSelector(getSelectedCompany)
 
   const [selectedTab, setSelectedTab] = useState(0);
@@ -67,7 +70,7 @@ const ViewCompanyProfileModal = ({ open, onClose }) => {
           
           <Tab
             icon={<FavoriteIcon style={{ marginTop: "6", fontSize: "15" }} />}
-            label="Likes"
+            label={t('likes')}
             sx={{
               flexDirection: "row",
               alignItems: "center",
@@ -77,7 +80,7 @@ const ViewCompanyProfileModal = ({ open, onClose }) => {
           />
           <Tab
             icon={<ThumbDownIcon style={{ marginTop: "6", fontSize: "15" }} />}
-            label="Dislikes"
+            label={t('deslikes')}
             sx={{
               flexDirection: "row",
               alignItems: "center",
@@ -89,7 +92,7 @@ const ViewCompanyProfileModal = ({ open, onClose }) => {
             icon={
               <CheckCircleIcon style={{ marginTop: "6", fontSize: "15" }} />
             }
-            label="Matched"
+            label={t('matched')}
             sx={{
               flexDirection: "row",
               alignItems: "center",
@@ -102,7 +105,7 @@ const ViewCompanyProfileModal = ({ open, onClose }) => {
             icon={
               <PhotoLibraryIcon style={{ marginTop: "6", fontSize: "15" }} />
             }
-            label="Gallery"
+            label={t('gallery')}
             sx={{
               flexDirection: "row",
               alignItems: "center",

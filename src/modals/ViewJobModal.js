@@ -14,7 +14,10 @@ import QualificationList from "../components/QualificationList";
 import ViewJobTable from "../components/ViewJobTable";
 import api from "../api/api";
 import { getLoggedInUser } from "../redux/slices/UsersSlice";
+import { useTranslation } from 'react-i18next';
+
 const ViewJobModal = ({ open, onClose, company }) => {
+  const {t} = useTranslation()
   const job = useSelector(getSelectedJob);
   const roles = useSelector(getRoles);
   const qualifications = useSelector(getQualifications);
@@ -62,7 +65,7 @@ const ViewJobModal = ({ open, onClose, company }) => {
         <div  className="view-job-desc">
           <ViewJobTable job={job} />
           <div className="description-view">
-            <h4>Description</h4>
+            <h4>{t('description')}</h4>
             <p dir="rtl">{job.description}</p>
           </div>
           <div className="view-roles">

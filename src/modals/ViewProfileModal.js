@@ -17,12 +17,15 @@ import Profile from "../assets/profile.png"
 import { IconButton } from "@mui/material";
 import api from "../api/api";
 import { getIsLikedJob } from "../redux/slices/JobsSlice";
+import { useTranslation } from 'react-i18next';
+
 
 
 
 
 
 const ViewProfileModal = ({ open, onClose,companyId,jobId }) => {
+  const {t} = useTranslation()
     const user = useSelector(getSelectedUser);
     const likedJob = useSelector(getIsLikedJob)
     const loggedInUser = useSelector(getLoggedInUser)
@@ -110,7 +113,7 @@ const ViewProfileModal = ({ open, onClose,companyId,jobId }) => {
         >
           <Tab
             icon={<PersonIcon style={{ marginTop: "6", fontSize: "15" }} />}
-            label="Profile"
+            label={t('profile')}
             sx={{
               flexDirection: "row",
               alignItems: "center",
@@ -125,7 +128,7 @@ const ViewProfileModal = ({ open, onClose,companyId,jobId }) => {
             icon={
               <PhotoLibraryIcon style={{ marginTop: "6", fontSize: "15" }} />
             }
-            label="Gallery"
+            label={t('gallery')}
             sx={{
               flexDirection: "row",
               alignItems: "center",

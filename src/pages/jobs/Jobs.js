@@ -19,7 +19,10 @@ import {
 } from "../../redux/slices/UsersSlice";
 import JobLikesModal from "../../modals/JobLikesModal";
 import ViewProfileModal from "../../modals/ViewProfileModal";
+import { useTranslation } from 'react-i18next';
+
 const Jobs = () => {
+  const {t} = useTranslation()
   const dispatch = useDispatch();
   const mycompany = useSelector(getCompany);
   const loggedUser = useSelector(getLoggedInUser);
@@ -146,7 +149,7 @@ const Jobs = () => {
   };
   return (
     <div dir="rtl" className="jobshome">
-      <h3>Active Jobs</h3>
+      <h3>{t('activejobs')}</h3>
       <JobsTable
         openViewJob={openViewJob}
         openEditJob={openEditJob}
