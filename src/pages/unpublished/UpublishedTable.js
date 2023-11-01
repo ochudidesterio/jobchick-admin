@@ -48,7 +48,7 @@ const UpublishedTable = ({
   );
 
   if (inactiveJobs.length === 0) {
-    return <p>No inactive jobs available.</p>;
+    return <p>{t('noinactivejobs')}</p>;
   }
   return (
     <table className="table">

@@ -93,5 +93,8 @@
   "passwordisrequired":"Password is required",
   "onlyadminsareallowed":"Only Admins are allowed",
   "updated":"Updated",
-  "anerroroccurred":"An Error Occurred"
+  "anerroroccurred":"An Error Occurred",
+  "salary":"Salary",
+  "enterjobdescription":"Enter Job Description",
+  "noinactivejobs":"No inactive jobs available"
 }

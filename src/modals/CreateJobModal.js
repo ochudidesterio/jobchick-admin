@@ -12,9 +12,12 @@ import { getRegions } from "../redux/slices/RegionSlice";
 import { Loader } from "@googlemaps/js-api-loader";
 
 import Map from "../components/Map";
+import { useTranslation } from 'react-i18next';
+
 
 
 const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobData }) => {
+  const {t} = useTranslation()
   const categories = useSelector(getCategories);
   const types = useSelector(getTypes);
   const regions = useSelector(getRegions);
@@ -59,7 +62,7 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobDa
       <Box
         sx={{ width: 700, p: 2,direction:"rtl", bgcolor: "background.paper", borderRadius: 2 }}
       >
-        <h5>Create Job</h5>
+        <h5>{t('createajob')}</h5>
         <div
           style={{
             maxHeight: "80vh",
@@ -72,7 +75,7 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobDa
                 <div dir="rtl" className="form-row-left">
                   <TextField
                     fullWidth
-                    label="Title"
+                    label={t('title')}
                     placeholder="Software Engineer"
                     margin="normal"
                     name="title"
@@ -104,7 +107,7 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobDa
                 <div dir="rtl" className="form-row-right">
                   <TextField
                     fullWidth
-                    label="Level"
+                    label={t('level')}
                     placeholder="Senior/Junior/Experienced/Beginner"
                     margin="normal"
                     size="small"
@@ -139,7 +142,7 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobDa
                   <TextField
                     fullWidth
                     select
-                    label="Region"
+                    label={t('regions')}
                     placeholder="Select Region"
                     margin="normal"
                     size="small"
@@ -177,7 +180,7 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobDa
                 <div dir="rtl" className="form-row-right">
                   <TextField
                     fullWidth
-                    label="Type"
+                    label={t('type')}
                     select
                     placeholder="Select Type"
                     margin="normal"
@@ -216,19 +219,39 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobDa
               </div>
               <TextField
                 fullWidth
-                label="Salary"
+                label={t('salary')}
                 placeholder="$10k - $30k"
                 margin="normal"
                 size="small"
                 name="salary"
                 value={jobData.salary}
                 onChange={onChange}
+                InputLabelProps={{
+                  style: {
+                     transform: "right",
+                    left: "unset",
+                    right: "1.20rem",
+                    fontSize: "Medium",
+                    overflow: "unset",
+                    backgroundColor: "white", 
+                  },
+                }}
+  
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#179CBD",
+                      fontFamily: "Open Sans",
+                      textAlign:"right"
+                    },
+                  },
+                }}
               />
               {/* Render categories */}
               <TextField
                 fullWidth
                 select
-                label="Category"
+                label={t('categories')}
                 placeholder="Select category"
                 margin="normal"
                 size="small"
@@ -263,7 +286,7 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobDa
                 ))}
               </TextField>
               <TextareaAutosize
-                placeholder="Enter Job Description"
+                placeholder={t('enterjobdescription')}
                 minRows={3}
                 maxRows={8}
                 name="description"
@@ -294,7 +317,7 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobDa
                 fullWidth
                 type="submit"
               >
-                Save
+                {t('save')}
               </Button>
             </form>
           }

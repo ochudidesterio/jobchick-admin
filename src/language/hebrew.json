@@ -93,5 +93,8 @@
   "passwordisrequired":"סיסמה היא שדה חובה",
   "onlyadminsareallowed":"רק מנהלים רשאים",
   "updated":"מעודכן",
-  "anerroroccurred":"אירעה שגיאה"
+  "anerroroccurred":"אירעה שגיאה",
+  "salary":"שכר",
+  "enterjobdescription":"הזן תיאור משרה",
+  "noinactivejobs":"אין משרות לא פעילות זמינות"
 }
