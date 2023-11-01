@@ -21,6 +21,7 @@ import { getLoggedInUser } from "../../redux/slices/UsersSlice";
 import { getCompany } from "../../redux/slices/CompaniesSlice";
 import CustomAddButton from "../../components/CustomAddButton";
 import { useTranslation } from 'react-i18next';
+import { setCategories } from "../../redux/slices/CategorySlice";
 
 
 const Unpublished = () => {
@@ -237,6 +238,20 @@ const Unpublished = () => {
       }
       if (jobres.status === 200) {
         dispatch(setInActiveJobs(jobres.data));
+      }
+    } catch (error) {}
+  };
+
+
+  useEffect(() => {
+    fetchCategories();
+  });
+
+  const fetchCategories = async () => {
+    try {
+      const response = await api.get("/category/get/all");
+      if (response.status === 200) {
+        dispatch(setCategories(response.data));
       }
     } catch (error) {}
   };
