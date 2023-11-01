@@ -7,10 +7,13 @@ import { LikeOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import { Tabs } from "antd";
 import Unmatched from "../pages/tabs/Unmatched";
 import Matched from "../pages/tabs/Matched";
+import { useTranslation } from 'react-i18next';
+
 
 const { TabPane } = Tabs;
 
 const JobLikesModal = ({ open, onClose, title, openUserProfile }) => {
+  const {t} = useTranslation()
   const likeUsers = useSelector(getJobLikeUsers);
   const matchedUsers = useSelector(getJobMatchUsers);
   const [activeTab, setActiveTab] = useState("unmatched");
@@ -50,7 +53,7 @@ const JobLikesModal = ({ open, onClose, title, openUserProfile }) => {
             tab={
               <div style={{ display: "flex", alignItems: "center" }}>
                 <LikeOutlined style={{ fontSize: "16px", marginLeft: "5px" }} />
-                <span>Unmatched Users</span>
+                <span>{t('unmatchedusers')}</span>
               </div>
             }
           />
@@ -59,7 +62,7 @@ const JobLikesModal = ({ open, onClose, title, openUserProfile }) => {
             tab={
               <div style={{ display: "flex", alignItems: "center" }}>
                 <CheckCircleOutlined style={{ fontSize: "16px", marginLeft: "5px" }} />
-                <span>Matched Users</span>
+                <span>{t('matchedusers')}</span>
               </div>
             }
           />

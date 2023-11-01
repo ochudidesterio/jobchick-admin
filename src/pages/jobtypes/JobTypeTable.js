@@ -4,8 +4,11 @@ import { Menu, Dropdown } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
 
 import { getTypes } from "../../redux/slices/TypesSlice";
+import { useTranslation } from 'react-i18next';
+
 
 const JobTypeTable = ({editType}) => {
+  const {t} = useTranslation()
   const types = useSelector(getTypes)
 
   const handleMenuClick = (id, action) => {
@@ -23,9 +26,9 @@ const JobTypeTable = ({editType}) => {
     };
   const menu = (id) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
-      <Menu.Item key="edit">Edit</Menu.Item>
+      <Menu.Item key="edit">{t('edit')}</Menu.Item>
       <Menu.Item key="delete" danger="true">
-        Delete
+        {t('delete')}
       </Menu.Item>
     </Menu>
   );
@@ -34,8 +37,8 @@ const JobTypeTable = ({editType}) => {
       <thead>
         <tr>
           
-          <th>Type</th>
-          <th>Action</th>
+          <th>{t('type')}</th>
+          <th>{t('action')}</th>
         </tr>
       </thead>
       <tbody>

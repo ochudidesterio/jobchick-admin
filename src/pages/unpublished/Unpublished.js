@@ -109,11 +109,11 @@ const Unpublished = () => {
         jobData.title === "" ||
         jobData.typeId === ""
       ) {
-        showErrorToast("Failed, all fields are required");
+        showErrorToast(t('failedallfieldsrequired'));
       } else {
         const response = await api.post("/job/create", jobData);
         if (response.status === 200) {
-          showSuccessToast("Created");
+          showSuccessToast(t('created'));
           handleCloseCreateJob();
         }
       }
@@ -123,10 +123,7 @@ const Unpublished = () => {
   };
 
   //qualifications input
-  // const handleQualificationsInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setQualificationData({ ...qualificationData, [name]: value });
-  // };
+  
 
   const handleQualificationsInputChange = (e,id) => {
     const { value } = e.target;
@@ -134,11 +131,7 @@ const Unpublished = () => {
       prevState.map((qualification) => (qualification.id === id ? { ...qualification, qualification: value } : qualification))
     );
   };
-  //roles input
-  // const handleRolesInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setRolesData({ ...roleData, [name]: value });
-  // };
+ 
 
   const handleRolesInputChange = (e, id) => {
     const { value } = e.target;
@@ -148,24 +141,7 @@ const Unpublished = () => {
   };
   
 
-  //qualification submit
-  // const handleQualificationSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     qualificationData.jobId = selectedJobId;
-  //     const response = await api.post(
-  //       "/job/qualifications/create",
-  //       qualificationData
-  //     );
-  //     if (response.status === 200) {
-  //       showSuccessToast("Added");
-  //       setQualificationData("")
-  //       handleCloseShowAddQualifications();
-  //     } else {
-  //       showErrorToast("Failed");
-  //     }
-  //   } catch (error) {}
-  // };
+  
   const handleQualificationSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -180,11 +156,11 @@ const Unpublished = () => {
       ).length;
 
       if (successResponses === qualificationData.length) {
-        showSuccessToast("Added");
+        showSuccessToast(t('added'));
         setQualificationData([{ id: Date.now(), qualification: "" }]); // Reset the qualificationData to a single empty role object
         handleCloseShowAddQualifications();
       } else {
-        showErrorToast("Failed");
+        showErrorToast(t('failed'));
       }
     } catch (error) {}
   };
@@ -204,11 +180,11 @@ const Unpublished = () => {
       ).length;
   
       if (successResponses === roleData.length) {
-        showSuccessToast("Added");
+        showSuccessToast(t('added'));
         setRolesData([{ id: Date.now(), role: "" }]); // Reset the roleData to a single empty role object
         handleCloseCreateRoles();
       } else {
-        showErrorToast("Failed");
+        showErrorToast(t('failed'));
       }
     } catch (error) {}
   };
@@ -270,7 +246,7 @@ const Unpublished = () => {
       <div className="unpublished-top">
         <h3>{t('unpublishedjobs')}</h3>
         {loggedUser && loggedUser.role === "ADMIN" && (
-          <CustomAddButton onClick={handleShowCreateJob} name="Create a Job" />
+          <CustomAddButton onClick={handleShowCreateJob} name={t('createajob')} />
         )}
       </div>
       <UpublishedTable
@@ -278,14 +254,7 @@ const Unpublished = () => {
         openAddQualification={openAddQualification}
         openViewJob={openViewJob}
       />
-      {/* <AddRolesModal
-        open={showCreateRoles}
-        onClose={handleCloseCreateRoles}
-        onSubmit={handleRolesSubmit}
-        roleData={roleData}
-        onChange={handleRolesInputChange}
-        title={selectedJobName}
-      /> */}
+     
 
 <AddRolesModal
   open={showCreateRoles}

@@ -3,9 +3,11 @@ import { useSelector } from "react-redux/es/exports";
 import { Menu, Dropdown } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
 import { getPackages } from "../../redux/slices/PremiumSlice";
+import { useTranslation } from 'react-i18next';
 
 
 const PackageTable = ({editPackage}) => {
+  const {t} = useTranslation()
   const packages = useSelector(getPackages)
 
   const handleMenuClick = (id, action) => {
@@ -24,9 +26,9 @@ const PackageTable = ({editPackage}) => {
     };
   const menu = (id) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
-      <Menu.Item key="edit">Edit</Menu.Item>
+      <Menu.Item key="edit">{t('edit')}</Menu.Item>
       <Menu.Item key="delete" danger="true">
-        Delete
+        {t('delete')}
       </Menu.Item>
     </Menu>
   );
@@ -35,9 +37,9 @@ const PackageTable = ({editPackage}) => {
       <thead>
         <tr>
           
-          <th>Name</th>
-          <th>Price</th>
-          <th>Action</th>
+          <th>{t('name')}</th>
+          <th>{t('price')}</th>
+          <th>{t('action')}</th>
         </tr>
       </thead>
       <tbody>

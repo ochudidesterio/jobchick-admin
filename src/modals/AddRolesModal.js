@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
+import { useTranslation } from 'react-i18next';
 
 const AddRolesModal = ({
   open,
@@ -13,6 +14,7 @@ const AddRolesModal = ({
   title,
   onAddRole,
 }) => {
+  const {t} = useTranslation()
   return (
     <Modal
       open={open}
@@ -30,7 +32,7 @@ const AddRolesModal = ({
         maxHeight: "90vh",
          p: 2, bgcolor: "background.paper", borderRadius: 2 }}
       >
-        <h5>Add Roles to {title}</h5>
+        <h5>{t('addrolesto')} {title}</h5>
 
         <div
           style={{
@@ -42,7 +44,7 @@ const AddRolesModal = ({
             {roleData.map((role) => (
               <TextareaAutosize
                 key={role.id}
-                placeholder="Enter Role"
+                placeholder={t('enterrole')}
                 minRows={2}
                 maxRows={5}
                 name="role"
@@ -63,7 +65,7 @@ const AddRolesModal = ({
                 style={{ backgroundColor: "#179CBD" }}
                 type="submit"
               >
-                Save
+                {t('save')}
               </Button>
               <Button
                 variant="contained"

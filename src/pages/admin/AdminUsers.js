@@ -30,7 +30,7 @@ const AdminUsers = () => {
 
     try {
       if (formData.email === "" || formData.password === "") {
-        showErrorToast("Email and Password are required");
+        showErrorToast(t('failedallfieldsrequired'));
       } else {
         const response = await api.post("/user/add/admin", formData);
         console.log(response.data);
@@ -39,7 +39,7 @@ const AdminUsers = () => {
         } else if (response.data === "user with email exists") {
           showErrorToast(response.data);
         } else {
-          showErrorToast("An error occured");
+          showErrorToast(t('anerroroccurred'));
         }
       }
     } catch {}
@@ -65,9 +65,9 @@ const AdminUsers = () => {
       <ToastContainer position="top-right" />
 
       <div className="admintop">
-        <h3>Admins</h3>
+        <h3>{t('admins')}</h3>
         <div>
-          <CustomAddButton onClick={handleShow} name="Add Admin" />
+          <CustomAddButton onClick={handleShow} name={t('addadmin')} />
         </div>
       </div>
       <AdminTable />

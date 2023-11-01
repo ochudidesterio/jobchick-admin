@@ -9,9 +9,12 @@ import { ToastContainer } from "react-toastify";
 import { showErrorToast, showSuccessToast } from "../../Constants/Toasts";
 import AddCategoryModal from "../../modals/AddCategoryModal";
 import EditCategoryModal from "../../modals/EditCategoryModal";
+import { useTranslation } from 'react-i18next';
+
 
 
 const Category = () => {
+  const {t} = useTranslation()
   const dispatch = useDispatch();
   //add category modal
   const [showModal, setShowModal] = useState(false);
@@ -45,7 +48,7 @@ const Category = () => {
     try {
       const response = await api.post("/category/create", categoryData);
       if (response.status === 200) {
-        showSuccessToast("Created");
+        showSuccessToast(t('created'));
       }
     } catch (error) {}
     handleClose();
@@ -58,9 +61,9 @@ const Category = () => {
        const response = await api.post(`/category/update/${updateData.id}/${updateData.name}`);
       console.log("Edit",updateData)
       if (response.status === 200) {
-        showSuccessToast("updated");
+        showSuccessToast(t('updated'));
       }else{
-        showErrorToast("Failed")
+        showErrorToast(t('failed'))
       }
     } catch (error) {}
     handleCloseEdit();
@@ -96,9 +99,9 @@ const Category = () => {
     <div dir="rtl" className="category-home">
       <ToastContainer position="top-right" />
       <div className="category-top">
-        <h3>Categories</h3>
+        <h3>{t('categories')}</h3>
         <div>
-          <CustomAddButton onClick={handleShow} name="Add Category" />
+          <CustomAddButton onClick={handleShow} name={t('addcategory')} />
         </div>
       </div>
       <CategoryTable editCategory={editCategory} />

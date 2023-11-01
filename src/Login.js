@@ -30,14 +30,14 @@ const Login = ({ onLogin}) => {
     let isValid = true;
 
     if (!email) {
-      setEmailError("Email is required");
+      setEmailError(t('emailisrequired'));
       isValid = false;
     } else {
       setEmailError("");
     }
 
     if (!password) {
-      setPasswordError("Password is required");
+      setPasswordError(t('passwordisrequired'));
       isValid = false;
     } else {
       setPasswordError("");
@@ -68,7 +68,7 @@ const Login = ({ onLogin}) => {
           if (response.data.role === "SUPERADMIN" || response.data.role === "ADMIN") {
             onLogin();
           } else {
-            setEmailError("Only Admins are allowed");
+            setEmailError(t('onlyadminsareallowed'));
           }
         } else {
           setPasswordError(response.data.message);

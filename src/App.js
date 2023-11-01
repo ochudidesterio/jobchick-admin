@@ -40,8 +40,8 @@ const App = () => {
       en: { translation: enTranslation },
       he: { translation: heTranslation },
     },
-    lng: "en", // Default language
-    fallbackLng: "en",
+    lng: "he", // Default language
+    fallbackLng: "he",
     interpolation: {
       escapeValue: false,
     },

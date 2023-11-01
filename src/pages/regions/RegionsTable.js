@@ -4,8 +4,11 @@ import { Menu, Dropdown } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
 
 import { getRegions } from "../../redux/slices/RegionSlice";
+import { useTranslation } from 'react-i18next';
+
 
 const RegionsTable = ({editRegion}) => {
+  const {t}=useTranslation()
   const regions = useSelector(getRegions)
 
   const handleMenuClick = (id, action) => {
@@ -23,9 +26,9 @@ const RegionsTable = ({editRegion}) => {
     };
   const menu = (id) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
-      <Menu.Item key="edit">Edit</Menu.Item>
+      <Menu.Item key="edit">{t('edit')}</Menu.Item>
       <Menu.Item key="delete" danger="true">
-        Delete
+        {t('delete')}
       </Menu.Item>
     </Menu>
   );
@@ -34,8 +37,8 @@ const RegionsTable = ({editRegion}) => {
       <thead>
         <tr>
           
-          <th>Region</th>
-          <th>Action</th>
+          <th>{t('regions')}</th>
+          <th>{t('action')}</th>
         </tr>
       </thead>
       <tbody>

@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
+import { useTranslation } from 'react-i18next';
 
 const AddQualificationsModal = ({
   open,
@@ -13,6 +14,7 @@ const AddQualificationsModal = ({
   title,
   onAddQualification
 }) => {
+  const {t} = useTranslation()
   return (
     <Modal
       open={open}
@@ -29,7 +31,7 @@ const AddQualificationsModal = ({
         direction:"rtl",
         maxHeight: "90vh", p: 2, bgcolor: "background.paper", borderRadius: 2 }}
       >
-        <h5>Add Qualifications to {title}</h5>
+        <h5>{t('addqualificationsto')} {title}</h5>
         <div
           style={{
             maxHeight: 300,
@@ -40,7 +42,7 @@ const AddQualificationsModal = ({
             {data.map((qualification) => (
               <TextareaAutosize
                 key={qualification.id}
-                placeholder="Enter qualification"
+                placeholder={t('enterqualification')}
                 minRows={2}
                 maxRows={5}
                 name="qualification"
@@ -61,7 +63,7 @@ const AddQualificationsModal = ({
                 style={{ backgroundColor: "#179CBD" }}
                 type="submit"
               >
-                Save
+                {t('save')}
               </Button>
               <Button
                 variant="contained"

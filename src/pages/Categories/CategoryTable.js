@@ -3,9 +3,11 @@ import { useSelector } from "react-redux/es/exports";
 import { Menu, Dropdown } from "antd";
 import { getCategories } from "../../redux/slices/CategorySlice";
 import { EyeOutlined } from "@ant-design/icons";
+import { useTranslation } from 'react-i18next';
 
 
 const CategoryTable = ({ editCategory }) => {
+  const {t} = useTranslation()
   const categories = useSelector(getCategories);
 
   const handleMenuClick = (id, action) => {
@@ -23,9 +25,9 @@ const CategoryTable = ({ editCategory }) => {
   };
   const menu = (id) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
-      <Menu.Item key="edit">Edit</Menu.Item>
+      <Menu.Item key="edit">{t('edit')}</Menu.Item>
       <Menu.Item key="delete" danger="true">
-        Delete
+        {t('delete')}
       </Menu.Item>
     </Menu>
   );
@@ -33,8 +35,8 @@ const CategoryTable = ({ editCategory }) => {
     <table className="table">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Action</th>
+          <th>{t('name')}</th>
+          <th>{t('action')}</th>
         </tr>
       </thead>
       <tbody>

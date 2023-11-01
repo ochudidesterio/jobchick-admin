@@ -9,7 +9,10 @@ import { ToastContainer } from "react-toastify";
 import { showErrorToast, showSuccessToast } from "../../Constants/Toasts";
 import AddRegionModal from "../../modals/AddRegionModal";
 import EditRegionModal from "../../modals/EditRegionModal";
+import { useTranslation } from 'react-i18next';
+
 const Regions = () => {
+  const {t} = useTranslation()
   const dispatch = useDispatch();
   //add category modal
   const [showModal, setShowModal] = useState(false);
@@ -42,9 +45,9 @@ const Regions = () => {
        const response = await api.post(`/region/update/${updateData.id}/${updateData.name}`);
       console.log("Edit",updateData)
       if (response.status === 200) {
-        showSuccessToast("updated");
+        showSuccessToast(t('updated'));
       }else{
-        showErrorToast("Failed")
+        showErrorToast(t('failed'))
       }
     } catch (error) {}
     handleCloseEdit();
@@ -55,7 +58,7 @@ const Regions = () => {
     try {
       const response = await api.post("/region/create", regionData);
       if (response.status === 200) {
-        showSuccessToast("Created");
+        showSuccessToast(t('created'));
       }
     } catch (error) {}
     handleClose();
@@ -91,8 +94,8 @@ const Regions = () => {
       <ToastContainer position="top-right" />
 
       <div className="regions-top">
-        <h3>Regions</h3>
-        <CustomAddButton onClick={handleShow} name="Add Region" />
+        <h3>{t('regions')}</h3>
+        <CustomAddButton onClick={handleShow} name={t('addregion')} />
       </div>
       <RegionsTable editRegion={editRegion} />
       <AddRegionModal

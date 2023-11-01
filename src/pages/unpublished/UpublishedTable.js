@@ -38,10 +38,10 @@ const UpublishedTable = ({
     <Menu onClick={({ key }) => handleMenuClick(id, title, key)}>
       <Menu.Item key="view">{t('view')}</Menu.Item>
       {loggedInUser && loggedInUser.role === "ADMIN" && <>
-      <Menu.Item key="roles">Roles</Menu.Item>
-      <Menu.Item key="qualifications">Qualifications</Menu.Item>
+      <Menu.Item key="roles">{t('roles')}</Menu.Item>
+      <Menu.Item key="qualifications">{t('qualifications')}</Menu.Item>
       <Menu.Item key="delete" danger="true">
-        Delete
+        {t('delete')}
       </Menu.Item>
       </>}
     </Menu>

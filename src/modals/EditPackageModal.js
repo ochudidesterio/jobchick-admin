@@ -3,8 +3,11 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import { useTranslation } from 'react-i18next';
+
 
 const EditPackageModal = ({ open, onClose, onSubmit, formData, onChange }) => {
+  const {t} = useTranslation()
   return (
     <Modal
       open={open}
@@ -16,9 +19,9 @@ const EditPackageModal = ({ open, onClose, onSubmit, formData, onChange }) => {
       }}
     >
       <Box
-        sx={{ width: 400, p: 2, bgcolor: "background.paper", borderRadius: 2 }}
+        sx={{ width: 400, direction:"rtl", p: 2, bgcolor: "background.paper", borderRadius: 2 }}
       >
-        <h5>Add Package</h5>
+        <h5>{t("editpackage")}</h5>
         <div
           style={{
             maxHeight: 300,
@@ -28,24 +31,64 @@ const EditPackageModal = ({ open, onClose, onSubmit, formData, onChange }) => {
           <form onSubmit={onSubmit}>
             <TextField
               fullWidth
-              label="name"
-              placeholder="package name"
+              label={t('name')}
+              placeholder={t('packagename')}
               margin="normal"
               name="name"
               size="small"
               value={formData.name}
               onChange={onChange}
+              InputLabelProps={{
+                style: {
+                   transform: "right",
+                  left: "unset",
+                  right: "1.20rem",
+                  fontSize: "Medium",
+                  overflow: "unset",
+                  backgroundColor: "white", 
+                },
+              }}
+
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "#179CBD",
+                    fontFamily: "Open Sans",
+                    textAlign:"right"
+                  },
+                },
+              }}
             />
 
             <TextField
               fullWidth
-              label="price"
-              placeholder="price in dollars"
+              label={t('price')}
+              placeholder={t('packageindollars')}
               margin="normal"
               name="price"
               size="small"
               value={formData.price}
               onChange={onChange}
+              InputLabelProps={{
+                style: {
+                   transform: "right",
+                  left: "unset",
+                  right: "1.20rem",
+                  fontSize: "Medium",
+                  overflow: "unset",
+                  backgroundColor: "white", 
+                },
+              }}
+
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "#179CBD",
+                    fontFamily: "Open Sans",
+                    textAlign:"right"
+                  },
+                },
+              }}
             />
 
             <Button
@@ -54,7 +97,7 @@ const EditPackageModal = ({ open, onClose, onSubmit, formData, onChange }) => {
               fullWidth
               type="submit"
             >
-              Save
+              {t('save')}
             </Button>
           </form>
         </div>

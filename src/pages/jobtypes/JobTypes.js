@@ -10,8 +10,11 @@ import { ToastContainer } from "react-toastify";
 import { showErrorToast, showSuccessToast } from '../../Constants/Toasts'
 import AddJobTypeModal from '../../modals/AddJobTypeModal'
 import EditTypeModal from '../../modals/EditTypesModal'
+import { useTranslation } from 'react-i18next';
+
 
 const JobTypes = () => {
+  const {t} = useTranslation()
     const dispatch = useDispatch()
     //add category modal
   const [showModal, setShowModal] = useState(false);
@@ -46,7 +49,7 @@ const JobTypes = () => {
       console.log("JobType",jobTypeData)
       const response = await api.post("/type/create", jobTypeData);
       if (response.status === 200) {
-        showSuccessToast("Created");
+        showSuccessToast(t('created'));
       }
     } catch (error) {}
     handleClose();
@@ -59,9 +62,9 @@ const JobTypes = () => {
        const response = await api.post(`/type/update/${updateData.id}/${updateData.name}`);
       console.log("Edit",updateData)
       if (response.status === 200) {
-        showSuccessToast("updated");
+        showSuccessToast(t('updated'));
       }else{
-        showErrorToast("Failed")
+        showErrorToast(t('failed'))
       }
     } catch (error) {}
     handleEditClose();
@@ -96,8 +99,8 @@ const JobTypes = () => {
             <ToastContainer position="top-right" />
 
         <div className="jobtype-top">
-            <h3>Job Types</h3>
-            <CustomAddButton onClick={handleShow} name="Add Type" />
+            <h3>{t('jobtypes')}</h3>
+            <CustomAddButton onClick={handleShow} name={t('addtype')} />
         </div>
         <JobTypeTable editType={editType}/>
         <AddJobTypeModal

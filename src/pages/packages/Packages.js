@@ -9,9 +9,10 @@ import api from '../../api/api';
 import { showErrorToast, showSuccessToast } from '../../Constants/Toasts';
 import { setPackages } from '../../redux/slices/PremiumSlice';
 import PackageTable from './PackageTable';
+import { useTranslation } from 'react-i18next';
 
 const Packages = () => {
-
+    const {t} = useTranslation()
     const dispatch = useDispatch()
     const [showModal, setShowModal] = useState(false);
     const handleClose = () => setShowModal(false);
@@ -48,9 +49,9 @@ const Packages = () => {
            const response = await api.post(`/premium/update`,updateData);
           console.log("Edit",updateData)
           if (response.status === 200) {
-            showSuccessToast("updated");
+            showSuccessToast(t('updated'));
           }else{
-            showErrorToast("Failed")
+            showErrorToast(t('failed'))
           }
         } catch (error) {}
         handleCloseEdit();
@@ -62,13 +63,13 @@ const Packages = () => {
         try {
             const response = await api.post("/premium/create",premium)
             if(response.status === 200){
-                showSuccessToast("Created")
+                showSuccessToast(t('created'))
                 setPremium({
                     name:'',
                     price:''
                 })
             }else{
-                showErrorToast("An error occured")
+                showErrorToast(t('anerroroccurred'))
             }
         } catch (error) {}
         handleClose();
@@ -106,7 +107,7 @@ const Packages = () => {
               <ToastContainer position="top-right" />
 
         <div className="packages-top">
-            <h3>Premium Packages</h3>
+            <h3>{t('premiumpackage')}</h3>
             {/* <CustomAddButton name="Add Package" onClick={handleShow} /> */}
         </div>
 

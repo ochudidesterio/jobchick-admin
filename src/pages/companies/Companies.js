@@ -70,7 +70,7 @@ const Companies = () => {
      
       const response = await api.post("/company/create", formData);
       if (response.status === 200) {
-        showSuccessToast("Created");
+        showSuccessToast(t('created'));
       }
     } catch (error) {}
     handleClose();
@@ -87,7 +87,7 @@ const Companies = () => {
     try{
       const res = await api.post(`/user/add/admin/${selectedCompanyId}`,data)
       if (res.status === 200) {
-        showSuccessToast("Created");
+        showSuccessToast(t('created'));
         setAdminData(initialAdminData)
       }
     }catch(e){}

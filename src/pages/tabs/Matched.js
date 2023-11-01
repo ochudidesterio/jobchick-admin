@@ -1,19 +1,22 @@
 import React from "react";
 import { EyeOutlined } from "@ant-design/icons";
+import { useTranslation } from 'react-i18next';
+
 
 const Matched = ({ users, handleRowClick, title }) => {
+  const {t} = useTranslation()
   return (
     <div>
-    <h5>Users who matched {title}</h5>
+    <h5>{t('userswhomatched')} {title}</h5>
     <table className="table">
       <thead>
         <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
-          <th>Phone Number</th>
-          <th>Email</th>
-          <th>Action</th>
+        <th>{t('firstname')}</th>
+            <th>{t('lastname')}</th>
+            <th>{t('username')}</th>
+            <th>{t('phonenumber')}</th>
+            <th>{t('email')}</th>
+            <th>{t('action')}</th>
         </tr>
       </thead>
       <tbody>
@@ -36,7 +39,7 @@ const Matched = ({ users, handleRowClick, title }) => {
           ))
         ) : (
           <tr>
-            <td colSpan={6}>No Matches</td>
+            <td colSpan={6}>{t('nomatches')}</td>
           </tr>
         )}
       </tbody>

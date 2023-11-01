@@ -57,7 +57,7 @@ const LikeJobs = ({ openViewJob, openEditJob, openViewLikes }) => {
           <Menu.Item key="likes">{t('likes')}</Menu.Item>
           <Menu.Item key="edit">{t('edit')}</Menu.Item>
           <Menu.Item key="delete" danger="true">
-            Delete
+            {t('delete')}
           </Menu.Item>
         </>
       )}
