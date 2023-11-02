@@ -233,12 +233,17 @@ const Unpublished = () => {
     try {
       if (loggedUser && loggedUser.role === "ADMIN") {
         jobres = await api.get(`/job/company/inactive/${mycompany.id}`);
+        if (jobres.status === 200) {
+          dispatch(setInActiveJobs(jobres.data));
+        }
+
       } else {
         jobres = await api.get("/job/all/inactive");
+        if (jobres.status === 200) {
+          dispatch(setInActiveJobs(jobres.data));
+        }
       }
-      if (jobres.status === 200) {
-        dispatch(setInActiveJobs(jobres.data));
-      }
+      
     } catch (error) {}
   };
 
