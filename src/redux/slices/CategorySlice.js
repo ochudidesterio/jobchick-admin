@@ -10,9 +10,13 @@ const categorySlice =createSlice({
         setCategories:(state,{payload})=>{
             state.categories = payload
         },
+        resetCategories:(state)=>{
+            return categoryInitState
+        }
         
     },
 })
 export const {setCategories} = categorySlice.actions
+export const {resetCategories} = categorySlice.actions
 export const getCategories  =(state)=>state.categories.categories
 export default categorySlice.reducer

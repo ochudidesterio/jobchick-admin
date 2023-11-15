@@ -10,9 +10,13 @@ const regionsSlice =createSlice({
         setRegions:(state,{payload})=>{
             state.regions = payload
         },
+        resetRegions:(state)=>{
+            return regionInitState
+        }
         
     },
 })
 export const {setRegions} = regionsSlice.actions
+export const {resetRegions} = regionsSlice.actions
 export const getRegions  =(state)=>state.regions.regions
 export default regionsSlice.reducer

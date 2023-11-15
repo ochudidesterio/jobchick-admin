@@ -11,12 +11,19 @@ import { initReactI18next } from "react-i18next";
 import LanguageSelector from "./language/LangaugeSelector";
 import enTranslation from "./language/english.json";
 import heTranslation from "./language/hebrew.json";
-import { persistor } from "./redux/store";
-
+import { resetUsers } from "./redux/slices/UsersSlice";
+import { resetTypes } from "./redux/slices/TypesSlice";
+import { resetRegions } from "./redux/slices/RegionSlice";
+import { resetPackages } from "./redux/slices/PremiumSlice";
+import { resetJobs } from "./redux/slices/JobsSlice";
+import { resetCompanies } from "./redux/slices/CompaniesSlice";
+import { resetCategories } from "./redux/slices/CategorySlice";
+import { useNavigate } from "react-router-dom";
 
 const App = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(getIsLoggedIn);
+  const navigate = useNavigate()
 
   const handleLogin = () => {
     // Perform login logic
@@ -26,7 +33,14 @@ const App = () => {
   const handleLogout = () => {
     // Perform logout logic
     dispatch(setIsLoggedIn(false));
-    persistor.purge()
+    dispatch(resetUsers())
+    dispatch(resetTypes())
+    dispatch(resetRegions())
+    dispatch(resetPackages())
+    dispatch(resetJobs())
+    dispatch(resetCompanies())
+    dispatch(resetCategories())
+    navigate("/")
   };
 
   const [language, setLanguage] = useState("en");

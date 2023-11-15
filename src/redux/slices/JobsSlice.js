@@ -33,6 +33,9 @@ const jobsSlice =createSlice({
         },
         setIsLikedJob:(state,{payload})=>{
             state.like = payload
+        },
+        resetJobs:(state)=>{
+            return jobsInitState
         }
     },
 })
@@ -43,6 +46,7 @@ export const {setSelectedJob} = jobsSlice.actions
 export const {setQualifications} = jobsSlice.actions
 export const {setRoles}=jobsSlice.actions
 export const {setIsLikedJob}=jobsSlice.actions
+export const {resetJobs} = jobsSlice.actions
 export const getActiveLikedJobs  =(state)=>state.jobs.activeLikedJobs
 export const getActiveUnLikedJobs  =(state)=>state.jobs.activeUnLikedJobs
 export const getInActiveJobs  =(state)=>state.jobs.inactivejobs

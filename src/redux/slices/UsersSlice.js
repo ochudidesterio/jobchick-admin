@@ -37,6 +37,9 @@ const usersSlice =createSlice({
         },
         setJobMatchUsers:(state,{payload})=>{
             state.jobMatchUsers = payload
+        },
+        resetUsers:(state)=>{
+            return usersInitState
         }
     },
 })
@@ -48,6 +51,7 @@ export const {setIsLoggedIn} = usersSlice.actions
 export const {setLoggedInUser} = usersSlice.actions
 export const {setJobLikeUsers} = usersSlice.actions
 export const {setJobMatchUsers} = usersSlice.actions
+export const {resetUsers} = usersSlice.actions
 export const getUsers  =(state)=>state.users.users
 export const getSelectedUser =(state)=>state.users.selectedUser
 export const getAdmins  =(state)=>state.users.admins

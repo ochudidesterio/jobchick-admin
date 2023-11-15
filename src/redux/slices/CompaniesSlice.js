@@ -17,12 +17,16 @@ const companySlice =createSlice({
         },
         setCompany:(state,{payload})=>{
             state.company = payload
+        },
+        resetCompanies:(state)=>{
+            return companiesInitState
         }
     },
 })
 export const {setCompanies} = companySlice.actions
 export const {setSelectedCompany} = companySlice.actions
 export const {setCompany} = companySlice.actions
+export const {resetCompanies} = companySlice.actions
 export const getCompanies  =(state)=>state.companies.companies
 export const getCompany  =(state)=>state.companies.company
 export const getSelectedCompany =(state)=>state.companies.selectedCompany
