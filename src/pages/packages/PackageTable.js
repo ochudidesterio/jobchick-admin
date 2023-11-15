@@ -12,6 +12,9 @@ const PackageTable = ({editPackage}) => {
 
   const handleMenuClick = (id, action) => {
     switch (action) {
+      case 'view':
+        console.log("View package")
+        break;
       case 'edit':
         editPackage(id)
          // Pass the ID to the openModal function
@@ -26,6 +29,7 @@ const PackageTable = ({editPackage}) => {
     };
   const menu = (id) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
+      <Menu.Item key="view">{t('view')}</Menu.Item>
       <Menu.Item key="edit">{t('edit')}</Menu.Item>
       <Menu.Item key="delete" danger="true">
         {t('delete')}
