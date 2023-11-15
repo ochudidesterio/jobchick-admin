@@ -90,8 +90,8 @@ const Unpublished = () => {
     description: "",
     level: "",
     companyId: "",
-    latitude: -1.28303,
-    longitude: 36.8172313,
+    latitude: 31.76904,
+    longitude: 35.21633,
   });
 
   const updateJobData = (newLat, newLng) => {
