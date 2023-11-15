@@ -30,7 +30,6 @@ import { setCompany } from "./redux/slices/CompaniesSlice";
 import Packages from "./pages/packages/Packages";
 import { useTranslation } from 'react-i18next';
 
-
 const Main = ({ onLogout }) => {
   const { t } = useTranslation();
 

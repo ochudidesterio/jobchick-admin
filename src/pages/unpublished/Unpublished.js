@@ -22,6 +22,8 @@ import { getCompany } from "../../redux/slices/CompaniesSlice";
 import CustomAddButton from "../../components/CustomAddButton";
 import { useTranslation } from 'react-i18next';
 import { setCategories } from "../../redux/slices/CategorySlice";
+import { setRegions } from "../../redux/slices/RegionSlice";
+import {setTypes} from "../../redux/slices/TypesSlice"
 
 
 const Unpublished = () => {
@@ -257,6 +259,28 @@ const Unpublished = () => {
       const response = await api.get("/category/get/all");
       if (response.status === 200) {
         dispatch(setCategories(response.data));
+      }
+    } catch (error) {}
+  };
+  useEffect(()=>{fetchRegions()})
+  const fetchRegions = async ()=>{
+    try{
+      const response = await api.get("/region/all")
+      if(response.status === 200){
+        dispatch(setRegions(response.data))
+      }
+    }catch(error){
+
+    }
+  }
+  useEffect(() => {
+    fetchJobTypes();
+  });
+  const fetchJobTypes = async () => {
+    try {
+      const response = await api.get("/type/all");
+      if (response.status === 200) {
+        dispatch(setTypes(response.data));
       }
     } catch (error) {}
   };

@@ -11,6 +11,8 @@ import { initReactI18next } from "react-i18next";
 import LanguageSelector from "./language/LangaugeSelector";
 import enTranslation from "./language/english.json";
 import heTranslation from "./language/hebrew.json";
+import { persistor } from "./redux/store";
+
 
 const App = () => {
   const dispatch = useDispatch();
@@ -24,6 +26,7 @@ const App = () => {
   const handleLogout = () => {
     // Perform logout logic
     dispatch(setIsLoggedIn(false));
+    persistor.purge()
   };
 
   const [language, setLanguage] = useState("en");
