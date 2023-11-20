@@ -4,8 +4,8 @@ import { Button } from "@mui/material";
 const CustomAddButton = ({onClick, name }) => {
     const buttonStyle = {
         fontFamily: 'Open Sans, sans-serif',
-        backgroundColor: '#179CBD',
-        borderRadius: "5px",
+        backgroundColor: '#178C9B',
+        borderRadius: "20px",
         textTransform:"none",
         
         // backgroundColor: "#179CBD", borderRadius: "5px", textTransform:"none"

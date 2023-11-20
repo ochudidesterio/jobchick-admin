@@ -86,17 +86,19 @@ const Main = ({ onLogout }) => {
         </div>
         <Menu.Item
           key="/"
-          icon={<TeamOutlined style={{ fontSize: "16px" }} />}
-          style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+          icon={<TeamOutlined style={{ fontSize: "16px" ,color:"#179CBD" }} />}
+          style={{ fontSize: "14px", fontFamily: "Open Sans",fontWeight:"bold",color:"#696969" }}
           className="menu-item"
+          
+          
         >
           {t('users')}
         </Menu.Item>
         {loggedUser.role === "SUPERADMIN" && (
           <Menu.Item
             key="/companies"
-            icon={<BankOutlined style={{ fontSize: "16px" }} />}
-            style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+            icon={<BankOutlined style={{ fontSize: "16px",color:"#179CBD" }} />}
+            style={{ fontSize: "14px", fontFamily: "Open Sans",fontWeight:"bold",color:"#696969" }}
             className="menu-item"
           >
             {t('companies')}
@@ -104,8 +106,8 @@ const Main = ({ onLogout }) => {
         )}
         <Menu.Item
           key="/jobs"
-          icon={<UploadOutlined style={{ fontSize: "16px" }} />}
-          style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+          icon={<UploadOutlined style={{ fontSize: "16px",color:"#179CBD" }} />}
+          style={{ fontSize: "14px", fontFamily: "Open Sans",fontWeight:"bold",color:"#696969" }}
           className="menu-item"
           direction="rtl"
         >
@@ -113,8 +115,8 @@ const Main = ({ onLogout }) => {
         </Menu.Item>
         <Menu.Item
           key="/unpublished"
-          icon={<ProfileOutlined style={{ fontSize: "16px" }} />}
-          style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+          icon={<ProfileOutlined style={{ fontSize: "16px" ,color:"#179CBD"}} />}
+          style={{ fontSize: "14px", fontFamily: "Open Sans",fontWeight:"bold",color:"#696969" }}
           className="menu-item"
         >
           {t('unpublishedjobs')}
@@ -124,32 +126,32 @@ const Main = ({ onLogout }) => {
             {" "}
             <Menu.Item
               key="/adminusers"
-              icon={<UserOutlined style={{ fontSize: "16px" }} />}
-              style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+              icon={<UserOutlined style={{ fontSize: "16px",color:"#179CBD" }} />}
+              style={{ fontSize: "14px", fontFamily: "Open Sans",fontWeight:"bold",color:"#696969" }}
               className="menu-item"
             >
               {t('adminusers')}
             </Menu.Item>
             <Menu.Item
               key="/categories"
-              icon={<ClusterOutlined style={{ fontSize: "16px" }} />}
-              style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+              icon={<ClusterOutlined style={{ fontSize: "16px" ,color:"#179CBD"}} />}
+              style={{ fontSize: "14px", fontFamily: "Open Sans",fontWeight:"bold",color:"#696969" }}
               className="menu-item"
             >
               {t('categories')}
             </Menu.Item>
             <Menu.Item
               key="/types"
-              icon={<StarOutlined style={{ fontSize: "16px" }} />}
-              style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+              icon={<StarOutlined style={{ fontSize: "16px",color:"#179CBD" }} />}
+              style={{ fontSize: "14px", fontFamily: "Open Sans",fontWeight:"bold",color:"#696969" }}
               className="menu-item"
             >
               {t('jobtypes')}
             </Menu.Item>
             <Menu.Item
               key="/regions"
-              icon={<EnvironmentOutlined style={{ fontSize: "16px" }} />}
-              style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+              icon={<EnvironmentOutlined style={{ fontSize: "16px",color:"#179CBD" }} />}
+              style={{ fontSize: "14px", fontFamily: "Open Sans",fontWeight:"bold",color:"#696969" }}
               className="menu-item"
             >
               {t('regions')}
@@ -157,9 +159,10 @@ const Main = ({ onLogout }) => {
 
             <Menu.Item
               key="/packages"
-              icon={<DollarOutlined style={{ fontSize: "16px" }} />}
-              style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+              icon={<DollarOutlined style={{ fontSize: "16px",color:"#179CBD" }} />}
+              style={{ fontSize: "14px", fontFamily: "Open Sans",fontWeight:"bold",color:"#696969" }}
               className="menu-item"
+              
             >
              {t('premium')}
             </Menu.Item>
@@ -169,7 +172,7 @@ const Main = ({ onLogout }) => {
         <Menu.Item
           key="signout"
           icon={<LogoutOutlined style={{ fontSize: "16px" }} />}
-          style={{ fontSize: "16px", fontFamily: "Open Sans" }}
+          style={{ fontSize: "14px", fontFamily: "Open Sans",fontWeight:"bold" }}
           danger="true"
           className="menu-item"
         >
