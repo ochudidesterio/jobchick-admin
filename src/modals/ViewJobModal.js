@@ -14,14 +14,22 @@ import QualificationList from "../components/QualificationList";
 import ViewJobTable from "../components/ViewJobTable";
 import api from "../api/api";
 import { getLoggedInUser } from "../redux/slices/UsersSlice";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import { EditOutlined } from "@ant-design/icons";
 
-const ViewJobModal = ({ open, onClose, company }) => {
-  const {t} = useTranslation()
+const ViewJobModal = ({
+  open,
+  onClose,
+  company,
+  openEditDesc,
+  openEditRoles,
+  openEditQualification,
+}) => {
+  const { t } = useTranslation();
   const job = useSelector(getSelectedJob);
   const roles = useSelector(getRoles);
   const qualifications = useSelector(getQualifications);
-  const loggedInUser = useSelector(getLoggedInUser)
+  const loggedInUser = useSelector(getLoggedInUser);
 
   const handlePublish = async (id) => {
     try {
@@ -48,10 +56,10 @@ const ViewJobModal = ({ open, onClose, company }) => {
         sx={{
           width: "75vw",
           p: 2,
-          direction:"rtl",
+          direction: "rtl",
           bgcolor: "background.paper",
           borderRadius: 2,
-          height:"100%",
+          height: "100%",
           maxHeight: "90vh", // Set a maximum height for the modal
           overflow: "auto", // Enable scrolling when content exceeds the height
         }}
@@ -62,31 +70,47 @@ const ViewJobModal = ({ open, onClose, company }) => {
         <div className="view-job-title">
           <h4>{company !== null ? company.name : ""}</h4>
         </div>
-        <div  className="view-job-desc">
+        <div className="view-job-desc">
           <ViewJobTable job={job} />
           <div className="description-view">
-            <h4>{t('description')}</h4>
+            <div className="edit-header">
+              <h4>{t("description")}</h4>
+              {loggedInUser && loggedInUser.role === "ADMIN" && (
+                <EditOutlined
+                  onClick={() => {
+                    openEditDesc(job.id);
+                  }}
+                  className="edit-icon"
+                />
+              )}
+            </div>
             <p dir="rtl">{job.description}</p>
           </div>
           <div className="view-roles">
-            <RolesList roles={roles} />
+            <RolesList job={job} openEditRoles={openEditRoles} roles={roles} />
           </div>
           <div className="view-qualifications">
-            <QualificationList qualifications={qualifications} />
+            <QualificationList
+              job={job}
+              openEditQualifications={openEditQualification}
+              qualifications={qualifications}
+            />
           </div>
-          {job.status === "INACTIVE" && loggedInUser && loggedInUser.role==="ADMIN" && (
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button
-                variant="contained"
-                style={{ backgroundColor: "#179CBD", textTransform: "none" }}
-                onClick={() => {
-                  handlePublish(job.id);
-                }}
-              >
-                Publish
-              </Button>
-            </div>
-          )}
+          {job.status === "INACTIVE" &&
+            loggedInUser &&
+            loggedInUser.role === "ADMIN" && (
+              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                <Button
+                  variant="contained"
+                  style={{ backgroundColor: "#179CBD", textTransform: "none" }}
+                  onClick={() => {
+                    handlePublish(job.id);
+                  }}
+                >
+                  Publish
+                </Button>
+              </div>
+            )}
         </div>
       </Box>
     </Modal>

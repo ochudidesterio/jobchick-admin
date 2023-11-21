@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { EyeOutlined } from "@ant-design/icons";
+import { EllipsisOutlined } from "@ant-design/icons";
 import { Menu, Dropdown } from "antd";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import {  getActiveUnLikedJobs } from "../../redux/slices/JobsSlice";
@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 
 
-const UnLikedJobs = ({ openViewJob, openEditJob}) => {
+const UnLikedJobs = ({ openViewJob}) => {
   const {t} = useTranslation()
     const jobs = useSelector(getActiveUnLikedJobs);
     const loggedInUser = useSelector(getLoggedInUser)
@@ -37,9 +37,7 @@ const UnLikedJobs = ({ openViewJob, openEditJob}) => {
           openViewJob(id); // Pass the ID to the openModal function
           break;
        
-        case "edit":
-          openEditJob(id); // Pass the ID to the openModal function
-          break;
+        
   
         case "delete":
           console.log(`Delete - Company ID: ${id}`);
@@ -52,7 +50,6 @@ const UnLikedJobs = ({ openViewJob, openEditJob}) => {
       <Menu onClick={({ key }) => handleMenuClick(id, key,title)}>
         <Menu.Item key="view">{t('view')}</Menu.Item>
         {loggedInUser && loggedInUser.role === "ADMIN" && <>
-        <Menu.Item key="edit">{t('edit')}</Menu.Item>
         <Menu.Item key="delete" danger="true">
           {t('delete')}
         </Menu.Item></>}
@@ -114,9 +111,9 @@ const UnLikedJobs = ({ openViewJob, openEditJob}) => {
                     trigger={["click"]}
                     placement="bottomRight"
                   >
-                    <EyeOutlined
+                    <EllipsisOutlined
                     style={{
-                      fontSize: '16px',
+                      fontSize: '24px',
                       color: '#696969',
                       transition: 'color 0.3s',
                     }}

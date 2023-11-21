@@ -42,8 +42,13 @@
   color: red;
 }
 .menu-item{
-  font-size: 30;
-  
+  letter-spacing: 0.05em;
+  font-family: "Open Sans";
+  color: #696969;
+  font-weight: bold;
+  font-size: 13px;
+
+ 
 }
 /* .content{
   flex: 1;
@@ -65,15 +70,18 @@
 
 .table th {
   background-color: #f9f9f9;
-  font-weight: bolder;
-  font-size: 14px;
+  font-weight: bold;
+  font-size: 13px;
   color: #178C9B;
+  letter-spacing: 0.05em;
   
 
 }
 .table td{
-  font-size: 14px;
+  font-size: 13px;
   color: #696969;
+  letter-spacing: 0.05em;
+
 
 }
 
@@ -119,6 +127,8 @@
 }
 h3{
   color: #178C9B;
+  letter-spacing: 0.05em;
+
 }
 
 

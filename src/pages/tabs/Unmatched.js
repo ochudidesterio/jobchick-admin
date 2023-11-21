@@ -1,5 +1,5 @@
 import React from "react";
-import { EyeOutlined } from "@ant-design/icons";
+import { EllipsisOutlined } from "@ant-design/icons";
 import { useTranslation } from 'react-i18next';
 
 
@@ -34,7 +34,7 @@ const Unmatched = ({ users, handleRowClick, title }) => {
                 <td>{item.phoneNumber}</td>
                 <td>{item.email}</td>
                 <td>
-                  <EyeOutlined style={{ fontSize: "16px", color: "#696969" }} />
+                  <EllipsisOutlined style={{ fontSize: "24px", color: "#696969" }} />
                 </td>
               </tr>
             ))

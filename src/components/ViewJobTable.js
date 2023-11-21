@@ -19,8 +19,10 @@ const ViewJobTable = ({job}) => {
                     borderBottom: "1px solid #ddd",
                     padding: "8px",
                     textAlign: "right",
-                    fontWeight: "600",
+                    fontWeight: "bold",
+                    color: "#178C9B",
                     fontFamily: "Open Sans",
+
                   }}
                 >
                   {t('title')}
@@ -30,7 +32,8 @@ const ViewJobTable = ({job}) => {
                     borderBottom: "1px solid #ddd",
                     padding: "8px",
                     textAlign: "right",
-                    fontWeight: "600",
+                    fontWeight: "bold",
+                    color: "#178C9B",
                     fontFamily: "Open Sans",
                   }}
                 >
@@ -41,7 +44,8 @@ const ViewJobTable = ({job}) => {
                     borderBottom: "1px solid #ddd",
                     padding: "8px",
                     textAlign: "right",
-                    fontWeight: "600",
+                    fontWeight: "bold",
+                    color: "#178C9B",
                     fontFamily: "Open Sans",
                   }}
                 >
@@ -52,7 +56,8 @@ const ViewJobTable = ({job}) => {
                     borderBottom: "1px solid #ddd",
                     padding: "8px",
                     textAlign: "right",
-                    fontWeight: "600",
+                    fontWeight: "bold",
+                    color: "#178C9B",
                     fontFamily: "Open Sans",
                   }}
                 >
@@ -63,7 +68,8 @@ const ViewJobTable = ({job}) => {
                     borderBottom: "1px solid #ddd",
                     padding: "8px",
                     textAlign: "right",
-                    fontWeight: "600",
+                    fontWeight: "bold",
+                    color: "#178C9B",
                     fontFamily: "Open Sans",
                   }}
                 >

@@ -115,7 +115,7 @@ const Login = ({ onLogin}) => {
                  
                 </InputAdornment>
               ),
-              style: { borderRadius: "20px", fontFamily: "Open Sans" },
+              style: { borderRadius: "10px", fontFamily: "Open Sans" },
             }}
 
             sx={{
@@ -170,7 +170,7 @@ const Login = ({ onLogin}) => {
                   </IconButton>
                 </InputAdornment>
               ),
-              style: { borderRadius: "20px", fontFamily: "Open Sans" },
+              style: { borderRadius: "10px", fontFamily: "Open Sans" },
             }}
             sx={{
               "& .MuiOutlinedInput-root": {

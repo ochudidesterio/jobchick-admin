@@ -1,8 +1,14 @@
 .view-job-desc {
-  
   width: 100%;
 }
-
+.edit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.edit-header > h4 {
+  color: #178C9B;
+}
 
 .view-img-container {
   width: 150px;
@@ -15,7 +21,18 @@
   display: flex;
   justify-content: center;
 }
-.description-view,.view-roles,.view-qualifications{
-    width: 90%;
-    margin: auto;
+.description-view,
+.view-roles,
+.view-qualifications {
+  width: 90%;
+  margin: auto;
+}
+.edit-icon {
+  font-size: 16px;
+  color: #178c9b;
+  transition: color 0.3s;
+}
+
+.edit-icon:hover {
+  color: rgb(219, 82, 82);
 }

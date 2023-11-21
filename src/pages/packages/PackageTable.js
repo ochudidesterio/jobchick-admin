@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux/es/exports";
 import { Menu, Dropdown } from "antd";
-import { EyeOutlined } from "@ant-design/icons";
+import { EllipsisOutlined } from "@ant-design/icons";
 import { getPackages } from "../../redux/slices/PremiumSlice";
 import { useTranslation } from 'react-i18next';
 
@@ -58,9 +58,9 @@ const PackageTable = ({editPackage}) => {
                 trigger={["click"]}
                 placement="bottomRight"
               >
-               <EyeOutlined
+               <EllipsisOutlined
                   style={{
-                    fontSize: '16px',
+                    fontSize: '24px',
                     color: '#696969',
                     transition: 'color 0.3s',
                   }}

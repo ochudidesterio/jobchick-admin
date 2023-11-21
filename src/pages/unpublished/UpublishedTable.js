@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu, Dropdown } from "antd";
-import { EyeOutlined } from "@ant-design/icons";
+import {  EllipsisOutlined } from "@ant-design/icons";
 
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { getInActiveJobs } from "../../redux/slices/JobsSlice";
@@ -72,9 +72,9 @@ const UpublishedTable = ({
                 trigger={["click"]}
                 placement="bottomRight"
               >
-                <EyeOutlined
+                <EllipsisOutlined
                   style={{
-                    fontSize: '16px',
+                    fontSize: '24px',
                     color: '#696969',
                     transition: 'color 0.3s',
                   }}

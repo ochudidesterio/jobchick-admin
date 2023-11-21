@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { EyeOutlined } from "@ant-design/icons";
+import { EllipsisOutlined} from "@ant-design/icons";
 import { Menu, Dropdown } from "antd";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { getActiveLikedJobs } from "../../redux/slices/JobsSlice";
@@ -9,7 +9,7 @@ import { Search } from "@mui/icons-material";
 import { useTranslation } from 'react-i18next';
 
 
-const LikeJobs = ({ openViewJob, openEditJob, openViewLikes }) => {
+const LikeJobs = ({ openViewJob,  openViewLikes }) => {
   const {t} = useTranslation()
   const jobs = useSelector(getActiveLikedJobs);
   const loggedInUser = useSelector(getLoggedInUser);
@@ -31,6 +31,7 @@ const LikeJobs = ({ openViewJob, openEditJob, openViewLikes }) => {
   const filteredJobs = filterJobs(jobs, searchQuery);
 
   const handleMenuClick = (id, action, title) => {
+
     switch (action) {
       case "view":
         openViewJob(id); // Pass the ID to the openModal function
@@ -38,9 +39,7 @@ const LikeJobs = ({ openViewJob, openEditJob, openViewLikes }) => {
       case "likes":
         openViewLikes(id, title); // Pass the ID to the openModal function
         break;
-      case "edit":
-        openEditJob(id); // Pass the ID to the openModal function
-        break;
+     
 
       case "delete":
         console.log(`Delete - Company ID: ${id}`);
@@ -55,7 +54,6 @@ const LikeJobs = ({ openViewJob, openEditJob, openViewLikes }) => {
       {loggedInUser && loggedInUser.role === "ADMIN" && (
         <>
           <Menu.Item key="likes">{t('likes')}</Menu.Item>
-          <Menu.Item key="edit">{t('edit')}</Menu.Item>
           <Menu.Item key="delete" danger="true">
             {t('delete')}
           </Menu.Item>
@@ -118,9 +116,9 @@ const LikeJobs = ({ openViewJob, openEditJob, openViewLikes }) => {
                     trigger={["click"]}
                     placement="bottomRight"
                   >
-                    <EyeOutlined
+                    <EllipsisOutlined
                       style={{
-                        fontSize: "16px",
+                        fontSize: "24px",
                         color: "#696969",
                         transition: "color 0.3s",
                       }}

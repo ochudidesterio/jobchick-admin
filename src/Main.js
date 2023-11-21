@@ -87,7 +87,6 @@ const Main = ({ onLogout }) => {
         <Menu.Item
           key="/"
           icon={<TeamOutlined style={{ fontSize: "16px" ,color:"#179CBD" }} />}
-          style={{ fontSize: "14px", fontFamily: "Open Sans",fontWeight:"bold",color:"#696969" }}
           className="menu-item"
           
           
@@ -98,7 +97,6 @@ const Main = ({ onLogout }) => {
           <Menu.Item
             key="/companies"
             icon={<BankOutlined style={{ fontSize: "16px",color:"#179CBD" }} />}
-            style={{ fontSize: "14px", fontFamily: "Open Sans",fontWeight:"bold",color:"#696969" }}
             className="menu-item"
           >
             {t('companies')}
@@ -107,7 +105,6 @@ const Main = ({ onLogout }) => {
         <Menu.Item
           key="/jobs"
           icon={<UploadOutlined style={{ fontSize: "16px",color:"#179CBD" }} />}
-          style={{ fontSize: "14px", fontFamily: "Open Sans",fontWeight:"bold",color:"#696969" }}
           className="menu-item"
           direction="rtl"
         >
@@ -116,7 +113,6 @@ const Main = ({ onLogout }) => {
         <Menu.Item
           key="/unpublished"
           icon={<ProfileOutlined style={{ fontSize: "16px" ,color:"#179CBD"}} />}
-          style={{ fontSize: "14px", fontFamily: "Open Sans",fontWeight:"bold",color:"#696969" }}
           className="menu-item"
         >
           {t('unpublishedjobs')}
@@ -127,7 +123,6 @@ const Main = ({ onLogout }) => {
             <Menu.Item
               key="/adminusers"
               icon={<UserOutlined style={{ fontSize: "16px",color:"#179CBD" }} />}
-              style={{ fontSize: "14px", fontFamily: "Open Sans",fontWeight:"bold",color:"#696969" }}
               className="menu-item"
             >
               {t('adminusers')}
@@ -135,7 +130,6 @@ const Main = ({ onLogout }) => {
             <Menu.Item
               key="/categories"
               icon={<ClusterOutlined style={{ fontSize: "16px" ,color:"#179CBD"}} />}
-              style={{ fontSize: "14px", fontFamily: "Open Sans",fontWeight:"bold",color:"#696969" }}
               className="menu-item"
             >
               {t('categories')}
@@ -143,7 +137,6 @@ const Main = ({ onLogout }) => {
             <Menu.Item
               key="/types"
               icon={<StarOutlined style={{ fontSize: "16px",color:"#179CBD" }} />}
-              style={{ fontSize: "14px", fontFamily: "Open Sans",fontWeight:"bold",color:"#696969" }}
               className="menu-item"
             >
               {t('jobtypes')}
@@ -151,7 +144,6 @@ const Main = ({ onLogout }) => {
             <Menu.Item
               key="/regions"
               icon={<EnvironmentOutlined style={{ fontSize: "16px",color:"#179CBD" }} />}
-              style={{ fontSize: "14px", fontFamily: "Open Sans",fontWeight:"bold",color:"#696969" }}
               className="menu-item"
             >
               {t('regions')}
@@ -160,7 +152,6 @@ const Main = ({ onLogout }) => {
             <Menu.Item
               key="/packages"
               icon={<DollarOutlined style={{ fontSize: "16px",color:"#179CBD" }} />}
-              style={{ fontSize: "14px", fontFamily: "Open Sans",fontWeight:"bold",color:"#696969" }}
               className="menu-item"
               
             >
@@ -172,7 +163,6 @@ const Main = ({ onLogout }) => {
         <Menu.Item
           key="signout"
           icon={<LogoutOutlined style={{ fontSize: "16px" }} />}
-          style={{ fontSize: "14px", fontFamily: "Open Sans",fontWeight:"bold" }}
           danger="true"
           className="menu-item"
         >

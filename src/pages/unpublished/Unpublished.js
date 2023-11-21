@@ -24,6 +24,9 @@ import { useTranslation } from 'react-i18next';
 import { setCategories } from "../../redux/slices/CategorySlice";
 import { setRegions } from "../../redux/slices/RegionSlice";
 import {setTypes} from "../../redux/slices/TypesSlice"
+import EditJobRolesModal from "../../modals/EditJobRolesModal";
+import EditJobQualificationsModal from "../../modals/EditJobQualificationModal";
+import EditJobDescriptionModal from "../../modals/EditJobDescriptionModal";
 
 
 const Unpublished = () => {
@@ -31,6 +34,61 @@ const Unpublished = () => {
   const dispatch = useDispatch();
   const loggedUser = useSelector(getLoggedInUser);
   const mycompany = useSelector(getCompany);
+
+
+  const [editDescData, setEditDescData] = useState({
+    id: null,
+    description: null,
+    title: null,
+  });
+  const [rolesEditData, setRolesEditData] = useState([]);
+  const[qualificationEditData,setQualificationEditData] = useState([])
+
+  const [showEditDesc, setShowEditDesc] = useState(false);
+  const [showEditRoles, setShowEditRoles] = useState(false);
+  const [showEditQualifications, setShowEditQualifications] = useState(false);
+
+  const handleShowEditDesc = () => setShowEditDesc(false);
+  const handleShowEditRoles = () => setShowEditRoles(false);
+  const handleShowEditQualifications = () => setShowEditQualifications(false);
+
+  const handleEditDescriptionInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditDescData({ ...editDescData, [name]: value });
+  };
+  const handleSubmitEditDescription = (e) => {
+    e.preventDefault();
+    console.log("Edit data:::", editDescData);
+    handleShowEditDesc();
+  };
+   // Function to handle changes in roles' descriptions
+   const handleRolesChange = (roleId, updatedRole) => {
+    // Find the role in the state and update its role property
+    const updatedRoles = rolesEditData.map((r) =>
+      r.id === roleId ? { ...r, role: updatedRole.role } : r
+    );
+    setRolesEditData(updatedRoles);
+  };
+
+  // Function to handle changes in qualification' descriptions
+  const handleQualificationChange = (qId, updatedQ) => {
+    // Find the qualification in the state and update its qualification property
+    const updatedQualifications = qualificationEditData.map((q) =>
+      q.id === qId ? { ...q, qualification: updatedQ.qualification } : q
+    );
+    setQualificationEditData(updatedQualifications);
+  };
+  const handleRolesEditSubmit =(e)=>{
+    e.preventDefault()
+    console.log("Roles Change: ",rolesEditData)
+  }
+  const handleQualificationsEditSubmit =(e)=>{
+    e.preventDefault()
+    console.log("Qualifications Change: ",qualificationEditData)
+  }
+
+
+
   //unpublished job response
   let jobres;
 
@@ -284,6 +342,44 @@ const Unpublished = () => {
       }
     } catch (error) {}
   };
+
+
+//showEditDescriptio
+const openEditJobDescription = (id) => {
+  api
+    .get(`/job/${id}`)
+    .then((res) => {
+      setEditDescData({
+        id: res.data.id,
+        description: res.data.description,
+        title: res.data.title,
+      });
+      setShowEditDesc(true);
+    })
+    .catch((err) => console.log("Error fetching Job", err));
+};
+//show Edit Qualitifications
+const openEditQualifications = (id) => {
+  api.get(`/job/qualifications/${id}`)
+  .then((res)=>{
+    setShowEditQualifications(true);
+    setQualificationEditData(res.data)
+  })
+  .catch(err=>console.log("Error fetching qualifications",err))
+  
+};
+//show Edit Roles
+const openEditRoles = (id) => {
+  api
+    .get(`/job/roles/${id}`)
+    .then((res) => {
+      setShowEditRoles(true);
+      setRolesEditData(res.data);
+    })
+    .catch((err) => console.log("Error fetching roles", err));
+};
+
+
   return (
     <div dir="rtl" className="unpublished-home">
       <ToastContainer position="top-right" />
@@ -333,6 +429,9 @@ const Unpublished = () => {
         open={showViewJobs}
         onClose={handleShowViewJob}
         company={company}
+        openEditDesc ={openEditJobDescription}
+        openEditRoles ={openEditRoles}
+        openEditQualification = {openEditQualifications}
       />
 
       <CreateJobModal
@@ -342,6 +441,28 @@ const Unpublished = () => {
         jobData={jobData}
         onChange={handleJobInputChange}
         upDateJobData={updateJobData}
+      />
+
+<EditJobRolesModal
+        data={rolesEditData}
+        open={showEditRoles}
+        onClose={handleShowEditRoles}
+        onChange={handleRolesChange}
+        onSubmit={handleRolesEditSubmit}
+      />
+      <EditJobDescriptionModal
+        open={showEditDesc}
+        onClose={handleShowEditDesc}
+        onChange={handleEditDescriptionInputChange}
+        onSubmit={handleSubmitEditDescription}
+        data={editDescData}
+      />
+      <EditJobQualificationsModal
+        open={showEditQualifications}
+        onClose={handleShowEditQualifications}
+        data={qualificationEditData}
+        onChange={handleQualificationChange}
+        onSubmit = {handleQualificationsEditSubmit}
       />
     </div>
   );
