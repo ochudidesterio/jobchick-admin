@@ -47,7 +47,7 @@ const JobLikesModal = ({ open, onClose, title, openUserProfile }) => {
           borderRadius: 2,
         }}
       >
-        <Tabs activeKey={activeTab} onChange={handleTabChange}>
+        <Tabs tabBarStyle={{ letterSpacing:"0.05em", fontWeight:"500" }} activeKey={activeTab} onChange={handleTabChange}>
           <TabPane
             key="unmatched"
             tab={

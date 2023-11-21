@@ -2,16 +2,16 @@ import { Menu } from "antd";
 import { useState, useEffect,useCallback } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import {
-  TeamOutlined,
-  ProfileOutlined,
-  BankOutlined,
-  UserOutlined,
+  ContactsFilled,
+  ProfileFilled,
+  BankFilled,
+  IdcardFilled,
   LogoutOutlined,
-  ClusterOutlined,
-  EnvironmentOutlined,
-  StarOutlined,
-  UploadOutlined,
-  DollarOutlined
+  GoldFilled,
+  EnvironmentFilled,
+  StarFilled,
+  ScheduleFilled,
+  PoundCircleFilled
 } from "@ant-design/icons";
 import Companies from "./pages/companies/Companies";
 import AdminUsers from "./pages/admin/AdminUsers";
@@ -86,7 +86,7 @@ const Main = ({ onLogout }) => {
         </div>
         <Menu.Item
           key="/"
-          icon={<TeamOutlined style={{ fontSize: "16px" ,color:"#179CBD" }} />}
+          icon={<ContactsFilled style={{ fontSize: "16px" ,color:"#179CBD" }} />}
           className="menu-item"
           
           
@@ -96,7 +96,7 @@ const Main = ({ onLogout }) => {
         {loggedUser.role === "SUPERADMIN" && (
           <Menu.Item
             key="/companies"
-            icon={<BankOutlined style={{ fontSize: "16px",color:"#179CBD" }} />}
+            icon={<BankFilled style={{ fontSize: "16px",color:"#179CBD" }} />}
             className="menu-item"
           >
             {t('companies')}
@@ -104,7 +104,7 @@ const Main = ({ onLogout }) => {
         )}
         <Menu.Item
           key="/jobs"
-          icon={<UploadOutlined style={{ fontSize: "16px",color:"#179CBD" }} />}
+          icon={<ScheduleFilled style={{ fontSize: "16px",color:"#179CBD" }} />}
           className="menu-item"
           direction="rtl"
         >
@@ -112,7 +112,7 @@ const Main = ({ onLogout }) => {
         </Menu.Item>
         <Menu.Item
           key="/unpublished"
-          icon={<ProfileOutlined style={{ fontSize: "16px" ,color:"#179CBD"}} />}
+          icon={<ProfileFilled style={{ fontSize: "16px" ,color:"#179CBD"}} />}
           className="menu-item"
         >
           {t('unpublishedjobs')}
@@ -122,28 +122,28 @@ const Main = ({ onLogout }) => {
             {" "}
             <Menu.Item
               key="/adminusers"
-              icon={<UserOutlined style={{ fontSize: "16px",color:"#179CBD" }} />}
+              icon={<IdcardFilled style={{ fontSize: "16px",color:"#179CBD" }} />}
               className="menu-item"
             >
               {t('adminusers')}
             </Menu.Item>
             <Menu.Item
               key="/categories"
-              icon={<ClusterOutlined style={{ fontSize: "16px" ,color:"#179CBD"}} />}
+              icon={<GoldFilled style={{ fontSize: "16px" ,color:"#179CBD"}} />}
               className="menu-item"
             >
               {t('categories')}
             </Menu.Item>
             <Menu.Item
               key="/types"
-              icon={<StarOutlined style={{ fontSize: "16px",color:"#179CBD" }} />}
+              icon={<StarFilled style={{ fontSize: "16px",color:"#179CBD" }} />}
               className="menu-item"
             >
               {t('jobtypes')}
             </Menu.Item>
             <Menu.Item
               key="/regions"
-              icon={<EnvironmentOutlined style={{ fontSize: "16px",color:"#179CBD" }} />}
+              icon={<EnvironmentFilled style={{ fontSize: "16px",color:"#179CBD" }} />}
               className="menu-item"
             >
               {t('regions')}
@@ -151,7 +151,7 @@ const Main = ({ onLogout }) => {
 
             <Menu.Item
               key="/packages"
-              icon={<DollarOutlined style={{ fontSize: "16px",color:"#179CBD" }} />}
+              icon={<PoundCircleFilled style={{ fontSize: "16px",color:"#179CBD" }} />}
               className="menu-item"
               
             >

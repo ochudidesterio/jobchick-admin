@@ -5,8 +5,9 @@ const CustomAddButton = ({onClick, name }) => {
     const buttonStyle = {
         fontFamily: 'Open Sans, sans-serif',
         backgroundColor: '#178C9B',
-        borderRadius: "20px",
+        borderRadius: "5px",
         textTransform:"none",
+        
         
         // backgroundColor: "#179CBD", borderRadius: "5px", textTransform:"none"
         // Additional styles for your Open Sans text
@@ -16,6 +17,7 @@ const CustomAddButton = ({onClick, name }) => {
       type="submit"
       onClick={onClick}
       variant="contained"
+      size="medium"
       
       style={buttonStyle}
     >

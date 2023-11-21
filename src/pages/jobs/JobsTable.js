@@ -19,8 +19,8 @@ const JobsTable = ({ openViewJob, openViewLikes }) => {
 
   return (
     <div >
-      <Tabs activeKey={activeTab} onChange={handleTabChange} direction="rtl">
-        <TabPane tab={t('likedjobs')} key="tableA" >
+      <Tabs tabBarStyle={{ letterSpacing:"0.05em", fontWeight:"500" }} activeKey={activeTab} onChange={handleTabChange} direction="rtl">
+        <TabPane  tab={t('likedjobs')} key="tableA" >
           <LikeJobs
             openViewJob={openViewJob}
             openViewLikes={openViewLikes}
