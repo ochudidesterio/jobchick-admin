@@ -27,6 +27,8 @@ import EditJobQualificationsModal from "../../modals/EditJobQualificationModal";
 import EditJobDescriptionModal from "../../modals/EditJobDescriptionModal";
 import { useTranslation } from "react-i18next";
 import { showErrorToast, showSuccessToast } from "../../Constants/Toasts";
+import { ToastContainer } from "react-toastify";
+
 
 const Jobs = () => {
   const { t } = useTranslation();
@@ -262,6 +264,8 @@ const Jobs = () => {
   };
   return (
     <div dir="rtl" className="jobshome">
+            <ToastContainer position="top-right" />
+
       <h3>{t("activejobs")}</h3>
       <JobsTable
         openViewJob={openViewJob}
