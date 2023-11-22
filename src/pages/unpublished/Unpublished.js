@@ -56,10 +56,16 @@ const Unpublished = () => {
     const { name, value } = e.target;
     setEditDescData({ ...editDescData, [name]: value });
   };
-  const handleSubmitEditDescription = (e) => {
+  const handleSubmitEditDescription = async(e) => {
     e.preventDefault();
-    console.log("Edit data:::", editDescData);
-    handleShowEditDesc();
+    try {
+      await api.post("/job/update",editDescData)
+      handleShowEditDesc();
+
+    } catch (error) {
+      console.log("Error Editing Job Description:",error)
+
+    }
   };
    // Function to handle changes in roles' descriptions
    const handleRolesChange = (roleId, updatedRole) => {
@@ -78,13 +84,26 @@ const Unpublished = () => {
     );
     setQualificationEditData(updatedQualifications);
   };
-  const handleRolesEditSubmit =(e)=>{
+  const handleRolesEditSubmit =async(e)=>{
     e.preventDefault()
-    console.log("Roles Change: ",rolesEditData)
+    try {
+      await api.post("/job/roles/update",rolesEditData)
+      
+      handleShowEditRoles()
+    } catch (error) {
+      console.log("Error Editing Roles:",error)
+    }
   }
-  const handleQualificationsEditSubmit =(e)=>{
+  const handleQualificationsEditSubmit =async(e)=>{
     e.preventDefault()
-    console.log("Qualifications Change: ",qualificationEditData)
+    try {
+      await api.post("/job/qualifications/update",qualificationEditData)
+      
+      handleShowEditQualifications()
+    } catch (error) {
+      console.log("Error Editing Qualifications:",error)
+
+    }
   }
 
 
