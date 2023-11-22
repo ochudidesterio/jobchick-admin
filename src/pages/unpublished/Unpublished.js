@@ -59,12 +59,12 @@ const Unpublished = () => {
   const handleSubmitEditDescription = async(e) => {
     e.preventDefault();
     try {
-      await api.post("/job/update",editDescData)
+     const res = await api.post("/job/update",editDescData)
       handleShowEditDesc();
-
+      showSuccessToast(res.data)
     } catch (error) {
       console.log("Error Editing Job Description:",error)
-
+      showErrorToast("Failed")
     }
   };
    // Function to handle changes in roles' descriptions
@@ -87,22 +87,23 @@ const Unpublished = () => {
   const handleRolesEditSubmit =async(e)=>{
     e.preventDefault()
     try {
-      await api.post("/job/roles/update",rolesEditData)
-      
+     const res = await api.post("/job/roles/update",rolesEditData)
+      showSuccessToast(res.data)
       handleShowEditRoles()
     } catch (error) {
       console.log("Error Editing Roles:",error)
+      showErrorToast("Failed")
     }
   }
   const handleQualificationsEditSubmit =async(e)=>{
     e.preventDefault()
     try {
-      await api.post("/job/qualifications/update",qualificationEditData)
-      
+     const res = await api.post("/job/qualifications/update",qualificationEditData)
+      showSuccessToast(res.data)
       handleShowEditQualifications()
     } catch (error) {
       console.log("Error Editing Qualifications:",error)
-
+      showErrorToast("Failed")
     }
   }
 

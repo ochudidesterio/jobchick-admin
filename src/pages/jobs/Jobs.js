@@ -26,6 +26,7 @@ import EditJobRolesModal from "../../modals/EditJobRolesModal";
 import EditJobQualificationsModal from "../../modals/EditJobQualificationModal";
 import EditJobDescriptionModal from "../../modals/EditJobDescriptionModal";
 import { useTranslation } from "react-i18next";
+import { showErrorToast, showSuccessToast } from "../../Constants/Toasts";
 
 const Jobs = () => {
   const { t } = useTranslation();
@@ -56,12 +57,13 @@ const Jobs = () => {
   const handleSubmitEditDescription = async (e) => {
     e.preventDefault();
     try {
-      await api.post("/job/update",editDescData)
+     const res= await api.post("/job/update",editDescData)
+     showSuccessToast(res.data)
       handleShowEditDesc();
 
     } catch (error) {
       console.log("Error Editing Job Description:",error)
-
+      showErrorToast("Failed")
     }
   };
    // Function to handle changes in roles' descriptions
@@ -84,22 +86,23 @@ const Jobs = () => {
   const handleRolesEditSubmit =async(e)=>{
     e.preventDefault()
     try {
-      await api.post("/job/roles/update",rolesData)
-      
+     const res = await api.post("/job/roles/update",rolesData)
+      showSuccessToast(res.data)
       handleShowEditRoles()
     } catch (error) {
       console.log("Error Editing Roles:",error)
+      showErrorToast("Failed")
     }
   }
   const handleQualificationsEditSubmit =async(e)=>{
     e.preventDefault()
     try {
-      await api.post("/job/qualifications/update",qualificationData)
-      
+     const res = await api.post("/job/qualifications/update",qualificationData)
+      showSuccessToast(res.data)
       handleShowEditQualifications()
     } catch (error) {
       console.log("Error Editing Qualifications:",error)
-
+      showErrorToast("Failed")
     }
   }
 
