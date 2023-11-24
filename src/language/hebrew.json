@@ -96,5 +96,10 @@
   "anerroroccurred":"אירעה שגיאה",
   "salary":"שכר",
   "enterjobdescription":"הזן תיאור משרה",
-  "noinactivejobs":"אין משרות לא פעילות זמינות"
+  "noinactivejobs":"אין משרות לא פעילות זמינות",
+  "closedjobs":"עבודות סגורות",
+  "close":"סגור",
+  "yes":"כן",
+  "cancel":"ביטול",
+  "repost":"פרסום מחדש"
 }

@@ -134,6 +134,13 @@ h5{
   color: #178C9B;
   letter-spacing: 0.05em;
 }
+.close-job-btns{
+  display: flex;
+  justify-content: space-evenly;
+}
+.close-title{
+  color: #b22222;
+}
 
 
 

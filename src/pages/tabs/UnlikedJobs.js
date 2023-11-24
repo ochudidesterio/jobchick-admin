@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 
 
-const UnLikedJobs = ({ openViewJob}) => {
+const UnLikedJobs = ({ openViewJob,openCloseJob}) => {
   const {t} = useTranslation()
     const jobs = useSelector(getActiveUnLikedJobs);
     const loggedInUser = useSelector(getLoggedInUser)
@@ -39,8 +39,8 @@ const UnLikedJobs = ({ openViewJob}) => {
        
         
   
-        case "delete":
-          console.log(`Delete - Company ID: ${id}`);
+        case "close":
+          openCloseJob(id);
           break;
         default:
           break;
@@ -50,8 +50,8 @@ const UnLikedJobs = ({ openViewJob}) => {
       <Menu onClick={({ key }) => handleMenuClick(id, key,title)}>
         <Menu.Item key="view">{t('view')}</Menu.Item>
         {loggedInUser && loggedInUser.role === "ADMIN" && <>
-        <Menu.Item key="delete" danger="true">
-          {t('delete')}
+        <Menu.Item key="close" danger="true">
+          {t('close')}
         </Menu.Item></>}
       </Menu>
     );

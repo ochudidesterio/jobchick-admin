@@ -11,7 +11,9 @@ import {
   EnvironmentFilled,
   StarFilled,
   ScheduleFilled,
-  PoundCircleFilled
+  PoundCircleFilled,
+ 
+  MinusSquareFilled
 } from "@ant-design/icons";
 import Companies from "./pages/companies/Companies";
 import AdminUsers from "./pages/admin/AdminUsers";
@@ -22,6 +24,7 @@ import Jobs from "./pages/jobs/Jobs";
 import Category from "./pages/Categories/Category";
 import Regions from "./pages/regions/Regions";
 import JobTypes from "./pages/jobtypes/JobTypes";
+import ClosedJobs from "./pages/closed/ClosedJobs";
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { getLoggedInUser } from "./redux/slices/UsersSlice";
@@ -110,6 +113,17 @@ const Main = ({ onLogout }) => {
         >
           {t('publishedjobs')}
         </Menu.Item>
+        {loggedUser.role === "ADMIN" && (
+          <>
+          <Menu.Item
+          key="/closedjobs"
+          icon={<MinusSquareFilled style={{ fontSize: "16px" ,color:"#179CBD"}} />}
+          className="menu-item"
+        >
+          {t('closedjobs')}
+        </Menu.Item>
+          </>
+        )}
         <Menu.Item
           key="/unpublished"
           icon={<ProfileFilled style={{ fontSize: "16px" ,color:"#179CBD"}} />}
@@ -185,6 +199,7 @@ function Content() {
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/regions" element={<Regions />} />
         <Route path="/types" element={<JobTypes />} />
+        <Route path="/closedjobs" element={<ClosedJobs />} />
         <Route path="/packages" element={<Packages/>} />
       </Routes>
     </div>

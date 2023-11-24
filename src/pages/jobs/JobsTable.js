@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 const { TabPane } = Tabs;
 
 
-const JobsTable = ({ openViewJob, openViewLikes }) => {
+const JobsTable = ({ openViewJob, openViewLikes,openCloseJob }) => {
   const {t} = useTranslation()
   const [activeTab, setActiveTab] = useState("tableA");
 
@@ -24,11 +24,13 @@ const JobsTable = ({ openViewJob, openViewLikes }) => {
           <LikeJobs
             openViewJob={openViewJob}
             openViewLikes={openViewLikes}
+            openCloseJob={openCloseJob}
           />
         </TabPane>
         <TabPane tab={t('unlikedjobs')} key="tableB">
           <UnlikedJobs
             openViewJob={openViewJob}
+            openCloseJob={openCloseJob}
           />
         </TabPane>
       </Tabs>

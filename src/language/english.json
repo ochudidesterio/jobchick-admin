@@ -96,5 +96,10 @@
   "anerroroccurred":"An Error Occurred",
   "salary":"Salary",
   "enterjobdescription":"Enter Job Description",
-  "noinactivejobs":"No inactive jobs available"
+  "noinactivejobs":"No inactive jobs available",
+  "closedjobs":"Closed Jobs",
+  "close":"Close",
+  "yes":"Yes",
+  "cancel":"Cancel",
+  "repost":"Repost"
 }

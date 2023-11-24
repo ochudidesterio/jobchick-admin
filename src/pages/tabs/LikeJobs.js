@@ -9,7 +9,7 @@ import { Search } from "@mui/icons-material";
 import { useTranslation } from 'react-i18next';
 
 
-const LikeJobs = ({ openViewJob,  openViewLikes }) => {
+const LikeJobs = ({ openViewJob,  openViewLikes,openCloseJob }) => {
   const {t} = useTranslation()
   const jobs = useSelector(getActiveLikedJobs);
   const loggedInUser = useSelector(getLoggedInUser);
@@ -41,8 +41,8 @@ const LikeJobs = ({ openViewJob,  openViewLikes }) => {
         break;
      
 
-      case "delete":
-        console.log(`Delete - Company ID: ${id}`);
+      case "close":
+        openCloseJob(id);
         break;
       default:
         break;
@@ -54,8 +54,8 @@ const LikeJobs = ({ openViewJob,  openViewLikes }) => {
       {loggedInUser && loggedInUser.role === "ADMIN" && (
         <>
           <Menu.Item key="likes">{t('likes')}</Menu.Item>
-          <Menu.Item key="delete" danger="true">
-            {t('delete')}
+          <Menu.Item key="close" danger="true">
+            {t('close')}
           </Menu.Item>
         </>
       )}

@@ -3,22 +3,24 @@ import api from "../../api/api";
 import CustomAddButton from "../../components/CustomAddButton";
 import "./companies.css";
 import { useDispatch } from "react-redux/es/exports";
-import { setCompanies, setSelectedCompany } from "../../redux/slices/CompaniesSlice";
+import {
+  setCompanies,
+  setSelectedCompany,
+} from "../../redux/slices/CompaniesSlice";
 import { setCategories } from "../../redux/slices/CategorySlice";
 import { CompaniesTable } from "./CompaniesTable";
 import AddCompaniesModal from "../../modals/AddCompaniesModal";
-import {  showSuccessToast } from "../../Constants/Toasts";
+import { showSuccessToast } from "../../Constants/Toasts";
 import { ToastContainer } from "react-toastify";
 import { setTypes } from "../../redux/slices/TypesSlice";
 import { setRegions } from "../../redux/slices/RegionSlice";
 import ViewCompanyProfileModal from "../../modals/ViewCompanyProfileModal";
 import AddUserModal from "../../modals/AddUserModal";
-import { useTranslation } from 'react-i18next';
-
+import { useTranslation } from "react-i18next";
 
 const Companies = () => {
   const dispatch = useDispatch();
-  const {t }= useTranslation()
+  const { t } = useTranslation();
 
   //selected company
   const [selectedCompanyId, setSelectedCompanyId] = useState(null);
@@ -27,11 +29,9 @@ const Companies = () => {
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
- 
-
-   //create admin modal
-   const [showCreateAdmin, setCreateAdmin] = useState(false);
-   const handleCloseCreateAdmin = () => setCreateAdmin(false);
+  //create admin modal
+  const [showCreateAdmin, setCreateAdmin] = useState(false);
+  const handleCloseCreateAdmin = () => setCreateAdmin(false);
 
   //create job modal
   const [showViewCompany, setViewCompany] = useState(false);
@@ -52,7 +52,7 @@ const Companies = () => {
 
   const [adminData, setAdminData] = useState({
     username: "",
-   email: "",
+    email: "",
     password: "",
   });
 
@@ -67,10 +67,9 @@ const Companies = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-     
       const response = await api.post("/company/create", formData);
       if (response.status === 200) {
-        showSuccessToast(t('created'));
+        showSuccessToast(t("created"));
       }
     } catch (error) {}
     handleClose();
@@ -79,26 +78,26 @@ const Companies = () => {
 
   const handleAdminFormSubmit = async (e) => {
     e.preventDefault();
-    const data ={
-      authUsername:adminData.username,
-      email:adminData.email,
-      password:adminData.password
-    }
-    try{
-      const res = await api.post(`/user/add/admin/${selectedCompanyId}`,data)
+    const data = {
+      authUsername: adminData.username,
+      email: adminData.email,
+      password: adminData.password,
+    };
+    try {
+      const res = await api.post(`/user/add/admin/${selectedCompanyId}`, data);
       if (res.status === 200) {
-        showSuccessToast(t('created'));
-        setAdminData(initialAdminData)
+        showSuccessToast(t("created"));
+        setAdminData(initialAdminData);
       }
-    }catch(e){}
+    } catch (e) {}
 
-    handleCloseCreateAdmin()
+    handleCloseCreateAdmin();
     //window.location.reload()
   };
   useEffect(() => {
     fetchCompanies();
   });
-  
+
   useEffect(() => {
     fetchCompanies();
   });
@@ -110,23 +109,23 @@ const Companies = () => {
       }
     } catch (error) {}
   };
- 
 
-  const openCompanyProfile = (id)=>{
-    api.get(`/company/get/${id}`)
-    .then((res)=>{
-      if(res.status === 200){
-        dispatch(setSelectedCompany(res.data))
-        setViewCompany(true)
-      }
-    })
-    .catch((e)=>console.log(e))
-  }
+  const openCompanyProfile = (id) => {
+    api
+      .get(`/company/get/${id}`)
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch(setSelectedCompany(res.data));
+          setViewCompany(true);
+        }
+      })
+      .catch((e) => console.log(e));
+  };
 
-  const openCreateAdmin= (id)=>{
-    setSelectedCompanyId(id)
-    setCreateAdmin(true)
-  }
+  const openCreateAdmin = (id) => {
+    setSelectedCompanyId(id);
+    setCreateAdmin(true);
+  };
 
   useEffect(() => {
     fetchCategories();
@@ -152,28 +151,31 @@ const Companies = () => {
       }
     } catch (error) {}
   };
-  useEffect(()=>{fetchRegions()})
-  const fetchRegions = async ()=>{
-    try{
-      const response = await api.get("/region/all")
-      if(response.status === 200){
-        dispatch(setRegions(response.data))
+  useEffect(() => {
+    fetchRegions();
+  });
+  const fetchRegions = async () => {
+    try {
+      const response = await api.get("/region/all");
+      if (response.status === 200) {
+        dispatch(setRegions(response.data));
       }
-    }catch(error){
-
-    }
-  }
+    } catch (error) {}
+  };
   return (
     <div dir="rtl" className="companyhome">
       <ToastContainer position="top-right" />
 
       <div className="companytop">
-        <h3>{t('companies')}</h3>
+        <h3>{t("companies")}</h3>
         <div>
-          <CustomAddButton onClick={handleShow} name={t('addcompany')} />
+          <CustomAddButton onClick={handleShow} name={t("addcompany")} />
         </div>
       </div>
-      <CompaniesTable  openCreateAdmin={openCreateAdmin} openCompanyProfile={openCompanyProfile} />
+      <CompaniesTable
+        openCreateAdmin={openCreateAdmin}
+        openCompanyProfile={openCompanyProfile}
+      />
       <AddCompaniesModal
         open={showModal}
         onClose={handleClose}
@@ -181,18 +183,18 @@ const Companies = () => {
         formData={formData}
         onChange={handleInputChange}
       />
-      
+
       <ViewCompanyProfileModal
-      open={showViewCompany}
-      onClose={handleCloseViewCompany}
-       />
-       <AddUserModal 
-       open={showCreateAdmin}
-       onClose={handleCloseCreateAdmin}
-       onSubmit={handleAdminFormSubmit}
-       formData={adminData}
-       onChange={handleAdminInputChange}
-        />
+        open={showViewCompany}
+        onClose={handleCloseViewCompany}
+      />
+      <AddUserModal
+        open={showCreateAdmin}
+        onClose={handleCloseCreateAdmin}
+        onSubmit={handleAdminFormSubmit}
+        formData={adminData}
+        onChange={handleAdminInputChange}
+      />
     </div>
   );
 };
