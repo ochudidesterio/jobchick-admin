@@ -90,6 +90,13 @@ const LikeJobs = ({ openViewJob,  openViewLikes,openCloseJob }) => {
                 borderColor: "#179CBD",
                 fontFamily: "Open Sans",
               },
+              "&:hover fieldset": {
+                borderColor: "#179CBD", // Border color on hover
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "#179CBD", // Border color when focused
+                color: "#179CBD", // Text color when focused
+              },
             },
           }}
         />

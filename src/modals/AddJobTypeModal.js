@@ -1,69 +1,60 @@
-import React from 'react'
+import React from "react";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+import CustomInput from "../components/CustomInput";
 
-const AddJobTypeModal = ({open,onClose,onSubmit,formData,onChange}) => {
+const AddJobTypeModal = ({ open, onClose, onSubmit, formData, onChange }) => {
   return (
     <Modal
-        open={open}
-        onClose={onClose}
+      open={open}
+      onClose={onClose}
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Box
         sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          width: 400,
+          paddingLeft: 5,
+          paddingRight: 5,
+          paddingBottom: 5,
+          direction: "rtl",
+          bgcolor: "background.paper",
+          borderRadius: 2,
         }}
       >
-        <Box sx={{ width: 400, p: 2, direction:'rtl', bgcolor: "background.paper", borderRadius:2
- }}>
-          <h5>Add Job types</h5>
-          <div style={{
+        <h5>Add Job types</h5>
+        <div
+          style={{
             maxHeight: 300,
             overflow: "auto",
-
-          }}>
+          }}
+        >
           <form onSubmit={onSubmit}>
-            <TextField
-              fullWidth
+            <CustomInput
               label="Job Type"
-              placeholder="name"
-              margin="normal"
               name="name"
-              size='small'
-              value={formData.name}
               onChange={onChange}
-              InputLabelProps={{
-                style: {
-                   transform: "right",
-                  left: "unset",
-                  right: "1.20rem",
-                  fontSize: "Medium",
-                  overflow: "unset",
-                  backgroundColor: "white", 
-                },
-              }}
-
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#179CBD",
-                    fontFamily: "Open Sans",
-                    textAlign:"right"
-                  },
-                },
-              }}
+              placeholder="name"
+              value={formData.name}
             />
-         
-            
-            <Button variant="contained" style={{backgroundColor:"#179CBD"}} fullWidth type="submit">
-              Save 
+
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "#179CBD", marginTop: 15 }}
+              fullWidth
+              type="submit"
+            >
+              Save
             </Button>
           </form>
-          </div>
-        </Box>
-      </Modal>
-  )
-}
+        </div>
+      </Box>
+    </Modal>
+  );
+};
 
-export default AddJobTypeModal
+export default AddJobTypeModal;

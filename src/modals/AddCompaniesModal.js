@@ -1,131 +1,74 @@
-import React from 'react'
+import React from "react";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+import CustomInput from "../components/CustomInput";
 
-const AddCompaniesModal = ({open,onClose,onSubmit,formData,onChange}) => {
+const AddCompaniesModal = ({ open, onClose, onSubmit, formData, onChange }) => {
   return (
     <Modal
-    
-        open={open}
-        onClose={onClose}
+      open={open}
+      onClose={onClose}
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Box
         sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          width: 400,
+          direction: "rtl",
+          paddingRight: 5,
+          paddingLeft: 5,
+          paddingBottom:3,
+          bgcolor: "background.paper",
+          borderRadius: 2,
         }}
       >
-        <Box  sx={{ width: 400, direction:"rtl", p: 2, bgcolor: "background.paper", borderRadius:2
- }}>
-          <h5>Add Company</h5>
-          <div style={{
+        <h5>Add Company</h5>
+        <div
+          style={{
             maxHeight: 300,
             overflow: "auto",
-
-          }}>
+          }}
+        >
           <form onSubmit={onSubmit}>
-            <TextField
-              fullWidth
-              label="Name"
-              placeholder="name"
-              margin="normal"
-              name="name"
-              size='small'
-              value={formData.name}
-              onChange={onChange}
-              InputLabelProps={{
-                style: {
-                   transform: "right",
-                  left: "unset",
-                  right: "1.20rem",
-                  fontSize: "Medium",
-                  overflow: "unset",
-                  backgroundColor: "white", 
-                },
-              }}
+            <CustomInput
+            label="Name"
+            name="name"
+            onChange={onChange}
+            placeholder="name"
+            value={formData.name}
+             />
+             <CustomInput 
+             label="Email"
+             name="email"
+             onChange={onChange}
+             placeholder="email"
+             value={formData.email}
+             />
+             <CustomInput 
+             label="Location"
+             name="location"
+             onChange={onChange}
+             placeholder="location"
+             value={formData.location}
+             />
 
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#179CBD",
-                    fontFamily: "Open Sans",
-                    textAlign:"right"
-                  },
-                },
-              }}
-            />
-            <TextField
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "#179CBD",marginTop:15 }}
               fullWidth
-              label="Email"
-              placeholder="email"
-              margin="normal"
-              name="email"
-              size='small'
-              value={formData.email}
-              onChange={onChange}
-              InputLabelProps={{
-                style: {
-                   transform: "right",
-                  left: "unset",
-                  right: "1.20rem",
-                  fontSize: "Medium",
-                  overflow: "unset",
-                  backgroundColor: "white", 
-                },
-              }}
-
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#179CBD",
-                    fontFamily: "Open Sans",
-                    textAlign:"right"
-                  },
-                },
-              }}
-            />
-            <TextField
-              fullWidth
-              label="Location"
-              placeholder="location"
-              margin="normal"
-              size='small'
-              name="location"
-              value={formData.location}
-              onChange={onChange}
-              InputLabelProps={{
-                style: {
-                   transform: "right",
-                  left: "unset",
-                  right: "1.20rem",
-                  fontSize: "Medium",
-                  overflow: "unset",
-                  backgroundColor: "white", 
-                },
-              }}
-
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#179CBD",
-                    fontFamily: "Open Sans",
-                    textAlign:"right"
-                  },
-                },
-              }}
-            />
-            
-            
-            
-            <Button variant="contained" style={{backgroundColor:"#179CBD"}} fullWidth type="submit">
-              Save 
+              type="submit"
+            >
+              Save
             </Button>
           </form>
-          </div>
-        </Box>
-      </Modal>
-  )
-}
+        </div>
+      </Box>
+    </Modal>
+  );
+};
 
-export default AddCompaniesModal
+export default AddCompaniesModal;

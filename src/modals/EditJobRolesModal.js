@@ -23,12 +23,14 @@ const EditJobRolesModal = ({open,onClose,onSubmit,onChange,data }) => {
       }}
     >
       <Box
-        sx={{ width: 700,direction:"rtl", p: 2, bgcolor: "background.paper", borderRadius: 2 }}
+        sx={{ width: 700,direction:"rtl", paddingLeft: 5,
+        paddingRight: 5,
+        paddingBottom: 5, bgcolor: "background.paper", borderRadius: 2 }}
       >
         <h5>Edit Job Roles</h5>
         <div
           style={{
-            maxHeight: 300,
+            maxHeight: 400,
             overflow: "auto",
           }}
         >
@@ -68,7 +70,7 @@ const EditJobRolesModal = ({open,onClose,onSubmit,onChange,data }) => {
             ))}
             <Button
               variant="contained"
-              style={{ backgroundColor: "#179CBD" }}
+              style={{ backgroundColor: "#179CBD", marginTop:15 }}
               fullWidth
               type="submit"
             >

@@ -1,135 +1,85 @@
-import React from 'react'
+import React from "react";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import CustomInput from "../components/CustomInput";
 
-
-const AddUserModal = ({title,open,onClose,onSubmit,formData,onChange}) => {
-  const {t} = useTranslation()
+const AddUserModal = ({
+  title,
+  open,
+  onClose,
+  onSubmit,
+  formData,
+  onChange,
+}) => {
+  const { t } = useTranslation();
   return (
     <Modal
-        open={open}
-        onClose={onClose}
+      open={open}
+      onClose={onClose}
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Box
         sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          width: 400,
+          direction: "rtl",
+          paddingLeft: 5,
+          paddingRight: 5,
+          paddingBottom: 5,
+          bgcolor: "background.paper",
+          borderRadius: 2,
         }}
       >
-        <Box sx={{ width: 400, direction:"rtl", p: 2, bgcolor: "background.paper", borderRadius:2
- }}>
-          <h5>{title}</h5>
-          <div style={{
+        <h5>{title}</h5>
+        <div
+          style={{
             maxHeight: 300,
             overflow: "auto",
-
-          }}>
+          }}
+        >
           <form onSubmit={onSubmit}>
-          
-            <TextField
-              fullWidth
-              label={t('username')}
-              placeholder={t('username')}
-              margin="normal"
+            <CustomInput
+              label={t("username")}
               name="username"
-              size='small'
+              onChange={onChange}
+              placeholder={t("username")}
               value={formData.username}
-              onChange={onChange}
-              InputLabelProps={{
-                style: {
-                   transform: "right",
-                  left: "unset",
-                  right: "1.20rem",
-                  fontSize: "Medium",
-                  overflow: "unset",
-                  backgroundColor: "white", 
-                },
-              }}
-
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#179CBD",
-                    fontFamily: "Open Sans",
-                    textAlign:"right"
-                  },
-                },
-              }}
             />
-            
-            <TextField
-              fullWidth
-              label={t('email')}
-              size='small'
-              placeholder={t('enteremail')}
-              margin="normal"
+
+            <CustomInput
+              label={t("email")}
               name="email"
+              onChange={onChange}
+              placeholder={t("enteremail")}
               value={formData.email}
-              onChange={onChange}
-              InputLabelProps={{
-                style: {
-                   transform: "right",
-                  left: "unset",
-                  right: "1.20rem",
-                  fontSize: "Medium",
-                  overflow: "unset",
-                  backgroundColor: "white", 
-                },
-              }}
-
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#179CBD",
-                    fontFamily: "Open Sans",
-                    textAlign:"right"
-                  },
-                },
-              }}
-              
             />
-             <TextField
-              fullWidth
-              label={t('password')}
-              size='small'
-              placeholder={t('enterpassword')}
-              margin="normal"
+            <CustomInput
+              label={t("password")}
               name="password"
-              value={formData.password}
               onChange={onChange}
-              InputLabelProps={{
-                style: {
-                   transform: "right",
-                  left: "unset",
-                  right: "1.20rem",
-                  fontSize: "Medium",
-                  overflow: "unset",
-                  backgroundColor: "white", 
-                },
-              }}
-
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#179CBD",
-                    fontFamily: "Open Sans",
-                    textAlign:"right"
-                  },
-                },
-              }}
+              placeholder={t("enterpassword")}
+              value={formData.password}
             />
-            
-            
-            <Button variant="contained" style={{backgroundColor:"#179CBD"}} fullWidth type="submit">
-              {t('save')}
+
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "#179CBD",marginTop:12 }}
+              fullWidth
+              type="submit"
+              
+            >
+              {t("save")}
             </Button>
           </form>
-          </div>
-        </Box>
-      </Modal>
-  )
-}
+        </div>
+      </Box>
+    </Modal>
+  );
+};
 
-export default AddUserModal
+export default AddUserModal;

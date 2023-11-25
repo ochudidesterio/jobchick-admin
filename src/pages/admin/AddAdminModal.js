@@ -1,132 +1,80 @@
-import React from 'react'
+import React from "react";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+import CustomInput from "../../components/CustomInput";
 
-const AddAdminModal = ({title,open,onClose,onSubmit,formData,onChange}) => {
+const AddAdminModal = ({
+  title,
+  open,
+  onClose,
+  onSubmit,
+  formData,
+  onChange,
+}) => {
   return (
     <Modal
-        open={open}
-        onClose={onClose}
+      open={open}
+      onClose={onClose}
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Box
         sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          width: 400,
+          p: 2,
+          direction: "rtl",
+          bgcolor: "background.paper",
+          borderRadius: 2,
         }}
       >
-        <Box sx={{ width: 400, p: 2, direction:"rtl", bgcolor: "background.paper", borderRadius:2
- }}>
-          <h5>{title}</h5>
-          <div style={{
+        <h5>{title}</h5>
+        <div
+          style={{
             maxHeight: 300,
             overflow: "auto",
-
-          }}>
+          }}
+        >
           <form onSubmit={onSubmit}>
-          
-            <TextField
-              fullWidth
+            <CustomInput
               label="Username"
-              placeholder="Username"
-              margin="normal"
               name="authUsername"
-              size='small'
+              onChange={onChange}
+              placeholder="Username"
               value={formData.authUsername}
-              onChange={onChange}
-              InputLabelProps={{
-                style: {
-                   transform: "right",
-                  left: "unset",
-                  right: "1.20rem",
-                  fontSize: "Medium",
-                  overflow: "unset",
-                  backgroundColor: "white", 
-                },
-              }}
-
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#179CBD",
-                    fontFamily: "Open Sans",
-                    textAlign:"right"
-                  },
-                },
-              }}
             />
-            
-            <TextField
-              fullWidth
+            <CustomInput
               label="Email"
-              size='small'
-              placeholder="Enter Email"
-              margin="normal"
               name="email"
+              onChange={onChange}
+              placeholder="Enter email"
               value={formData.email}
-              onChange={onChange}
-              InputLabelProps={{
-                style: {
-                   transform: "right",
-                  left: "unset",
-                  right: "1.20rem",
-                  fontSize: "Medium",
-                  overflow: "unset",
-                  backgroundColor: "white", 
-                },
-              }}
-
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#179CBD",
-                    fontFamily: "Open Sans",
-                    textAlign:"right"
-                  },
-                },
-              }}
-              
             />
-             <TextField
-              fullWidth
+
+            <CustomInput
               label="Password"
-              size='small'
-              placeholder="Enter password"
-              margin="normal"
               name="password"
-              value={formData.password}
               onChange={onChange}
-              InputLabelProps={{
-                style: {
-                   transform: "right",
-                  left: "unset",
-                  right: "1.20rem",
-                  fontSize: "Medium",
-                  overflow: "unset",
-                  backgroundColor: "white", 
-                },
-              }}
-
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#179CBD",
-                    fontFamily: "Open Sans",
-                    textAlign:"right"
-                  },
-                },
-              }}
+              placeholder="Enter password"
+              value={formData.password}
             />
-            
-            
-            <Button variant="contained" style={{backgroundColor:"#179CBD"}} fullWidth type="submit">
-              Save 
+
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "#179CBD" }}
+              fullWidth
+              type="submit"
+            >
+              Save
             </Button>
           </form>
-          </div>
-        </Box>
-      </Modal>
-  )
-}
+        </div>
+      </Box>
+    </Modal>
+  );
+};
 
-export default AddAdminModal
+export default AddAdminModal;

@@ -2,8 +2,8 @@ import React from "react";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import { useTranslation } from "react-i18next";
+import CustomInput from "../components/CustomInput";
 
 const EditCategoryModal = ({ open, onClose, onSubmit, formData, onChange }) => {
   const { t } = useTranslation();
@@ -20,7 +20,9 @@ const EditCategoryModal = ({ open, onClose, onSubmit, formData, onChange }) => {
       <Box
         sx={{
           width: 400,
-          p: 2,
+          paddingLeft: 5,
+          paddingRight: 5,
+          paddingBottom: 5,
           direction: "rtl",
           bgcolor: "background.paper",
           borderRadius: 2,
@@ -34,39 +36,19 @@ const EditCategoryModal = ({ open, onClose, onSubmit, formData, onChange }) => {
           }}
         >
           <form onSubmit={onSubmit}>
-            <TextField
-              fullWidth
+
+          <CustomInput
               label={t("categories")}
-              placeholder={t("name")}
-              margin="normal"
               name="name"
-              size="small"
-              value={formData.name}
               onChange={onChange}
-              InputLabelProps={{
-                style: {
-                  transform: "right",
-                  left: "unset",
-                  right: "1.20rem",
-                  fontSize: "Medium",
-                  overflow: "unset",
-                  backgroundColor: "white",
-                },
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#179CBD",
-                    fontFamily: "Open Sans",
-                    textAlign: "right",
-                  },
-                },
-              }}
+              placeholder={t("name")}
+              value={formData.name}
             />
+            
 
             <Button
               variant="contained"
-              style={{ backgroundColor: "#179CBD" }}
+              style={{ backgroundColor: "#179CBD",marginTop:15 }}
               fullWidth
               type="submit"
             >

@@ -2,7 +2,7 @@ import React from "react";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+import CustomInput from "../components/CustomInput";
 
 const AddPackageModal = ({ open, onClose, onSubmit, formData, onChange }) => {
   return (
@@ -16,7 +16,14 @@ const AddPackageModal = ({ open, onClose, onSubmit, formData, onChange }) => {
       }}
     >
       <Box
-        sx={{ width: 400, p: 2, bgcolor: "background.paper", borderRadius: 2 }}
+        sx={{
+          width: 400,
+          paddingLeft: 5,
+          paddingRight: 5,
+          paddingBottom: 5,
+          bgcolor: "background.paper",
+          borderRadius: 2,
+        }}
       >
         <h5>Add Package</h5>
         <div
@@ -26,31 +33,24 @@ const AddPackageModal = ({ open, onClose, onSubmit, formData, onChange }) => {
           }}
         >
           <form onSubmit={onSubmit}>
-            <TextField
-              fullWidth
+            <CustomInput
               label="name"
-              placeholder="package name"
-              margin="normal"
               name="name"
-              size="small"
+              onChange={onChange}
+              placeholder="package name"
               value={formData.name}
-              onChange={onChange}
             />
-
-            <TextField
-              fullWidth
+            <CustomInput
               label="price"
-              placeholder="price in dollars"
-              margin="normal"
               name="price"
-              size="small"
-              value={formData.price}
               onChange={onChange}
+              placeholder="price in dollars"
+              value={formData.price}
             />
 
             <Button
               variant="contained"
-              style={{ backgroundColor: "#179CBD" }}
+              style={{ backgroundColor: "#179CBD", marginTop: 15 }}
               fullWidth
               type="submit"
             >

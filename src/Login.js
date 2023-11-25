@@ -85,7 +85,7 @@ const Login = ({ onLogin}) => {
     backgroundColor: "#179CBD",
     borderRadius: "15px",
     textTransform: "none",
-    marginTop: "10px",
+    marginTop: "15px",
 
     // backgroundColor: "#179CBD", borderRadius: "5px", textTransform:"none"
     // Additional styles for your Open Sans text
@@ -125,6 +125,13 @@ const Login = ({ onLogin}) => {
                   fontFamily: "Open Sans",
                   textAlign:"right"
                 },
+                "&:hover fieldset": {
+                  borderColor: "#179CBD", // Border color on hover
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "#179CBD", // Border color when focused
+                  color: "#179CBD", // Text color when focused
+                },
               },
               
             }}
@@ -156,7 +163,7 @@ const Login = ({ onLogin}) => {
             size="small"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            style={{ marginTop: "30px", fontFamily: "Open Sans" }}
+            style={{ marginTop: "20px", fontFamily: "Open Sans" }}
             InputProps={{
               startAdornment: <Lock style={{ color: "#179CBD" }} />,
               endAdornment: (
@@ -178,6 +185,13 @@ const Login = ({ onLogin}) => {
                   borderColor: "#179CBD",
                   fontFamily: "Open Sans",
                   textAlign:"right"
+                },
+                "&:hover fieldset": {
+                  borderColor: "#179CBD", // Border color on hover
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "#179CBD", // Border color when focused
+                  color: "#179CBD", // Text color when focused
                 },
               },
             }}
