@@ -6,11 +6,9 @@ import Tab from "@mui/material/Tab";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import LikesView from "../pages/profile/LikesView";
 import DislikeView from "../pages/profile/DislikeView";
 import MatchPageView from "../pages/profile/MatchPageView";
-import GalleryView from "../pages/profile/GalleryView";
 import { useSelector } from "react-redux";
 
 import Profile from "../assets/profile.png"
@@ -101,7 +99,7 @@ const ViewCompanyProfileModal = ({ open, onClose }) => {
             }}
           />
 
-          <Tab
+          {/* <Tab
             icon={
               <PhotoLibraryIcon style={{ marginTop: "6", fontSize: "15" }} />
             }
@@ -112,7 +110,7 @@ const ViewCompanyProfileModal = ({ open, onClose }) => {
               justifyContent: "flex-start",
               textTransform: "none",
             }}
-          />
+          /> */}
         </Tabs>
         <div
           style={{
@@ -122,7 +120,7 @@ const ViewCompanyProfileModal = ({ open, onClose }) => {
           {selectedTab === 0 && <LikesView />}
           {selectedTab === 1 && <DislikeView />}
           {selectedTab === 2 && <MatchPageView />}
-          {selectedTab === 3 && <GalleryView />}
+          {/* {selectedTab === 3 && <GalleryView />} */}
         </div>
       </Box>
     </Modal>

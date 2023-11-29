@@ -17,10 +17,28 @@ import ViewProfileModal from "../../modals/ViewProfileModal";
 // import EditUserModal from "../../modals/EditUserModal";
 // import ChangePasswordModal from "../../modals/ChangePasswordModal";
 import { getCompany } from "../../redux/slices/CompaniesSlice";
+import { Pagination } from "@mui/material";
 
 const Users = () => {
   const loggedUser = useSelector(getLoggedInUser);
   const mycompany = useSelector(getCompany);
+
+   //pagination
+   const [page, setPage] = useState(1);
+   const [pageCount,setPageCount] = useState(4)
+   const [startIndex,setStartIndex] = useState(0)
+   const [endIndex,setEndIndex] = useState(0)
+   const [entries,setEntries] = useState(0)
+   const [pageSize, setPageSize] = useState(10); // Default page size
+
+   const handleChange = (event, value) => {
+     setPage(value);
+   };
+   const handlePageSizeChange = (event) => {
+    const newSize = parseInt(event.target.value, 10); // Use radix 10
+
+    setPageSize(newSize);
+  };
 
 
   //user res
@@ -39,12 +57,16 @@ const Users = () => {
   const fetchUsers = async () => {
     try {
       if (loggedUser && loggedUser.role === "ADMIN") {
-        userRes = await api.get(`/user/company/${mycompany.id}`);
+        userRes = await api.get(`/user/company/${mycompany.id}/page/${page}/size/${pageSize}`);
       } else {
-        userRes = await api.get("/user/all");
+        userRes = await api.get(`/user/all/page/${page}/size/${pageSize}`);
       }
       if (userRes.status === 200) {
-        dispatch(setUsers(userRes.data));
+        dispatch(setUsers(userRes.data.users));
+        setPageCount(userRes.data.totalPages)
+        setStartIndex(userRes.data.startIndex)
+        setEndIndex(userRes.data.endIndex)
+        setEntries(userRes.data.totalItems)
       }
     } catch (error) {}
   };
@@ -72,10 +94,18 @@ const Users = () => {
       <ToastContainer position="top-right" />
       
       <UsersTable
-        openViewProfile={openViewProfile}
+        openViewProfile={openViewProfile} 
+        pageSize ={pageSize}
+        handlePageSize = {handlePageSizeChange}
        
       />
-     
+
+<div className="pagination">
+      <Pagination  count={pageCount} page={page} onChange={handleChange} color="primary" variant="outlined" shape="rounded" />
+      
+      <p>Showing {startIndex} to {endIndex} of {entries} entries</p>
+
+      </div>
       <ViewProfileModal
         open={showViewProfile}
         onClose={handleShowViewProfile}

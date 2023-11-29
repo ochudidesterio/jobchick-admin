@@ -194,6 +194,7 @@ const Companies = () => {
         onSubmit={handleAdminFormSubmit}
         formData={adminData}
         onChange={handleAdminInputChange}
+        title ="Create admin"
       />
     </div>
   );

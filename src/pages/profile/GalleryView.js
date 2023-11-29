@@ -5,7 +5,7 @@ const GalleryView = ({ images }) => {
 
   return (
     <div dir='rtl' className='gallery'>
-      {images.length === 0 ? (
+      {images && images.length === 0 ? (
         <p>No images available</p>
       ) : (
         images.map((image, index) => (

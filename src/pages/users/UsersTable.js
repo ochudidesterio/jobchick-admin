@@ -5,6 +5,8 @@ import UsersTableComponent from "./UsersTableComponent";
 import TextField from "@mui/material/TextField";
 import { Search } from "@mui/icons-material";
 import { useTranslation } from 'react-i18next';
+import SelectPageSize from "../../components/SelectPageSize";
+
 
 
 
@@ -12,6 +14,8 @@ const UsersTable = ({
   openViewProfile,
   openEditProfile,
   openChangePassword,
+  pageSize,
+  handlePageSize
 }) => {
 
   const{t} = useTranslation()
@@ -47,6 +51,7 @@ const UsersTable = ({
     <div>
       <div className="seach-container">
         <h3>{t('users')}</h3>
+        <SelectPageSize pageSize={pageSize} handlePageSizeChange={handlePageSize} />
         <TextField
           placeholder={t('searchuser')}
           margin="normal"
