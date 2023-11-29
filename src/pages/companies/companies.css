@@ -2,6 +2,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 .companyhome{
     margin: 50px;

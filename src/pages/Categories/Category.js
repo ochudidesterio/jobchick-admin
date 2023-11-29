@@ -10,8 +10,8 @@ import { showErrorToast, showSuccessToast } from "../../Constants/Toasts";
 import AddCategoryModal from "../../modals/AddCategoryModal";
 import EditCategoryModal from "../../modals/EditCategoryModal";
 import { useTranslation } from "react-i18next";
-import { Pagination} from "@mui/material";
 import SelectPageSize from "../../components/SelectPageSize";
+import PaginationItem from "../../components/PaginationItem";
 
 const Category = () => {
   const { t } = useTranslation();
@@ -128,19 +128,14 @@ const Category = () => {
         </div>
       </div>
       <CategoryTable editCategory={editCategory} />
-      <div className="pagination">
-        <Pagination
-          count={pageCount}
-          page={page}
-          onChange={handleChange}
-          color="primary"
-          variant="outlined"
-          shape="rounded"
-        />
-        <p>
-          Showing {startIndex} to {endIndex} of {entries} entries
-        </p>
-      </div>
+      <PaginationItem 
+      page={page}
+      pageCount ={pageCount}
+      handleChange={handleChange}
+      startIndex={startIndex}
+      endIndex={endIndex}
+      entries={entries}
+       />
       <AddCategoryModal
         open={showModal}
         onClose={handleClose}

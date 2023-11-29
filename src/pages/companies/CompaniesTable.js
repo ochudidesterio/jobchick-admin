@@ -6,9 +6,10 @@ import { EllipsisOutlined } from "@ant-design/icons";
 import TextField from "@mui/material/TextField";
 import { Search } from "@mui/icons-material";
 import { useTranslation } from 'react-i18next';
+import SelectPageSize from "../../components/SelectPageSize";
 
 
-export const CompaniesTable = ({ openCompanyProfile, openCreateAdmin }) => {
+export const CompaniesTable = ({ openCompanyProfile, openCreateAdmin,pageSize,handlePageSizeChange }) => {
   const {t}=useTranslation()
   const companies = useSelector(getCompanies);
   const [searchQuery, setSearchQuery] = useState("");
@@ -66,6 +67,7 @@ export const CompaniesTable = ({ openCompanyProfile, openCreateAdmin }) => {
   return (
     <>
       <div className="seach-container">
+      
         <TextField
           placeholder={t('search')}
           margin="normal"
@@ -97,6 +99,10 @@ export const CompaniesTable = ({ openCompanyProfile, openCreateAdmin }) => {
               },
             },
           }}
+        />
+         <SelectPageSize
+          pageSize={pageSize}
+          handlePageSizeChange={handlePageSizeChange}
         />
       </div>
       <table className="table">

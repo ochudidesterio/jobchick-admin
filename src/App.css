@@ -100,7 +100,8 @@
 .seach-container{
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  
+  margin: 20px;
   align-items: center;
 }
 .select-box{

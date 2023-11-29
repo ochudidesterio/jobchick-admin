@@ -17,10 +17,28 @@ import { setRegions } from "../../redux/slices/RegionSlice";
 import ViewCompanyProfileModal from "../../modals/ViewCompanyProfileModal";
 import AddUserModal from "../../modals/AddUserModal";
 import { useTranslation } from "react-i18next";
+import PaginationItem from "../../components/PaginationItem";
 
 const Companies = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  //pagination
+  const [page, setPage] = useState(1);
+  const [pageCount, setPageCount] = useState(4);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(0);
+  const [entries, setEntries] = useState(0);
+  const [pageSize, setPageSize] = useState(10); // Default page size
+
+  const handlePageSizeChange = (event) => {
+    const newSize = parseInt(event.target.value, 10); // Use radix 10
+
+    setPageSize(newSize);
+  };
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
 
   //selected company
   const [selectedCompanyId, setSelectedCompanyId] = useState(null);
@@ -97,15 +115,19 @@ const Companies = () => {
   useEffect(() => {
     fetchCompanies();
   });
-
-  useEffect(() => {
-    fetchCompanies();
-  });
+ 
+ 
   const fetchCompanies = async () => {
     try {
-      const response = await api.get("/company/all");
+      const response = await api.get(
+        `/company/all/page/${page}/size/${pageSize}`
+      );
       if (response.status === 200) {
-        dispatch(setCompanies(response.data));
+        dispatch(setCompanies(response.data.data));
+        setPageCount(response.data.totalPages);
+        setStartIndex(response.data.startIndex);
+        setEndIndex(response.data.endIndex);
+        setEntries(response.data.totalItems);
       }
     } catch (error) {}
   };
@@ -168,6 +190,7 @@ const Companies = () => {
 
       <div className="companytop">
         <h3>{t("companies")}</h3>
+        
         <div>
           <CustomAddButton onClick={handleShow} name={t("addcompany")} />
         </div>
@@ -175,6 +198,16 @@ const Companies = () => {
       <CompaniesTable
         openCreateAdmin={openCreateAdmin}
         openCompanyProfile={openCompanyProfile}
+        pageSize={pageSize}
+        handlePageSizeChange={handlePageSizeChange}
+      />
+      <PaginationItem
+        page={page}
+        pageCount={pageCount}
+        handleChange={handleChange}
+        startIndex={startIndex}
+        endIndex={endIndex}
+        entries={entries}
       />
       <AddCompaniesModal
         open={showModal}
@@ -194,7 +227,7 @@ const Companies = () => {
         onSubmit={handleAdminFormSubmit}
         formData={adminData}
         onChange={handleAdminInputChange}
-        title ="Create admin"
+        title="Create admin"
       />
     </div>
   );
