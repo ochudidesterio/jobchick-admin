@@ -121,7 +121,7 @@ const Category = () => {
     <div dir="rtl" className="category-home">
       <ToastContainer position="top-right" />
       <div className="category-top">
-        <h3>{t("categories")}</h3>
+        <h3>{t("categories")} ({entries})</h3>
         <SelectPageSize pageSize={pageSize} handlePageSizeChange={handlePageSizeChange} />
         <div>
           <CustomAddButton onClick={handleShow} name={t("addcategory")} />

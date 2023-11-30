@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux/es/exports";
 import { getUsers } from "../../redux/slices/UsersSlice";
 import UsersTableComponent from "./UsersTableComponent";
@@ -14,40 +14,44 @@ const UsersTable = ({
   openChangePassword,
   pageSize,
   handlePageSize,
+  param,
+  onChange,
+  handleSearch,
+  totalUsers
 }) => {
   const { t } = useTranslation();
 
   const users = useSelector(getUsers);
-  const [searchQuery, setSearchQuery] = useState("");
+  // const [searchQuery, setSearchQuery] = useState("");
 
-  const filterUsers = (users, query) => {
-    return users.filter((user) => {
-      const firstName = user.firstName ? user.firstName.toLowerCase() : "";
-      const lastName = user.lastName ? user.lastName.toLowerCase() : "";
-      const authUsername = user.authUsername
-        ? user.authUsername.toLowerCase()
-        : "";
-      const phoneNumber = user.phoneNumber
-        ? user.phoneNumber.toLowerCase()
-        : "";
-      const email = user.email ? user.email.toLowerCase() : "";
+  // const filterUsers = (users, query) => {
+  //   return users.filter((user) => {
+  //     const firstName = user.firstName ? user.firstName.toLowerCase() : "";
+  //     const lastName = user.lastName ? user.lastName.toLowerCase() : "";
+  //     const authUsername = user.authUsername
+  //       ? user.authUsername.toLowerCase()
+  //       : "";
+  //     const phoneNumber = user.phoneNumber
+  //       ? user.phoneNumber.toLowerCase()
+  //       : "";
+  //     const email = user.email ? user.email.toLowerCase() : "";
 
-      return (
-        firstName.includes(query.toLowerCase()) ||
-        lastName.includes(query.toLowerCase()) ||
-        authUsername.includes(query.toLowerCase()) ||
-        phoneNumber.includes(query.toLowerCase()) ||
-        email.includes(query.toLowerCase())
-      );
-    });
-  };
+  //     return (
+  //       firstName.includes(query.toLowerCase()) ||
+  //       lastName.includes(query.toLowerCase()) ||
+  //       authUsername.includes(query.toLowerCase()) ||
+  //       phoneNumber.includes(query.toLowerCase()) ||
+  //       email.includes(query.toLowerCase())
+  //     );
+  //   });
+  // };
 
-  const filteredUsers = filterUsers(users, searchQuery);
+  // const filteredUsers = filterUsers(users, searchQuery);
 
   return (
     <div>
       <div className="seach-container">
-        <h3>{t("users")}</h3>
+        <h3>{t("users")} ({totalUsers})</h3>
         <SelectPageSize
           pageSize={pageSize}
           handlePageSizeChange={handlePageSize}
@@ -58,8 +62,8 @@ const UsersTable = ({
             margin="normal"
             size="small"
             className="search-input"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            value={param}
+            onChange={onChange}
             InputProps={{
               startAdornment: <Search style={{ color: "#179CBD" }} />,
               style: {
@@ -90,6 +94,7 @@ const UsersTable = ({
           />
           <Button
             variant="contained"
+            onClick={handleSearch}
             style={{
               height: 34.5,
               backgroundColor: "#179CBD",
@@ -104,7 +109,7 @@ const UsersTable = ({
       </div>
 
       <UsersTableComponent
-        userList={filteredUsers}
+        userList={users}
         openChangePassword={openChangePassword}
         openEditProfile={openEditProfile}
         openViewProfile={openViewProfile}

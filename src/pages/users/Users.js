@@ -46,7 +46,16 @@ const Users = () => {
   //create view profile
   const [showViewProfile, setViewProfile] = useState(false);
   const handleShowViewProfile = () => setViewProfile(false);
-
+  //search param
+  const [searchParam,setSearchParam] = useState(null)
+  const handleSearchInputChange = (e) => {
+    const { value } = e.target;
+  setSearchParam(value);
+  };
+  const handleSearchButton = (e)=>{
+    e.preventDefault()
+    console.log("SearcParam::",searchParam)
+  }
  
 
   const dispatch = useDispatch();
@@ -57,9 +66,14 @@ const Users = () => {
   const fetchUsers = async () => {
     try {
       if (loggedUser && loggedUser.role === "ADMIN") {
-        userRes = await api.get(`/user/company/${mycompany.id}/page/${page}/size/${pageSize}`);
-      } else {
-        userRes = await api.get(`/user/all/page/${page}/size/${pageSize}`);
+        let apiEndpoint = `/user/company/${mycompany.id}/page/${page}/size/${pageSize}`
+        const params = searchParam ? `?param=${encodeURIComponent(searchParam)}` : '';
+        userRes = await api.get(apiEndpoint + params);
+      } 
+      if(loggedUser && loggedUser.role === "SUPERADMIN") {
+        let apiEndpoint = `/user/all/page/${page}/size/${pageSize}`;
+        const params = searchParam ? `?param=${encodeURIComponent(searchParam)}` : '';
+        userRes = await api.get(apiEndpoint + params);
       }
       if (userRes.status === 200) {
         dispatch(setUsers(userRes.data.users));
@@ -97,7 +111,10 @@ const Users = () => {
         openViewProfile={openViewProfile} 
         pageSize ={pageSize}
         handlePageSize = {handlePageSizeChange}
-       
+        param = {searchParam}
+        onChange = {handleSearchInputChange}
+        handleSearch = {handleSearchButton}
+        totalUsers={entries}
       />
 
 <PaginationItem page={page} pageCount={pageCount} handleChange={handleChange} startIndex={startIndex} endIndex={endIndex} entries={entries} />

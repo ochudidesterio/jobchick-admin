@@ -189,7 +189,7 @@ const Companies = () => {
       <ToastContainer position="top-right" />
 
       <div className="companytop">
-        <h3>{t("companies")}</h3>
+        <h3>{t("companies")} ({entries})</h3>
         
         <div>
           <CustomAddButton onClick={handleShow} name={t("addcompany")} />
