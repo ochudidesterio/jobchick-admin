@@ -4,8 +4,9 @@ import { Pagination} from "@mui/material";
 
 const PaginationItem = ({page,pageCount,handleChange,startIndex,endIndex,entries}) => {
   return (
-    <div className="pagination">
+    <div  className="pagination">
         <Pagination
+        dir='ltr'
           count={pageCount}
           page={page}
           onChange={handleChange}

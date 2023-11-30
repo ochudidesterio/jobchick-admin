@@ -4,21 +4,18 @@ import { getUsers } from "../../redux/slices/UsersSlice";
 import UsersTableComponent from "./UsersTableComponent";
 import TextField from "@mui/material/TextField";
 import { Search } from "@mui/icons-material";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import SelectPageSize from "../../components/SelectPageSize";
-
-
-
+import { Button } from "@mui/material";
 
 const UsersTable = ({
   openViewProfile,
   openEditProfile,
   openChangePassword,
   pageSize,
-  handlePageSize
+  handlePageSize,
 }) => {
-
-  const{t} = useTranslation()
+  const { t } = useTranslation();
 
   const users = useSelector(getUsers);
   const [searchQuery, setSearchQuery] = useState("");
@@ -50,42 +47,60 @@ const UsersTable = ({
   return (
     <div>
       <div className="seach-container">
-        <h3>{t('users')}</h3>
-        <SelectPageSize pageSize={pageSize} handlePageSizeChange={handlePageSize} />
-        <TextField
-          placeholder={t('searchuser')}
-          margin="normal"
-          size="small"
-          className="search-input"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          InputProps={{
-            startAdornment: <Search style={{ color: "#179CBD" }} />,
-            style: {
-              borderRadius: "5px",
-              height: "35px",
-              borderWidth: "1px",
-              fontFamily: "Open Sans",
-            },
-          }}
-          dir = "rtl"
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              "& fieldset": {
-                borderColor: "#179CBD",
-                fontFamily: "Open Sans",
-                
-              },
-              "&:hover fieldset": {
-                borderColor: "#179CBD", // Border color on hover
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "#179CBD", // Border color when focused
-                color: "#179CBD", // Text color when focused
-              },
-            },
-          }}
+        <h3>{t("users")}</h3>
+        <SelectPageSize
+          pageSize={pageSize}
+          handlePageSizeChange={handlePageSize}
         />
+        <div className="search">
+          <TextField
+            placeholder={t("searchuser")}
+            margin="normal"
+            size="small"
+            className="search-input"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            InputProps={{
+              startAdornment: <Search style={{ color: "#179CBD" }} />,
+              style: {
+                borderTopLeftRadius: "0px",
+                borderBottomLeftRadius: "0px",
+                height: "35px",
+                width: "200px",
+                borderWidth: 0.5,
+                fontFamily: "Open Sans",
+              },
+            }}
+            dir="rtl"
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "#179CBD",
+                  fontFamily: "Open Sans",
+                },
+                "&:hover fieldset": {
+                  borderColor: "#179CBD", // Border color on hover
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "#179CBD", // Border color when focused
+                  color: "#179CBD", // Text color when focused
+                },
+              },
+            }}
+          />
+          <Button
+            variant="contained"
+            style={{
+              height: 34.5,
+              backgroundColor: "#179CBD",
+              marginTop: 12,
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 0,
+            }}
+          >
+            <span style={{ textTransform: "none" }}>Search</span>
+          </Button>
+        </div>
       </div>
 
       <UsersTableComponent

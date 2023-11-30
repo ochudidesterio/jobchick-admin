@@ -17,7 +17,7 @@ import ViewProfileModal from "../../modals/ViewProfileModal";
 // import EditUserModal from "../../modals/EditUserModal";
 // import ChangePasswordModal from "../../modals/ChangePasswordModal";
 import { getCompany } from "../../redux/slices/CompaniesSlice";
-import { Pagination } from "@mui/material";
+import PaginationItem from "../../components/PaginationItem";
 
 const Users = () => {
   const loggedUser = useSelector(getLoggedInUser);
@@ -100,12 +100,7 @@ const Users = () => {
        
       />
 
-<div className="pagination">
-      <Pagination  count={pageCount} page={page} onChange={handleChange} color="primary" variant="outlined" shape="rounded" />
-      
-      <p>Showing {startIndex} to {endIndex} of {entries} entries</p>
-
-      </div>
+<PaginationItem page={page} pageCount={pageCount} handleChange={handleChange} startIndex={startIndex} endIndex={endIndex} entries={entries} />
       <ViewProfileModal
         open={showViewProfile}
         onClose={handleShowViewProfile}
