@@ -13,11 +13,14 @@ import EditJobDescriptionModal from '../../modals/EditJobDescriptionModal';
 import EditJobQualificationsModal from '../../modals/EditJobQualificationModal';
 import ViewJobModal from '../../modals/ViewJobModal';
 import RepostJobModal from '../../modals/RepostJobModal';
+import { getLoggedInUser } from '../../redux/slices/UsersSlice';
 
 
 
 const ClosedJobs = () => {
   const { t } = useTranslation();
+  const loggedUser = useSelector(getLoggedInUser);
+
     //create view job modal
     const [showViewJobs, setViewJobs] = useState(false);
     const handleShowViewJob = () => setViewJobs(false);
@@ -151,8 +154,21 @@ const ClosedJobs = () => {
       console.log("Error fatching closed jobs: ",error)
     }
   }
+  const fetchAllClosedJobs = async() =>{
+    try{
+      const res = await api.get(`/job/all/closed`)
+      dispatch(setClosedJobs(res.data))
+    }catch(err){
+      console.log("Error fatching closed jobs: ",err)
+
+    }
+  }
   useEffect(()=>{
-    fetchClosedJobs(mycompany.id)
+    if(loggedUser.role ==="ADMIN"){
+      fetchClosedJobs(mycompany.id)
+    }else{
+      fetchAllClosedJobs()
+    }
   })
   //show view job modal
   const openViewJob = (jobId) => {

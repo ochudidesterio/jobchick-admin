@@ -8,6 +8,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import ProfileView from "../pages/profile/ProfileView";
 
 import GalleryView from "../pages/profile/GalleryView";
@@ -18,6 +19,7 @@ import { IconButton } from "@mui/material";
 import api from "../api/api";
 import { getIsLikedJob } from "../redux/slices/JobsSlice";
 import { useTranslation } from 'react-i18next';
+import ChangePasswordView from "../pages/profile/ChangePasswordView";
 
 
 
@@ -137,6 +139,17 @@ const ViewProfileModal = ({ open, onClose,companyId,jobId }) => {
               marginLeft: "30px",
             }}
           />
+          <Tab
+              icon={<VpnKeyIcon style={{ marginTop: "6", fontSize: "15" }} />} 
+              label={t('password')}
+              sx={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "flex-start",
+                textTransform: "none",
+                marginLeft: "30px",
+              }}
+            />
          
         </Tabs>
         {loggedInUser && loggedInUser.role === "ADMIN" && <IconButton onClick={handleThumbClick}>
@@ -162,6 +175,7 @@ const ViewProfileModal = ({ open, onClose,companyId,jobId }) => {
           {selectedTab === 0 && <ProfileView user={user}/>}
        
           {selectedTab === 1 && <GalleryView images={images} />}
+          {selectedTab === 2 && <ChangePasswordView user={user}/>}
         </div>
       </Box>
     </Modal>

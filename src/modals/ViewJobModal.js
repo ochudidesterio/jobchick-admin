@@ -13,7 +13,6 @@ import RolesList from "../components/RolesList";
 import QualificationList from "../components/QualificationList";
 import ViewJobTable from "../components/ViewJobTable";
 import api from "../api/api";
-import { getLoggedInUser } from "../redux/slices/UsersSlice";
 import { useTranslation } from "react-i18next";
 import { EditOutlined } from "@ant-design/icons";
 
@@ -29,7 +28,6 @@ const ViewJobModal = ({
   const job = useSelector(getSelectedJob);
   const roles = useSelector(getRoles);
   const qualifications = useSelector(getQualifications);
-  const loggedInUser = useSelector(getLoggedInUser);
 
   const handlePublish = async (id) => {
     try {
@@ -75,7 +73,7 @@ const ViewJobModal = ({
           <div className="description-view">
             <div className="edit-header">
               <h4>{t("description")}</h4>
-              {loggedInUser && loggedInUser.role === "ADMIN" && (
+              {(
                 <EditOutlined
                   onClick={() => {
                     openEditDesc(job.id);
@@ -97,8 +95,7 @@ const ViewJobModal = ({
             />
           </div>
           {job.status === "INACTIVE" &&
-            loggedInUser &&
-            loggedInUser.role === "ADMIN" && (
+             (
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
                 <Button
                   variant="contained"

@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import { EllipsisOutlined} from "@ant-design/icons";
+import { EllipsisOutlined } from "@ant-design/icons";
 import { Menu, Dropdown } from "antd";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { getActiveLikedJobs } from "../../redux/slices/JobsSlice";
 import { getLoggedInUser } from "../../redux/slices/UsersSlice";
 import TextField from "@mui/material/TextField";
 import { Search } from "@mui/icons-material";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-
-const LikeJobs = ({ openViewJob,  openViewLikes,openCloseJob }) => {
-  const {t} = useTranslation()
+const LikeJobs = ({ openViewJob, openViewLikes, openCloseJob }) => {
+  const { t } = useTranslation();
   const jobs = useSelector(getActiveLikedJobs);
   const loggedInUser = useSelector(getLoggedInUser);
   const [searchQuery, setSearchQuery] = useState("");
@@ -31,7 +30,6 @@ const LikeJobs = ({ openViewJob,  openViewLikes,openCloseJob }) => {
   const filteredJobs = filterJobs(jobs, searchQuery);
 
   const handleMenuClick = (id, action, title) => {
-
     switch (action) {
       case "view":
         openViewJob(id); // Pass the ID to the openModal function
@@ -39,7 +37,6 @@ const LikeJobs = ({ openViewJob,  openViewLikes,openCloseJob }) => {
       case "likes":
         openViewLikes(id, title); // Pass the ID to the openModal function
         break;
-     
 
       case "close":
         openCloseJob(id);
@@ -50,15 +47,15 @@ const LikeJobs = ({ openViewJob,  openViewLikes,openCloseJob }) => {
   };
   const menu = (id, title) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key, title)}>
-      <Menu.Item key="view">{t('view')}</Menu.Item>
+      <Menu.Item key="view">{t("view")}</Menu.Item>
       {loggedInUser && loggedInUser.role === "ADMIN" && (
         <>
-          <Menu.Item key="likes">{t('likes')}</Menu.Item>
-          <Menu.Item key="close" danger="true">
-            {t('close')}
-          </Menu.Item>
+          <Menu.Item key="likes">{t("likes")}</Menu.Item>
         </>
       )}
+      <Menu.Item key="close" danger="true">
+        {t("close")}
+      </Menu.Item>
     </Menu>
   );
 
@@ -69,7 +66,7 @@ const LikeJobs = ({ openViewJob,  openViewLikes,openCloseJob }) => {
     <>
       <div className="seach-container">
         <TextField
-          placeholder={t('search')}
+          placeholder={t("search")}
           margin="normal"
           size="small"
           className="search-input"
@@ -104,10 +101,10 @@ const LikeJobs = ({ openViewJob,  openViewLikes,openCloseJob }) => {
       <table className="table">
         <thead>
           <tr>
-            <th>{t('title')}</th>
-            <th>{t('companies')}</th>
-            <th>{t('regions')}</th>
-            <th>{t('action')}</th>
+            <th>{t("title")}</th>
+            <th>{t("companies")}</th>
+            <th>{t("regions")}</th>
+            <th>{t("action")}</th>
           </tr>
         </thead>
         <tbody>

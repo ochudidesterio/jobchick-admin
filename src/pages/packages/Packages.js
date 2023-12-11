@@ -25,12 +25,14 @@ const Packages = () => {
     const [premium,setPremium] = useState({
         name:'',
         price:'',
+        link:'',
     })
 
      //update  data
    const [updateData, setUpdateData] = useState({
     name: "",
     price:"",
+    link:"",
     id:""
   });
 
@@ -66,7 +68,8 @@ const Packages = () => {
                 showSuccessToast(t('created'))
                 setPremium({
                     name:'',
-                    price:''
+                    price:'',
+                    link:''
                 })
             }else{
                 showErrorToast(t('anerroroccurred'))
@@ -94,12 +97,23 @@ const Packages = () => {
             setUpdateData({
               id:res.data.id,
               name:res.data.name,
-              price:res.data.price
+              price:res.data.price,
+              link:res.data.link
             })
             setShowEditModal(true)
           }
         })
         .catch((e)=>console.log(e))
+      }
+      const viewPackage = (id)=>{
+        api.get(`/premium/get/${id}`)
+        .then((res)=>{
+          if (res.status === 200) {
+            // Open the link in a new browser window or tab
+            window.open(res.data.link, '_blank');
+          }
+        })
+        .catch(e=>console.log(e))
       }
 
   return (
@@ -111,7 +125,7 @@ const Packages = () => {
             {/* <CustomAddButton name="Add Package" onClick={handleShow} /> */}
         </div>
 
-        <PackageTable editPackage={editPackage} />
+        <PackageTable editPackage={editPackage} viewPackage={viewPackage}/>
 
         <AddPackageModal
         open={showModal}

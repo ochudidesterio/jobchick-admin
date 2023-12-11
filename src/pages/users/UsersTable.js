@@ -6,7 +6,6 @@ import TextField from "@mui/material/TextField";
 import { Search } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
 import SelectPageSize from "../../components/SelectPageSize";
-import { Button } from "@mui/material";
 
 const UsersTable = ({
   openViewProfile,
@@ -16,8 +15,7 @@ const UsersTable = ({
   handlePageSize,
   param,
   onChange,
-  handleSearch,
-  totalUsers
+  totalUsers,
 }) => {
   const { t } = useTranslation();
 
@@ -51,7 +49,9 @@ const UsersTable = ({
   return (
     <div>
       <div className="seach-container">
-        <h3>{t("users")} ({totalUsers})</h3>
+        <h3>
+          {t("users")} ({totalUsers})
+        </h3>
         <SelectPageSize
           pageSize={pageSize}
           handlePageSizeChange={handlePageSize}
@@ -67,8 +67,7 @@ const UsersTable = ({
             InputProps={{
               startAdornment: <Search style={{ color: "#179CBD" }} />,
               style: {
-                borderTopLeftRadius: "0px",
-                borderBottomLeftRadius: "0px",
+                borderRadius: "2px",
                 height: "35px",
                 width: "200px",
                 borderWidth: 0.5,
@@ -92,19 +91,6 @@ const UsersTable = ({
               },
             }}
           />
-          <Button
-            variant="contained"
-            onClick={handleSearch}
-            style={{
-              height: 34.5,
-              backgroundColor: "#179CBD",
-              marginTop: 12,
-              borderTopRightRadius: 0,
-              borderBottomRightRadius: 0,
-            }}
-          >
-            <span style={{ textTransform: "none" }}>Search</span>
-          </Button>
         </div>
       </div>
 

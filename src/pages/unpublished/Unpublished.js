@@ -398,6 +398,24 @@ const openEditRoles = (id) => {
     })
     .catch((err) => console.log("Error fetching roles", err));
 };
+const deleteJob = async (id)=>{
+  const apiEndpoint = `/job/delete?param=${id}`;
+
+  try {
+    const response = await api.delete(apiEndpoint);
+
+    if (response.status === 200) {
+      // Assuming you have a function to refresh the job list after deletion
+      getInActiveJobs();
+      showSuccessToast("Job deleted successfully");
+    } else {
+      showErrorToast("Failed to delete job");
+    }
+  } catch (error) {
+    console.error("Error deleting job:", error);
+    showErrorToast("Failed to delete job");
+  }
+}
 
 
   return (
@@ -413,6 +431,7 @@ const openEditRoles = (id) => {
         openAddRole={openAddRole}
         openAddQualification={openAddQualification}
         openViewJob={openViewJob}
+        deleteJob = {deleteJob}
       />
      
 

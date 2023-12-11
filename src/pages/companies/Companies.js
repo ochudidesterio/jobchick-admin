@@ -10,7 +10,7 @@ import {
 import { setCategories } from "../../redux/slices/CategorySlice";
 import { CompaniesTable } from "./CompaniesTable";
 import AddCompaniesModal from "../../modals/AddCompaniesModal";
-import { showSuccessToast } from "../../Constants/Toasts";
+import { showErrorToast, showSuccessToast } from "../../Constants/Toasts";
 import { ToastContainer } from "react-toastify";
 import { setTypes } from "../../redux/slices/TypesSlice";
 import { setRegions } from "../../redux/slices/RegionSlice";
@@ -18,6 +18,7 @@ import ViewCompanyProfileModal from "../../modals/ViewCompanyProfileModal";
 import AddUserModal from "../../modals/AddUserModal";
 import { useTranslation } from "react-i18next";
 import PaginationItem from "../../components/PaginationItem";
+import CreateJobModal from "../../modals/CreateJobModal";
 
 const Companies = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,13 @@ const Companies = () => {
     setPage(value);
   };
 
+  //search param
+  const [searchParam,setSearchParam] = useState(null)
+  const handleSearchInputChange = (e) => {
+    const { value } = e.target;
+  setSearchParam(value);
+  };
+
   //selected company
   const [selectedCompanyId, setSelectedCompanyId] = useState(null);
   //add company modal
@@ -52,6 +60,10 @@ const Companies = () => {
   const handleCloseCreateAdmin = () => setCreateAdmin(false);
 
   //create job modal
+   //create job modal
+   const [showCreateJob, setCreateJob] = useState(false);
+   const handleCloseCreateJob = () => setCreateJob(false);
+   const handleShowCreateJob =()=>setCreateJob(true)
   const [showViewCompany, setViewCompany] = useState(false);
   const handleCloseViewCompany = () => setViewCompany(false);
 
@@ -67,6 +79,18 @@ const Companies = () => {
     email: "",
     password: "",
   };
+    //create job data
+    const [jobData, setJobData] = useState({
+      title: "",
+      typeId: "",
+      regionId: "",
+      categoryId: "",
+      description: "",
+      level: "",
+      companyId: "",
+      latitude: 31.76904,
+      longitude: 35.21633,
+    });
 
   const [adminData, setAdminData] = useState({
     username: "",
@@ -92,6 +116,36 @@ const Companies = () => {
     } catch (error) {}
     handleClose();
     //window.location.reload()
+  };
+  const handleJobFormSubmit = async  (e) => {
+    jobData.companyId = selectedCompanyId
+    e.preventDefault();
+    try {
+      if (
+        jobData.description === "" ||
+        jobData.level === "" ||
+        jobData.regionId === "" ||
+        jobData.title === "" ||
+        jobData.typeId === ""
+      ) {
+        showErrorToast(t('failedallfieldsrequired'));
+      } else {
+        const response = await api.post("/job/create", jobData);
+        if (response.status === 200) {
+          showSuccessToast(t('created'));
+          handleCloseCreateJob();
+        }
+      }
+    } catch (error) {}
+
+    //window.location.reload()
+  };
+  const handleJobInputChange = (e) => {
+    const { name, value } = e.target;
+    setJobData({ ...jobData, [name]: value });
+  };
+  const updateJobData = (newLat, newLng) => {
+    setJobData({ ...jobData, latitude: newLat, longitude: newLng });
   };
 
   const handleAdminFormSubmit = async (e) => {
@@ -119,8 +173,11 @@ const Companies = () => {
  
   const fetchCompanies = async () => {
     try {
+      let apiEndpoint = `/company/all/page/${page}/size/${pageSize}`
+      const params = searchParam ? `?param=${encodeURIComponent(searchParam)}` : '';
+
       const response = await api.get(
-        `/company/all/page/${page}/size/${pageSize}`
+        apiEndpoint + params
       );
       if (response.status === 200) {
         dispatch(setCompanies(response.data.data));
@@ -143,6 +200,12 @@ const Companies = () => {
       })
       .catch((e) => console.log(e));
   };
+  const openCreateJob =(id)=>{
+    setSelectedCompanyId(id)
+    //setCreateJob(true)
+    handleShowCreateJob()
+
+  }
 
   const openCreateAdmin = (id) => {
     setSelectedCompanyId(id);
@@ -200,6 +263,9 @@ const Companies = () => {
         openCompanyProfile={openCompanyProfile}
         pageSize={pageSize}
         handlePageSizeChange={handlePageSizeChange}
+        param={searchParam}
+        onChange={handleSearchInputChange}
+        openCreateJob = {openCreateJob}
       />
       <PaginationItem
         page={page}
@@ -228,6 +294,14 @@ const Companies = () => {
         formData={adminData}
         onChange={handleAdminInputChange}
         title="Create admin"
+      />
+      <CreateJobModal
+        open={showCreateJob}
+        onClose={handleCloseCreateJob}
+        onSubmit={handleJobFormSubmit}
+        jobData={jobData}
+        onChange={handleJobInputChange}
+        upDateJobData={updateJobData}
       />
     </div>
   );

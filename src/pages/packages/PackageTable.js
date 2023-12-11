@@ -6,23 +6,21 @@ import { getPackages } from "../../redux/slices/PremiumSlice";
 import { useTranslation } from 'react-i18next';
 
 
-const PackageTable = ({editPackage}) => {
+const PackageTable = ({editPackage,viewPackage}) => {
   const {t} = useTranslation()
   const packages = useSelector(getPackages)
 
   const handleMenuClick = (id, action) => {
     switch (action) {
       case 'view':
-        console.log("View package")
+        viewPackage(id)
         break;
       case 'edit':
         editPackage(id)
          // Pass the ID to the openModal function
         break;
       
-      case 'delete':
-        console.log(`Delete - Company ID: ${id}`);
-        break;
+     
       default:
         break;
     }
@@ -31,9 +29,7 @@ const PackageTable = ({editPackage}) => {
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
       <Menu.Item key="view">{t('view')}</Menu.Item>
       <Menu.Item key="edit">{t('edit')}</Menu.Item>
-      <Menu.Item key="delete" danger="true">
-        {t('delete')}
-      </Menu.Item>
+     
     </Menu>
   );
   return (

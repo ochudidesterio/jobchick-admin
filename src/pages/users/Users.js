@@ -52,10 +52,7 @@ const Users = () => {
     const { value } = e.target;
   setSearchParam(value);
   };
-  const handleSearchButton = (e)=>{
-    e.preventDefault()
-    console.log("SearcParam::",searchParam)
-  }
+ 
  
 
   const dispatch = useDispatch();
@@ -113,7 +110,6 @@ const Users = () => {
         handlePageSize = {handlePageSizeChange}
         param = {searchParam}
         onChange = {handleSearchInputChange}
-        handleSearch = {handleSearchButton}
         totalUsers={entries}
       />
 

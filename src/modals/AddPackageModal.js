@@ -47,6 +47,13 @@ const AddPackageModal = ({ open, onClose, onSubmit, formData, onChange }) => {
               placeholder="price in dollars"
               value={formData.price}
             />
+             <CustomInput
+              label="link"
+              name="link"
+              onChange={onChange}
+              placeholder="link"
+              value={formData.link}
+            />
 
             <Button
               variant="contained"

@@ -113,7 +113,7 @@ const Main = ({ onLogout }) => {
         >
           {t('publishedjobs')}
         </Menu.Item>
-        {loggedUser.role === "ADMIN" && (
+      
           <>
           <Menu.Item
           key="/closedjobs"
@@ -123,7 +123,7 @@ const Main = ({ onLogout }) => {
           {t('closedjobs')}
         </Menu.Item>
           </>
-        )}
+   
         <Menu.Item
           key="/unpublished"
           icon={<ProfileFilled style={{ fontSize: "16px" ,color:"#179CBD"}} />}

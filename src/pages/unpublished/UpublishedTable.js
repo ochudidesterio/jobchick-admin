@@ -4,7 +4,6 @@ import {  EllipsisOutlined } from "@ant-design/icons";
 
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { getInActiveJobs } from "../../redux/slices/JobsSlice";
-import { getLoggedInUser } from "../../redux/slices/UsersSlice";
 import { useTranslation } from 'react-i18next';
 
 
@@ -12,10 +11,10 @@ const UpublishedTable = ({
   openAddRole,
   openAddQualification,
   openViewJob,
+  deleteJob
 }) => {
   const {t} = useTranslation()
   const inactiveJobs = useSelector(getInActiveJobs);
-  const loggedInUser = useSelector(getLoggedInUser)
   const handleMenuClick = (id, title, action) => {
     switch (action) {
       case "view":
@@ -28,7 +27,7 @@ const UpublishedTable = ({
         openAddQualification(id, title); // Pass the ID to the openModal function
         break;
       case "delete":
-        console.log(`Delete - Company ID: ${id}`);
+        deleteJob(id)
         break;
       default:
         break;
@@ -37,13 +36,13 @@ const UpublishedTable = ({
   const menu = (id, title) => (
     <Menu onClick={({ key }) => handleMenuClick(id, title, key)}>
       <Menu.Item key="view">{t('view')}</Menu.Item>
-      {loggedInUser && loggedInUser.role === "ADMIN" && <>
+      
       <Menu.Item key="roles">{t('roles')}</Menu.Item>
       <Menu.Item key="qualifications">{t('qualifications')}</Menu.Item>
       <Menu.Item key="delete" danger="true">
         {t('delete')}
       </Menu.Item>
-      </>}
+      
     </Menu>
   );
 

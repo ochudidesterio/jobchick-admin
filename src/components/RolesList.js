@@ -1,12 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { EditOutlined } from "@ant-design/icons";
-import { useSelector } from "react-redux/es/hooks/useSelector";
-import { getLoggedInUser } from "../redux/slices/UsersSlice";
 
 const RolesList = ({ roles, job, openEditRoles }) => {
   const { t } = useTranslation();
-  const loggedInUser = useSelector(getLoggedInUser);
 
   if (roles.length === 0) {
     return <div>No roles available.</div>;
@@ -16,7 +13,7 @@ const RolesList = ({ roles, job, openEditRoles }) => {
     <div>
       <div className="edit-header">
         <h4>{t("rolesandresposibilities")}</h4>
-        {loggedInUser && loggedInUser.role === "ADMIN" && (
+        { (
           <EditOutlined
             onClick={() => {
               openEditRoles(job.id);

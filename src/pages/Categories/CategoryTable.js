@@ -16,9 +16,7 @@ const CategoryTable = ({ editCategory }) => {
         editCategory(id); // Pass the ID to the openModal function
         break;
 
-      case "delete":
-        console.log(`Delete - Company ID: ${id}`);
-        break;
+     
       default:
         break;
     }
@@ -26,9 +24,7 @@ const CategoryTable = ({ editCategory }) => {
   const menu = (id) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
       <Menu.Item key="edit">{t('edit')}</Menu.Item>
-      <Menu.Item key="delete" danger="true">
-        {t('delete')}
-      </Menu.Item>
+     
     </Menu>
   );
   return (

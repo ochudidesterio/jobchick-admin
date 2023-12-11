@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux/es/exports";
 import { getCompanies } from "../../redux/slices/CompaniesSlice";
 import { Menu, Dropdown } from "antd";
@@ -9,38 +9,41 @@ import { useTranslation } from 'react-i18next';
 import SelectPageSize from "../../components/SelectPageSize";
 
 
-export const CompaniesTable = ({ openCompanyProfile, openCreateAdmin,pageSize,handlePageSizeChange }) => {
+export const CompaniesTable = ({ openCompanyProfile,openCreateJob, openCreateAdmin,pageSize, param,
+  onChange,handlePageSizeChange }) => {
   const {t}=useTranslation()
   const companies = useSelector(getCompanies);
-  const [searchQuery, setSearchQuery] = useState("");
+  //const [searchQuery, setSearchQuery] = useState("");
 
-  const filterCompanies = (companies, query) => {
-    return companies.filter((item) => {
-      const name = item.name ? item.name.toLowerCase() : "";
-      const email = item.email ? item.name.toLowerCase() : "";
-      const phoneNumber = item.phoneNumber
-        ? item.phoneNumber.toLowerCase()
-        : "";
+  // const filterCompanies = (companies, query) => {
+  //   return companies.filter((item) => {
+  //     const name = item.name ? item.name.toLowerCase() : "";
+  //     const email = item.email ? item.name.toLowerCase() : "";
+  //     const phoneNumber = item.phoneNumber
+  //       ? item.phoneNumber.toLowerCase()
+  //       : "";
 
-      const location = item.location ? item.location.toLowerCase() : "";
+  //     const location = item.location ? item.location.toLowerCase() : "";
 
-      return (
-        name.includes(query.toLowerCase()) ||
-        location.includes(query.toLowerCase()) ||
-        phoneNumber.includes(query.toLowerCase()) ||
-        email.includes(query.toLowerCase())
-      );
-    });
-  };
+  //     return (
+  //       name.includes(query.toLowerCase()) ||
+  //       location.includes(query.toLowerCase()) ||
+  //       phoneNumber.includes(query.toLowerCase()) ||
+  //       email.includes(query.toLowerCase())
+  //     );
+  //   });
+  // };
 
-  const filteredCompanies = filterCompanies(companies, searchQuery);
+  // const filteredCompanies = filterCompanies(companies, searchQuery);
 
   const handleMenuClick = (id, action) => {
     switch (action) {
       case "profile":
         openCompanyProfile(id);
         break;
-
+      case "createjob":
+        openCreateJob(id)
+        break;
       case "admin":
         openCreateAdmin(id); // Pass the company ID to the openModal function
         break;
@@ -59,6 +62,7 @@ export const CompaniesTable = ({ openCompanyProfile, openCreateAdmin,pageSize,ha
       <Menu.Item key="profile">{t('view')}</Menu.Item>
       <Menu.Item key="edit">{t('edit')}</Menu.Item>
       <Menu.Item key="admin">{t('createadmin')}</Menu.Item>
+      <Menu.Item key="createjob">{t('createajob')}</Menu.Item>
       <Menu.Item key="delete" danger="true">
         {t('deactivate')}
       </Menu.Item>
@@ -73,14 +77,15 @@ export const CompaniesTable = ({ openCompanyProfile, openCreateAdmin,pageSize,ha
           margin="normal"
           size="small"
           className="search-input"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          value={param}
+          onChange={onChange}
           InputProps={{
             startAdornment: <Search style={{ color: "#179CBD" }} />,
             style: {
-              borderRadius: "10px",
+              borderRadius: "2px",
               height: "35px",
-              borderWidth: "1px",
+              width: "200px",
+                borderWidth: 0.5,
               fontFamily: "Open Sans",
             },
           }}
@@ -117,7 +122,7 @@ export const CompaniesTable = ({ openCompanyProfile, openCreateAdmin,pageSize,ha
           </tr>
         </thead>
         <tbody>
-          {filteredCompanies.map((item) => (
+          {companies.map((item) => (
             <tr key={item.id} className="tableRow">
               <td>{item.name}</td>
               <td>{item.email}</td>

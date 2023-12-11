@@ -8,20 +8,28 @@ import { useTranslation } from 'react-i18next';
 
 
 
-const AdminTable = () => {
+const AdminTable = ({openViewProfile}) => {
   const {t} = useTranslation()
     const admins = useSelector(getAdmins)
     const handleRowClick = (client) => {
         
     };
     const handleMenuClick = (id, action) => {
-        console.log(`Clicked on menu item: ${action}`);
-        console.log(`User ID: ${id}`);
+      switch (action) {
+        case "profile":
+          openViewProfile(id);
+          break;
+        
+        case "delete":
+          console.log(`Delete - User ID: ${id}`);
+          break;
+        default:
+          break;
+      }
       };
       const menu = (id) => (
         <Menu onClick={({ key }) => handleMenuClick(id, key)}>
           <Menu.Item key="profile">{t('viewprofile')}</Menu.Item>
-          <Menu.Item key="edit">{t('edit')}</Menu.Item>
           <Menu.Item key="delete" danger="true">
             Delete
           </Menu.Item>
