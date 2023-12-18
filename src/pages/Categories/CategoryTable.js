@@ -6,7 +6,7 @@ import { EllipsisOutlined } from "@ant-design/icons";
 import { useTranslation } from 'react-i18next';
 
 
-const CategoryTable = ({ editCategory }) => {
+const CategoryTable = ({ editCategory,deleteCategory }) => {
   const {t} = useTranslation()
   const categories = useSelector(getCategories);
 
@@ -14,6 +14,9 @@ const CategoryTable = ({ editCategory }) => {
     switch (action) {
       case "edit":
         editCategory(id); // Pass the ID to the openModal function
+        break;
+      case "delete":
+        deleteCategory(id)
         break;
 
      
@@ -24,7 +27,7 @@ const CategoryTable = ({ editCategory }) => {
   const menu = (id) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
       <Menu.Item key="edit">{t('edit')}</Menu.Item>
-     
+      <Menu.Item key="delete" danger='true'>{t('delete')}</Menu.Item>
     </Menu>
   );
   return (

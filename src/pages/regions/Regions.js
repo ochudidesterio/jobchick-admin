@@ -89,6 +89,15 @@ const Regions = () => {
     })
     .catch((e)=>console.log(e))
   }
+  const deleteRegion = (id)=>{
+    if(id !==0){
+      api.delete(`/region/delete/${id}`)
+      .then((res)=>{showSuccessToast(res.data)})
+      .catch(e=>showErrorToast("failed"))
+    }else{
+      showErrorToast("Cannot delete a default region")
+    }
+  }
   return (
     <div dir="rtl" className="regions-home">
       <ToastContainer position="top-right" />
@@ -97,7 +106,7 @@ const Regions = () => {
         <h3>{t('regions')}</h3>
         <CustomAddButton onClick={handleShow} name={t('addregion')} />
       </div>
-      <RegionsTable editRegion={editRegion} />
+      <RegionsTable editRegion={editRegion} deleteRegion={deleteRegion}/>
       <AddRegionModal
         open={showModal}
         onClose={handleClose}

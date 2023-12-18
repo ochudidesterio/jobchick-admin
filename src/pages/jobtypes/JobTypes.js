@@ -94,6 +94,15 @@ const JobTypes = () => {
     })
     .catch((e)=>console.log(e))
     }
+    const deleteType = (id)=>{
+      if(id !== 0){
+        api.delete(`/type/delete/${id}`)
+        .then((res)=>{showSuccessToast(res.data)})
+        .catch((e)=>showErrorToast("failed"))
+      }else{
+        showErrorToast("Cannot delete a default type")
+      }
+    }
   return (
     <div dir='rtl' className='jobtype-home'>
             <ToastContainer position="top-right" />
@@ -102,7 +111,7 @@ const JobTypes = () => {
             <h3>{t('jobtypes')}</h3>
             <CustomAddButton onClick={handleShow} name={t('addtype')} />
         </div>
-        <JobTypeTable editType={editType}/>
+        <JobTypeTable editType={editType} deleteType={deleteType}/>
         <AddJobTypeModal
         open={showModal}
         onClose={handleClose}

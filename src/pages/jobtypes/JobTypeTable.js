@@ -7,7 +7,7 @@ import { getTypes } from "../../redux/slices/TypesSlice";
 import { useTranslation } from 'react-i18next';
 
 
-const JobTypeTable = ({editType}) => {
+const JobTypeTable = ({editType,deleteType}) => {
   const {t} = useTranslation()
   const types = useSelector(getTypes)
 
@@ -17,7 +17,9 @@ const JobTypeTable = ({editType}) => {
         editType(id); // Pass the ID to the openModal function
         break;
       
-      
+      case "delete":
+        deleteType(id);
+        break;
       default:
         break;
     }
@@ -25,7 +27,8 @@ const JobTypeTable = ({editType}) => {
   const menu = (id) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
       <Menu.Item key="edit">{t('edit')}</Menu.Item>
-      
+      <Menu.Item key="delete" danger='true'>{t('delete')}</Menu.Item>
+
     </Menu>
   );
   return (

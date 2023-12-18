@@ -117,6 +117,15 @@ const Category = () => {
       })
       .catch((e) => console.log(e));
   };
+  const deleteCategory = (id) =>{
+    if(id !== 0){
+      api.delete(`/category/delete/${id}`)
+    .then((res)=>{showSuccessToast(res.data)})
+    .catch((e)=>showErrorToast("failed"))
+    }else{
+      showErrorToast("Cannot delete default category")
+    }
+  }
   return (
     <div dir="rtl" className="category-home">
       <ToastContainer position="top-right" />
@@ -127,7 +136,7 @@ const Category = () => {
           <CustomAddButton onClick={handleShow} name={t("addcategory")} />
         </div>
       </div>
-      <CategoryTable editCategory={editCategory} />
+      <CategoryTable editCategory={editCategory} deleteCategory={deleteCategory} />
       <PaginationItem 
       page={page}
       pageCount ={pageCount}
