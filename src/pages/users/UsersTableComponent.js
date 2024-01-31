@@ -29,6 +29,7 @@ const UsersTableComponent = ({ userList, openViewProfile, openEditProfile, openC
   const menu = (id) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
       <Menu.Item key="profile">{t('viewprofile')}</Menu.Item>
+      <Menu.Item key="edit">{t('edit')}</Menu.Item>
       {/* Add other menu items as needed */}
     </Menu>
   );

@@ -1,11 +1,12 @@
 import React from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import CustomInput from "../components/CustomInput";
+import { useTranslation } from "react-i18next";
 
-
-const EditUserModal = ({ open, onClose,data,onChange,onSubmit}) => {
+const EditUserModal = ({ open, onClose, data, onChange, onSubmit }) => {
+  const { t } = useTranslation();
   return (
     <Modal
       open={open}
@@ -17,7 +18,13 @@ const EditUserModal = ({ open, onClose,data,onChange,onSubmit}) => {
       }}
     >
       <Box
-        sx={{ width: 700, p: 2, bgcolor: "background.paper", borderRadius: 2 }}
+        sx={{
+          width: 700,
+          p: 2,
+          direction: "rtl",
+          bgcolor: "background.paper",
+          borderRadius: 2,
+        }}
       >
         <h5>Edit User Details</h5>
         <div
@@ -26,127 +33,80 @@ const EditUserModal = ({ open, onClose,data,onChange,onSubmit}) => {
             overflow: "auto",
           }}
         >
-            <form onSubmit={onSubmit}>
-              <div className="form-row">
-                <div className="form-row-left">
-                  <TextField
-                    fullWidth
-                    label="Firt Name"
-                    placeholder="first name"
-                    margin="normal"
-                    name="firstName"
-                    size="small"
-                    value={data.firstName}
-                    onChange={onChange}
-                  />
-                </div>
-                <div className="form-row-right">
-                  <TextField
-                    fullWidth
-                    label="Last Name"
-                    placeholder="last name"
-                    margin="normal"
-                    size="small"
-                    name="lastName"
-                    value={data.lastName}
-                    onChange={onChange}
-                  />
-                </div>
+          <form dir="rtl" onSubmit={onSubmit}>
+            <div className="form-row">
+              <div dir="rtl" className="form-row-left">
+                <CustomInput
+                  label={t("firstname")}
+                  name="firstName"
+                  onChange={onChange}
+                  placeholder={t("firstname")}
+                  value={data.firstName}
+                />
               </div>
-              <div className="form-row">
-                <div className="form-row-left">
-                <TextField
-                    fullWidth
-                    label="Email"
-                    placeholder="email"
-                    margin="normal"
-                    size="small"
-                    name="email"
-                    value={data.email}
-                    onChange={onChange}
-                  />
-                </div>
-                <div className="form-row-right">
-                <TextField
-                    fullWidth
-                    label="Phone Number"
-                    placeholder="phone number"
-                    margin="normal"
-                    size="small"
-                    name="phoneNumber"
-                    value={data.phoneNumber}
-                    onChange={onChange}
-                  />
-                </div>
+              <div className="form-row-right">
+                <CustomInput
+                  label={t("lastname")}
+                  name="lastName"
+                  onChange={onChange}
+                  placeholder={t("lastname")}
+                  value={data.lastName}
+                />
               </div>
+            </div>
+            <div className="form-row">
+              <div className="form-row-left">
+                <CustomInput
+                  label={t("gender")}
+                  name="gender"
+                  onChange={onChange}
+                  placeholder={t("gender")}
+                  value={data.gender}
+                />
+              </div>
+              <div className="form-row-right">
+                <CustomInput
+                  label={t("phonenumber")}
+                  name="phoneNumber"
+                  onChange={onChange}
+                  placeholder={t("phonenumber")}
+                  value={data.phoneNumber}
+                />
+              </div>
+            </div>
 
-              <div className="form-row">
-                <div className="form-row-left">
-                <TextField
-                    fullWidth
-                    label="Username"
-                    placeholder="username"
-                    margin="normal"
-                    size="small"
-                    name="authUsername"
-                    value={data.authUsername}
-                    onChange={onChange}
-                  />
-                </div>
-                <div className="form-row-right">
-                <TextField
-                    fullWidth
-                    label="Age"
-                    placeholder="age"
-                    margin="normal"
-                    size="small"
-                    name="age"
-                    value={data.age}
-                    onChange={onChange}
-                  />
-                </div>
+            <div className="form-row">
+              <div className="form-row-left">
+                <CustomInput
+                  label={t("username")}
+                  name="authUsername"
+                  onChange={onChange}
+                  placeholder={t("username")}
+                  value={data.authUsername}
+                />
               </div>
-
-              <div className="form-row">
-                <div className="form-row-left">
-                <TextField
-                    fullWidth
-                    label="Gender"
-                    placeholder="gender"
-                    margin="normal"
-                    size="small"
-                    name="gender"
-                    value={data.gender}
-                    onChange={onChange}
-                  />
-                </div>
-                <div className="form-row-right">
-                <TextField
-                    fullWidth
-                    label="Proffession"
-                    placeholder="proffession"
-                    margin="normal"
-                    size="small"
-                    name="proffession"
-                    value={data.proffession}
-                    onChange={onChange}
-                  />
-                </div>
+              <div className="form-row-right">
+                <CustomInput
+                  label={t("age")}
+                  name="age"
+                  onChange={onChange}
+                  placeholder={t("age")}
+                  value={data.age}
+                />
               </div>
-              
-             
-              
+            </div>
 
-              <Button
-                variant="contained"
-                style={{ backgroundColor: "#179CBD" }}
-                fullWidth
-                type="submit"
-              >
-                Update
-              </Button>
-            </form>
-          
+            
+
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "#179CBD" }}
+              fullWidth
+              type="submit"
+            >
+              {t("update")}
+            </Button>
+          </form>
         </div>
       </Box>
     </Modal>

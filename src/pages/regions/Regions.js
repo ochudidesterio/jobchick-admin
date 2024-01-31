@@ -43,7 +43,6 @@ const Regions = () => {
     e.preventDefault();
     try {
        const response = await api.post(`/region/update/${updateData.id}/${updateData.name}`);
-      console.log("Edit",updateData)
       if (response.status === 200) {
         showSuccessToast(t('updated'));
       }else{
@@ -92,7 +91,10 @@ const Regions = () => {
   const deleteRegion = (id)=>{
     if(id !==0){
       api.delete(`/region/delete/${id}`)
-      .then((res)=>{showSuccessToast(res.data)})
+      .then((res)=>{
+        showSuccessToast(res.data)
+        fetchRegions()
+      })
       .catch(e=>showErrorToast("failed"))
     }else{
       showErrorToast("Cannot delete a default region")

@@ -14,10 +14,11 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import { showErrorToast, showSuccessToast } from "../../Constants/Toasts";
 import ViewProfileModal from "../../modals/ViewProfileModal";
-// import EditUserModal from "../../modals/EditUserModal";
+ import EditUserModal from "../../modals/EditUserModal";
 // import ChangePasswordModal from "../../modals/ChangePasswordModal";
 import { getCompany } from "../../redux/slices/CompaniesSlice";
 import PaginationItem from "../../components/PaginationItem";
+import { showSuccessToast } from "../../Constants/Toasts";
 
 const Users = () => {
   const loggedUser = useSelector(getLoggedInUser);
@@ -41,11 +42,49 @@ const Users = () => {
   };
 
 
+   //update  data
+   const [userUpdateData, setUserUpdateData] = useState({
+    id:"",
+    age:"",
+    authUsername:"",
+    bio:"",
+    cvUrl:"",
+    education:"",
+    email:"",
+    firstName:"",
+    gender:"",
+    lastName:"",
+    phoneNumber:"",
+    proffession:""
+
+  });
+
+  const handleEditUserInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserUpdateData({ ...userUpdateData, [name]: value });
+  };
+  const handleEditUserFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await api.post(`/user/admin/update/${userUpdateData.id}`,userUpdateData)
+      if(response.status === 200){
+        showSuccessToast("Updated Successfully")
+      }
+      handleEditClose()
+
+    } catch (error) {
+      
+    }
+  }
+  
   //user res
   let userRes;
   //create view profile
   const [showViewProfile, setViewProfile] = useState(false);
   const handleShowViewProfile = () => setViewProfile(false);
+  //edit modals
+  const [showEditModal, setShowEditModal] = useState(false);
+  const handleEditClose = () => setShowEditModal(false);
   //search param
   const [searchParam,setSearchParam] = useState(null)
   const handleSearchInputChange = (e) => {
@@ -98,6 +137,34 @@ const Users = () => {
     }
 
   }
+  const openEditProfile = (userId) =>{
+    try {
+      api.get(`/user/${userId}`)
+      .then((res)=>{
+        if(res.status===200){
+         console.log("UserUpdate",res.data)
+         setUserUpdateData({
+          id:res.data.id,
+          age:res.data.age,
+          authUsername:res.data.authUsername,
+          bio:res.data.bio,
+          cvUrl:res.data.cvUrl,
+          education:res.data.education,
+          email:res.data.email,
+          firstName:res.data.firstName,
+          gender:res.data.gender,
+          lastName:res.data.lastName,
+          phoneNumber:res.data.phoneNumber,
+          proffession:res.data.proffession
+         })
+         setShowEditModal(true)
+        }
+      })
+      .catch((error)=>{console.log(error)})
+    } catch (error) {
+
+    }
+  }
  
 
   return (
@@ -111,6 +178,7 @@ const Users = () => {
         param = {searchParam}
         onChange = {handleSearchInputChange}
         totalUsers={entries}
+        openEditProfile={openEditProfile}
       />
 
 <PaginationItem page={page} pageCount={pageCount} handleChange={handleChange} startIndex={startIndex} endIndex={endIndex} entries={entries} />
@@ -118,6 +186,8 @@ const Users = () => {
         open={showViewProfile}
         onClose={handleShowViewProfile}
       />
+      <EditUserModal open={showEditModal} onClose={handleEditClose} onChange={handleEditUserInputChange} onSubmit={handleEditUserFormSubmit} data={userUpdateData}/>
+
     </div>
   );
 };

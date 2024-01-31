@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 
 
-const AdminTable = ({openViewProfile}) => {
+const AdminTable = ({openViewProfile,deleteAdminUser}) => {
   const {t} = useTranslation()
     const admins = useSelector(getAdmins)
     const handleRowClick = (client) => {
@@ -21,7 +21,7 @@ const AdminTable = ({openViewProfile}) => {
           break;
         
         case "delete":
-          console.log(`Delete - User ID: ${id}`);
+          deleteAdminUser(id)
           break;
         default:
           break;

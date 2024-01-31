@@ -10,6 +10,8 @@ import SelectPageSize from "../../components/SelectPageSize";
 import PaginationItem from "../../components/PaginationItem";
 import { setSelectedUser } from "../../redux/slices/UsersSlice";
 import ViewProfileModal from "../../modals/ViewProfileModal";
+import { showSuccessToast } from "../../Constants/Toasts";
+
 
 
 const AdminUsers = () => {
@@ -51,6 +53,20 @@ const AdminUsers = () => {
         });
     } catch (error) {}
   };
+  const deleteAdminUser = (userId)=>{
+    try {
+      api.post(`/company/delete/admin/${userId}`)
+       .then((res)=>{
+        if(res.data==="deleted"){
+          showSuccessToast("Deleted Successfully")
+          getAddmins()
+        }
+       })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {}
+  }
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -82,7 +98,7 @@ const AdminUsers = () => {
           handlePageSizeChange={handlePageSizeChange}
         />
       </div>
-      <AdminTable openViewProfile={openViewProfile} />
+      <AdminTable openViewProfile={openViewProfile} deleteAdminUser={deleteAdminUser} />
       <PaginationItem
         page={page}
         pageCount={pageCount}
