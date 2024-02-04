@@ -1,5 +1,5 @@
 import { Menu } from "antd";
-import { useState, useEffect,useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import {
   ContactsFilled,
@@ -12,8 +12,7 @@ import {
   StarFilled,
   ScheduleFilled,
   PoundCircleFilled,
-  DropboxSquareFilled,
-  MinusSquareFilled
+  DropboxSquareFilled
 } from "@ant-design/icons";
 import Companies from "./pages/companies/Companies";
 import AdminUsers from "./pages/admin/AdminUsers";
@@ -32,7 +31,7 @@ import { getLoggedInUser } from "./redux/slices/UsersSlice";
 import api from "./api/api";
 import { setCompany } from "./redux/slices/CompaniesSlice";
 import Packages from "./pages/packages/Packages";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const Main = ({ onLogout }) => {
   const { t } = useTranslation();
@@ -60,15 +59,12 @@ const Main = ({ onLogout }) => {
       }
     } catch (error) {}
   }, [dispatch, loggedUser]);
-  
+
   useEffect(() => {
     if (loggedUser && loggedUser.role === "ADMIN") {
       fetchCompanyUsers();
     }
   }, [fetchCompanyUsers, loggedUser]);
-  
-
-  
 
   return (
     <div style={{ display: "flex", flexDirection: "row-reverse" }}>
@@ -90,95 +86,106 @@ const Main = ({ onLogout }) => {
         </div>
         <Menu.Item
           key="/"
-          icon={<ContactsFilled style={{ fontSize: "16px" ,color:"#179CBD" }} />}
+          icon={
+            <ContactsFilled style={{ fontSize: "16px", color: "#179CBD" }} />
+          }
           className="menu-item"
-          
-          
         >
-          {t('users')}
+          {t("users")}
         </Menu.Item>
         {loggedUser.role === "SUPERADMIN" && (
           <Menu.Item
             key="/companies"
-            icon={<BankFilled style={{ fontSize: "16px",color:"#179CBD" }} />}
+            icon={<BankFilled style={{ fontSize: "16px", color: "#179CBD" }} />}
             className="menu-item"
           >
-            {t('companies')}
+            {t("companies")}
           </Menu.Item>
         )}
         <Menu.Item
           key="/jobs"
-          icon={<ScheduleFilled style={{ fontSize: "16px",color:"#179CBD" }} />}
+          icon={
+            <ScheduleFilled style={{ fontSize: "16px", color: "#179CBD" }} />
+          }
           className="menu-item"
           direction="rtl"
         >
-          {t('publishedjobs')}
+          {t("publishedjobs")}
         </Menu.Item>
-      
-          <>
-          <Menu.Item
-          key="/closedjobs"
-          icon={<MinusSquareFilled style={{ fontSize: "16px" ,color:"#179CBD"}} />}
-          className="menu-item"
-        >
-          {t('closedjobs')}
-        </Menu.Item>
-          </>
-   
+
+       
+
         <Menu.Item
           key="/unpublished"
-          icon={<ProfileFilled style={{ fontSize: "16px" ,color:"#179CBD"}} />}
+          icon={
+            <ProfileFilled style={{ fontSize: "16px", color: "#179CBD" }} />
+          }
           className="menu-item"
         >
-          {t('unpublishedjobs')}
+          {t("unpublishedjobs")}
         </Menu.Item>
         {loggedUser.role === "SUPERADMIN" && (
           <>
             {" "}
             <Menu.Item
               key="/adminusers"
-              icon={<IdcardFilled style={{ fontSize: "16px",color:"#179CBD" }} />}
+              icon={
+                <IdcardFilled style={{ fontSize: "16px", color: "#179CBD" }} />
+              }
               className="menu-item"
             >
-              {t('adminusers')}
+              {t("adminusers")}
             </Menu.Item>
             <Menu.Item
               key="/categories"
-              icon={<GoldFilled style={{ fontSize: "16px" ,color:"#179CBD"}} />}
+              icon={
+                <GoldFilled style={{ fontSize: "16px", color: "#179CBD" }} />
+              }
               className="menu-item"
             >
-              {t('categories')}
+              {t("categories")}
             </Menu.Item>
             <Menu.Item
               key="/types"
-              icon={<StarFilled style={{ fontSize: "16px",color:"#179CBD" }} />}
+              icon={
+                <StarFilled style={{ fontSize: "16px", color: "#179CBD" }} />
+              }
               className="menu-item"
             >
-              {t('jobtypes')}
+              {t("jobtypes")}
             </Menu.Item>
             <Menu.Item
               key="/regions"
-              icon={<EnvironmentFilled style={{ fontSize: "16px",color:"#179CBD" }} />}
+              icon={
+                <EnvironmentFilled
+                  style={{ fontSize: "16px", color: "#179CBD" }}
+                />
+              }
               className="menu-item"
             >
-              {t('regions')}
+              {t("regions")}
             </Menu.Item>
-
             <Menu.Item
               key="/packages"
-              icon={<PoundCircleFilled style={{ fontSize: "16px",color:"#179CBD" }} />}
+              icon={
+                <PoundCircleFilled
+                  style={{ fontSize: "16px", color: "#179CBD" }}
+                />
+              }
               className="menu-item"
-              
             >
-             {t('premium')}
+              {t("premium")}
             </Menu.Item>
             <Menu.Item
               key="/archive"
-              icon={<DropboxSquareFilled style={{ fontSize: "16px",color:"#179CBD" }} />}
+              icon={
+                <DropboxSquareFilled
+                  style={{ fontSize: "16px", color: "#179CBD" }}
+                />
+              }
               className="menu-item"
-              
             >
-             {t('archive')}
+              {t("archive")}
             </Menu.Item>
           </>
         )}
@@ -189,7 +196,7 @@ const Main = ({ onLogout }) => {
           danger="true"
           className="menu-item"
         >
-          {t('signout')}
+          {t("signout")}
         </Menu.Item>
       </Menu>
       <Content />
@@ -209,8 +216,8 @@ function Content() {
         <Route path="/regions" element={<Regions />} />
         <Route path="/types" element={<JobTypes />} />
         <Route path="/closedjobs" element={<ClosedJobs />} />
-        <Route path="/packages" element={<Packages/>} />
-        <Route path="/archive" element={<Archive/>} />
+        <Route path="/packages" element={<Packages />} />
+        <Route path="/archive" element={<Archive />} />
       </Routes>
     </div>
   );

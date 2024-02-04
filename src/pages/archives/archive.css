@@ -29,10 +29,53 @@
   cursor: pointer;
   
   }
-  .card:hover {
+  .card-container:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Slightly increase the box-shadow on hover */
-    background-color: #f0f0f0;
+    background-color: #28a0d3;
 }
   .card{
     text-align: center;
   }
+
+  /* ArchiveCard.css */
+
+.card-container {
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 280px;
+    margin: 10px;
+    background-color: #61dafb;
+  }
+  
+  .card-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+  }
+  
+  .archive-avatar {
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    overflow: hidden;
+  }
+  
+  .text-container {
+    flex: 1;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .text-content {
+    text-align: center;
+    
+  }
+  .text-content>h3 {
+    text-align: center;
+    color: white;
+  }
+  

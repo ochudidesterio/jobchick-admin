@@ -1,21 +1,27 @@
 import React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
+import './archive.css'; // Import external CSS
 
-const ArchiveCard = ({ title, count, to }) => {
+
+const ArchiveCard = ({ title, count, to,desc,logo }) => {
   return (
-    <Card style={{borderRadius:'15px'}} className='card'>
-      <Link to={to} style={{ textDecoration: 'none', color: 'inherit' }}>
-        <CardContent>
-          <Typography variant='h6' component='div'>
-            {title}
-          </Typography>
-          <Typography color='text.secondary'>{count}</Typography>
-        </CardContent>
+    <div className="card-container">
+      <Link to={to} className="card-link">
+        <div className="archive-avatar">
+          <img
+            src={logo}
+            alt="Avatar"
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        </div>
+        <div className="text-container">
+          <div className="text-content">
+            <h3>{title}</h3>
+            <>({count}) {desc}</>
+          </div>
+        </div>
       </Link>
-    </Card>
+    </div>
   );
 };
 
