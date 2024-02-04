@@ -1,11 +1,18 @@
 import React from "react";
 import { Menu, Dropdown } from "antd";
 import { EllipsisOutlined } from "@ant-design/icons";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux/es/exports";
+import { getLoggedInUser } from "../../redux/slices/UsersSlice";
 
-
-const UsersTableComponent = ({ userList, openViewProfile, openEditProfile, openChangePassword }) => {
-  const {t} = useTranslation()
+const UsersTableComponent = ({
+  userList,
+  openViewProfile,
+  openEditProfile,
+  openChangePassword,
+}) => {
+  const { t } = useTranslation();
+  const loggedUser = useSelector(getLoggedInUser);
 
   const handleMenuClick = (id, action) => {
     switch (action) {
@@ -28,8 +35,11 @@ const UsersTableComponent = ({ userList, openViewProfile, openEditProfile, openC
 
   const menu = (id) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
-      <Menu.Item key="profile">{t('viewprofile')}</Menu.Item>
-      <Menu.Item key="edit">{t('edit')}</Menu.Item>
+      <Menu.Item key="profile">{t("viewprofile")}</Menu.Item>
+      {loggedUser && loggedUser.role === "SUPERADMIN" && (
+        <Menu.Item key="edit">{t("edit")}</Menu.Item>
+      )}
+
       {/* Add other menu items as needed */}
     </Menu>
   );
@@ -38,12 +48,12 @@ const UsersTableComponent = ({ userList, openViewProfile, openEditProfile, openC
     <table dir="rtl" className="table">
       <thead>
         <tr>
-          <th>{t('firstname')}</th>
-          <th>{t('lastname')}</th>
-          <th>{t('username')}</th>
-          <th>{t('phonenumber')}</th>
-          <th>{t('email')}</th>
-          <th>{t('action')}</th>
+          <th>{t("firstname")}</th>
+          <th>{t("lastname")}</th>
+          <th>{t("username")}</th>
+          <th>{t("phonenumber")}</th>
+          <th>{t("email")}</th>
+          <th>{t("action")}</th>
         </tr>
       </thead>
       <tbody>

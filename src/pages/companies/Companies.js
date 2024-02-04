@@ -19,6 +19,7 @@ import AddUserModal from "../../modals/AddUserModal";
 import { useTranslation } from "react-i18next";
 import PaginationItem from "../../components/PaginationItem";
 import CreateJobModal from "../../modals/CreateJobModal";
+import EditCompanyModal from "../../modals/EditCompanyModal";
 
 const Companies = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const Companies = () => {
   const [endIndex, setEndIndex] = useState(0);
   const [entries, setEntries] = useState(0);
   const [pageSize, setPageSize] = useState(10); // Default page size
+  const[modalTitle,setModalTitle] =useState('Add Company')
 
   const handlePageSizeChange = (event) => {
     const newSize = parseInt(event.target.value, 10); // Use radix 10
@@ -55,6 +57,11 @@ const Companies = () => {
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
+   //editcompany modal
+   const [showEditCompanyModal, setShowEditCompanyModal] = useState(false);
+   const handleEditCompanyClose = () => setShowEditCompanyModal(false);
+   const handleShowEditCompany = () => setShowEditCompanyModal(true);
+
   //create admin modal
   const [showCreateAdmin, setCreateAdmin] = useState(false);
   const handleCloseCreateAdmin = () => setCreateAdmin(false);
@@ -72,8 +79,16 @@ const Companies = () => {
     name: "",
     email: "",
     location: "",
+    contact:""
   });
 
+  const [editFormData, setEditFormData] = useState({
+    id:"",
+    name: "",
+    email: "",
+    location: "",
+    contact:""
+  });
   const initialAdminData = {
     username: "",
     email: "",
@@ -102,6 +117,10 @@ const Companies = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+  const handleEditCompanyInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditFormData({ ...editFormData, [name]: value });
+  };
   const handleAdminInputChange = (e) => {
     const { name, value } = e.target;
     setAdminData({ ...adminData, [name]: value });
@@ -115,6 +134,18 @@ const Companies = () => {
       }
     } catch (error) {}
     handleClose();
+    //window.location.reload()
+  };
+  const handleEditCompanyFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+     const response = await api.post("/company/update", editFormData);
+     console.log("Edit Res",response)
+      if (response.data === "updated") {
+        showSuccessToast(t("updated"));
+      }
+    } catch (error) {}
+    handleEditCompanyClose();
     //window.location.reload()
   };
   const handleJobFormSubmit = async  (e) => {
@@ -247,6 +278,31 @@ const Companies = () => {
       }
     } catch (error) {}
   };
+  const openEditCompany =(companyId)=>{
+    try {
+      setModalTitle("Edit Company")
+      api
+      .get(`/company/get/${companyId}`)
+      .then((res) => {
+        if (res.status === 200) {
+          setEditFormData({
+              id:res.data.id,
+              name:res.data.name,
+              location:res.data.location,
+              contact:res.data.contact,
+              email:res.data.email
+          })
+          
+          handleShowEditCompany()
+
+        }
+      })
+      .catch((e) => console.log(e));
+      
+    } catch (error) {
+      
+    }
+  }
   return (
     <div dir="rtl" className="companyhome">
       <ToastContainer position="top-right" />
@@ -266,6 +322,7 @@ const Companies = () => {
         param={searchParam}
         onChange={handleSearchInputChange}
         openCreateJob = {openCreateJob}
+        openEditCompany={openEditCompany}
       />
       <PaginationItem
         page={page}
@@ -278,9 +335,18 @@ const Companies = () => {
       <AddCompaniesModal
         open={showModal}
         onClose={handleClose}
+        title={modalTitle}
         onSubmit={handleFormSubmit}
         formData={formData}
         onChange={handleInputChange}
+      />
+      <EditCompanyModal
+      open={showEditCompanyModal}
+      onClose={handleCloseViewCompany}
+      title={modalTitle}
+      onSubmit={handleEditCompanyFormSubmit}
+      formData={editFormData}
+      onChange={handleEditCompanyInputChange}
       />
 
       <ViewCompanyProfileModal

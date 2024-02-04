@@ -11,11 +11,14 @@ import PaginationItem from "../../components/PaginationItem";
 import { setSelectedUser } from "../../redux/slices/UsersSlice";
 import ViewProfileModal from "../../modals/ViewProfileModal";
 import { showSuccessToast } from "../../Constants/Toasts";
-
-
+import TextField from "@mui/material/TextField";
+import { Search } from "@mui/icons-material";
 
 const AdminUsers = () => {
   const { t } = useTranslation();
+
+  //admin users
+  let adminsResponse;
 
   //pagination
   const [page, setPage] = useState(1);
@@ -24,6 +27,11 @@ const AdminUsers = () => {
   const [endIndex, setEndIndex] = useState(0);
   const [entries, setEntries] = useState(0);
   const [pageSize, setPageSize] = useState(10); // Default page size
+  const [searchParam, setSearchParam] = useState(null);
+  const handleSearchInputChange = (e) => {
+    const { value } = e.target;
+    setSearchParam(value);
+  };
 
   const handlePageSizeChange = (event) => {
     const newSize = parseInt(event.target.value, 10); // Use radix 10
@@ -53,20 +61,21 @@ const AdminUsers = () => {
         });
     } catch (error) {}
   };
-  const deleteAdminUser = (userId)=>{
+  const deleteAdminUser = (userId) => {
     try {
-      api.post(`/company/delete/admin/${userId}`)
-       .then((res)=>{
-        if(res.data==="deleted"){
-          showSuccessToast("Deleted Successfully")
-          getAddmins()
-        }
-       })
+      api
+        .post(`/company/delete/admin/${userId}`)
+        .then((res) => {
+          if (res.data === "deleted") {
+            showSuccessToast("Deleted Successfully");
+            getAddmins();
+          }
+        })
         .catch((error) => {
           console.log(error);
         });
     } catch (error) {}
-  }
+  };
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -74,15 +83,25 @@ const AdminUsers = () => {
   });
   const getAddmins = async () => {
     try {
-      const response = await api.get(
-        `/user/admins/page/${page}/size/${pageSize}`
-      );
-      if (response.status === 200) {
-        dispatch(setAdmins(response.data.users));
-        setPageCount(response.data.totalPages);
-        setStartIndex(response.data.startIndex);
-        setEndIndex(response.data.endIndex);
-        setEntries(response.data.totalItems);
+      if (searchParam === null) {
+        adminsResponse = await api.get(
+          `/user/admins/page/${page}/size/${pageSize}`
+        );
+      }
+      if (searchParam !== null) {
+        let apiEndpoint = `/user/search/admins/page/${page}/size/${pageSize}`;
+        const params = searchParam
+          ? `?param=${encodeURIComponent(searchParam)}`
+          : "";
+        adminsResponse = await api.get(apiEndpoint + params);
+      }
+
+      if (adminsResponse.status === 200) {
+        dispatch(setAdmins(adminsResponse.data.users));
+        setPageCount(adminsResponse.data.totalPages);
+        setStartIndex(adminsResponse.data.startIndex);
+        setEndIndex(adminsResponse.data.endIndex);
+        setEntries(adminsResponse.data.totalItems);
       }
     } catch (error) {}
   };
@@ -97,8 +116,47 @@ const AdminUsers = () => {
           pageSize={pageSize}
           handlePageSizeChange={handlePageSizeChange}
         />
+        <div className="search">
+          <TextField
+            placeholder={t("searchuser")}
+            margin="normal"
+            size="small"
+            className="search-input"
+            value={searchParam}
+            onChange={handleSearchInputChange}
+            InputProps={{
+              startAdornment: <Search style={{ color: "#179CBD" }} />,
+              style: {
+                borderRadius: "2px",
+                height: "35px",
+                width: "200px",
+                borderWidth: 0.5,
+                fontFamily: "Open Sans",
+              },
+            }}
+            dir="rtl"
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "#179CBD",
+                  fontFamily: "Open Sans",
+                },
+                "&:hover fieldset": {
+                  borderColor: "#179CBD", // Border color on hover
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "#179CBD", // Border color when focused
+                  color: "#179CBD", // Text color when focused
+                },
+              },
+            }}
+          />
+        </div>
       </div>
-      <AdminTable openViewProfile={openViewProfile} deleteAdminUser={deleteAdminUser} />
+      <AdminTable
+        openViewProfile={openViewProfile}
+        deleteAdminUser={deleteAdminUser}
+      />
       <PaginationItem
         page={page}
         pageCount={pageCount}

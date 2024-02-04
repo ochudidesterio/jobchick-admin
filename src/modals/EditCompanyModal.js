@@ -4,7 +4,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import CustomInput from "../components/CustomInput";
 
-const AddCompaniesModal = ({ open, onClose,title, onSubmit, formData, onChange }) => {
+const EditCompanyModal = ({ open, onClose,title, onSubmit, formData, onChange }) => {
   return (
     <Modal
       open={open}
@@ -78,4 +78,4 @@ const AddCompaniesModal = ({ open, onClose,title, onSubmit, formData, onChange }
   );
 };
 
-export default AddCompaniesModal;
+export default EditCompanyModal;

@@ -139,7 +139,7 @@ const ViewProfileModal = ({ open, onClose,companyId,jobId }) => {
               marginLeft: "30px",
             }}
           />
-          <Tab
+          {loggedInUser && loggedInUser.role === "SUPERADMIN" && <Tab
               icon={<VpnKeyIcon style={{ marginTop: "6", fontSize: "15" }} />} 
               label={t('password')}
               sx={{
@@ -149,7 +149,7 @@ const ViewProfileModal = ({ open, onClose,companyId,jobId }) => {
                 textTransform: "none",
                 marginLeft: "30px",
               }}
-            />
+            />}
          
         </Tabs>
         {loggedInUser && loggedInUser.role === "ADMIN" && <IconButton onClick={handleThumbClick}>
@@ -175,7 +175,7 @@ const ViewProfileModal = ({ open, onClose,companyId,jobId }) => {
           {selectedTab === 0 && <ProfileView user={user}/>}
        
           {selectedTab === 1 && <GalleryView images={images} />}
-          {selectedTab === 2 && <ChangePasswordView user={user}/>}
+          {loggedInUser && loggedInUser.role ==="SUPERADMIN" && selectedTab === 2 && <ChangePasswordView user={user}/>}
         </div>
       </Box>
     </Modal>
