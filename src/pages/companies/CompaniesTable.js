@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import SelectPageSize from "../../components/SelectPageSize";
 
 
-export const CompaniesTable = ({ openCompanyProfile,openCreateJob, openCreateAdmin,pageSize, param,
+export const CompaniesTable = ({ openCompanyProfile,openCreateJob,openEditCompany, openCreateAdmin,pageSize, param,
   onChange,handlePageSizeChange }) => {
   const {t}=useTranslation()
   const companies = useSelector(getCompanies);
@@ -48,7 +48,7 @@ export const CompaniesTable = ({ openCompanyProfile,openCreateJob, openCreateAdm
         openCreateAdmin(id); // Pass the company ID to the openModal function
         break;
       case "edit":
-        console.log(`Edit - Company ID: ${id}`);
+        openEditCompany(id);
         break;
       case "delete":
         console.log(`Delete - Company ID: ${id}`);
@@ -115,7 +115,6 @@ export const CompaniesTable = ({ openCompanyProfile,openCreateJob, openCreateAdm
           <tr>
             <th>{t('name')}</th>
             <th>{t('email')}</th>
-            <th>{t('admin')}</th>
             <th>{t('contact')}</th>
             <th>{t('location')}</th>
             <th>{t('action')}</th>
@@ -126,16 +125,8 @@ export const CompaniesTable = ({ openCompanyProfile,openCreateJob, openCreateAdm
             <tr key={item.id} className="tableRow">
               <td>{item.name}</td>
               <td>{item.email}</td>
-              <td>
-                {item.admin &&
-                item.admin.firstName !== null &&
-                item.admin.lastName !== null
-                  ? item.admin.firstName + " " + item.admin.lastName
-                  : item.admin && item.admin.authUsername}
-              </td>
-              <td>{item.admin ? item.admin.phoneNumber : ""}</td>
-
-              <td>{item.location}</td>
+              <td>{item.contact}</td>
+             <td>{item.location}</td>
               <td>
                 <Dropdown
                   overlay={menu(item.id)}
