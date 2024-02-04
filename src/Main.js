@@ -12,7 +12,7 @@ import {
   StarFilled,
   ScheduleFilled,
   PoundCircleFilled,
- 
+  DropboxSquareFilled,
   MinusSquareFilled
 } from "@ant-design/icons";
 import Companies from "./pages/companies/Companies";
@@ -25,6 +25,7 @@ import Category from "./pages/Categories/Category";
 import Regions from "./pages/regions/Regions";
 import JobTypes from "./pages/jobtypes/JobTypes";
 import ClosedJobs from "./pages/closed/ClosedJobs";
+import Archive from "./pages/archives/Archive";
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { getLoggedInUser } from "./redux/slices/UsersSlice";
@@ -171,6 +172,14 @@ const Main = ({ onLogout }) => {
             >
              {t('premium')}
             </Menu.Item>
+            <Menu.Item
+              key="/archive"
+              icon={<DropboxSquareFilled style={{ fontSize: "16px",color:"#179CBD" }} />}
+              className="menu-item"
+              
+            >
+             {t('archive')}
+            </Menu.Item>
           </>
         )}
 
@@ -201,6 +210,7 @@ function Content() {
         <Route path="/types" element={<JobTypes />} />
         <Route path="/closedjobs" element={<ClosedJobs />} />
         <Route path="/packages" element={<Packages/>} />
+        <Route path="/archive" element={<Archive/>} />
       </Routes>
     </div>
   );
