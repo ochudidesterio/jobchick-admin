@@ -6,6 +6,7 @@ import SuspendedUsersTable from './SuspendeUsersTable';
 import { useDispatch } from 'react-redux';
 import { setSuspendedUsers } from '../../redux/slices/UsersSlice';
 import { showErrorToast, showSuccessToast } from '../../Constants/Toasts';
+import './suspended.css'
 
 const SuspendedUsers = () => {
     const dispatch = useDispatch()
@@ -67,7 +68,7 @@ const SuspendedUsers = () => {
     fetchSuspendedUsers()
   })
   return (
-    <div className="supended-home" dir='rtl'>
+    <div className="suspended-home" dir='rtl'>
     <ToastContainer position="top-right" />
     <SuspendedUsersTable
         pageSize ={pageSize}
