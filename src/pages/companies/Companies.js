@@ -20,6 +20,7 @@ import { useTranslation } from "react-i18next";
 import PaginationItem from "../../components/PaginationItem";
 import CreateJobModal from "../../modals/CreateJobModal";
 import EditCompanyModal from "../../modals/EditCompanyModal";
+import DeactivateCompanyModal from "../../modals/DeactivateCompanyModal";
 
 const Companies = () => {
   const dispatch = useDispatch();
@@ -66,6 +67,9 @@ const Companies = () => {
   const [showCreateAdmin, setCreateAdmin] = useState(false);
   const handleCloseCreateAdmin = () => setCreateAdmin(false);
 
+  //deactivate company modal
+  const [showDeactivate, setShowDeactivate] = useState(false);
+  const handleCloseDeactivate = () => setShowDeactivate(false);
   //create job modal
    //create job modal
    const [showCreateJob, setCreateJob] = useState(false);
@@ -242,6 +246,26 @@ const Companies = () => {
     setSelectedCompanyId(id);
     setCreateAdmin(true);
   };
+  const openDeactivateCompany =(id)=>{
+    setSelectedCompanyId(id);
+    setShowDeactivate(true)
+  }
+  const handleDeactivateCompany =async(e)=>{
+    try {
+      e.preventDefault()
+    const response = await api.post(`/company/deactivate/${selectedCompanyId}`)
+    if(response.status === 200){
+      showSuccessToast(response.data)
+    handleCloseDeactivate();
+    }else{
+      showErrorToast(response.data)
+      handleCloseDeactivate();
+    }
+    } catch (error) {
+      showErrorToast("Something went wrong, try again")
+      handleCloseDeactivate();
+    }
+  }
 
   useEffect(() => {
     fetchCategories();
@@ -323,6 +347,7 @@ const Companies = () => {
         onChange={handleSearchInputChange}
         openCreateJob = {openCreateJob}
         openEditCompany={openEditCompany}
+        openDeactivateCompany={openDeactivateCompany}
       />
       <PaginationItem
         page={page}
@@ -369,6 +394,7 @@ const Companies = () => {
         onChange={handleJobInputChange}
         upDateJobData={updateJobData}
       />
+      <DeactivateCompanyModal open={showDeactivate} onClose={handleCloseDeactivate} onSubmit={handleDeactivateCompany} />
     </div>
   );
 };

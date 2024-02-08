@@ -102,5 +102,9 @@
   "yes":"כן",
   "cancel":"ביטול",
   "repost":"פרסום מחדש",
-  "archive":"אָרְכִּיוֹן"
+  "archive":"אָרְכִּיוֹן",
+  "elementaryEducation":"ללא תעודת בגרות",
+  "secondaryEducation":"תעודת בגרות מלאה",
+  "bachelorsDegree":"תואר ראשון",
+  "mastersDegree":"תואר שני"
 }

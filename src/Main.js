@@ -32,6 +32,8 @@ import api from "./api/api";
 import { setCompany } from "./redux/slices/CompaniesSlice";
 import Packages from "./pages/packages/Packages";
 import { useTranslation } from "react-i18next";
+import DeactivatedCompanies from "./pages/deactivated/DeactivatedCompanies";
+import SuspendedUsers from "./pages/suspended/SuspendedUsers";
 
 const Main = ({ onLogout }) => {
   const { t } = useTranslation();
@@ -218,6 +220,9 @@ function Content() {
         <Route path="/closedjobs" element={<ClosedJobs />} />
         <Route path="/packages" element={<Packages />} />
         <Route path="/archive" element={<Archive />} />
+        <Route path='/deactivated/companies' element={<DeactivatedCompanies/>}/>
+        <Route path='/suspended/users' element={<SuspendedUsers/>}/>
+
       </Routes>
     </div>
   );

@@ -10,7 +10,7 @@ import SelectPageSize from "../../components/SelectPageSize";
 
 
 export const CompaniesTable = ({ openCompanyProfile,openCreateJob,openEditCompany, openCreateAdmin,pageSize, param,
-  onChange,handlePageSizeChange }) => {
+  onChange,handlePageSizeChange,openDeactivateCompany }) => {
   const {t}=useTranslation()
   const companies = useSelector(getCompanies);
   //const [searchQuery, setSearchQuery] = useState("");
@@ -50,8 +50,8 @@ export const CompaniesTable = ({ openCompanyProfile,openCreateJob,openEditCompan
       case "edit":
         openEditCompany(id);
         break;
-      case "delete":
-        console.log(`Delete - Company ID: ${id}`);
+      case "deactivate":
+        openDeactivateCompany(id);
         break;
       default:
         break;
@@ -63,7 +63,7 @@ export const CompaniesTable = ({ openCompanyProfile,openCreateJob,openEditCompan
       <Menu.Item key="edit">{t('edit')}</Menu.Item>
       <Menu.Item key="admin">{t('createadmin')}</Menu.Item>
       <Menu.Item key="createjob">{t('createajob')}</Menu.Item>
-      <Menu.Item key="delete" danger="true">
+      <Menu.Item key="deactivate" danger="true">
         {t('deactivate')}
       </Menu.Item>
     </Menu>

@@ -2,32 +2,27 @@ import React from "react";
 import { Menu, Dropdown } from "antd";
 import { EllipsisOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux/es/exports";
-import { getLoggedInUser } from "../../redux/slices/UsersSlice";
 
-const UsersTableComponent = ({
+
+const SuspendedUsersTableComponent = ({
   userList,
-  openViewProfile,
-  openEditProfile,
-  openChangePassword,
-  suspendUser
+  activateUser
 }) => {
   const { t } = useTranslation();
-  const loggedUser = useSelector(getLoggedInUser);
 
   const handleMenuClick = (id, action) => {
     switch (action) {
-      case "profile":
-        openViewProfile(id);
-        break;
-      case "edit":
-        openEditProfile(id);
-        break;
-      case "password":
-        openChangePassword(id);
-        break;
-      case "suspend":
-        suspendUser(id)
+    //   case "profile":
+    //     openViewProfile(id);
+    //     break;
+    //   case "edit":
+    //     openEditProfile(id);
+    //     break;
+    //   case "password":
+    //     openChangePassword(id);
+    //     break;
+      case "activate":
+        activateUser(id)
         break;
       default:
         break;
@@ -36,12 +31,10 @@ const UsersTableComponent = ({
 
   const menu = (id) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
-      <Menu.Item key="profile">{t("viewprofile")}</Menu.Item>
-      {loggedUser && loggedUser.role === "SUPERADMIN" && (
-        <>
+      <Menu.Item key="activate" >Activate</Menu.Item>
+      {/* {loggedUser && loggedUser.role === "SUPERADMIN" && (
         <Menu.Item key="edit">{t("edit")}</Menu.Item>
-        <Menu.Item key="suspend" danger='true'>Suspend</Menu.Item></>
-      )}
+      )} */}
 
       {/* Add other menu items as needed */}
     </Menu>
@@ -95,4 +88,4 @@ const UsersTableComponent = ({
   );
 };
 
-export default UsersTableComponent;
+export default SuspendedUsersTableComponent;

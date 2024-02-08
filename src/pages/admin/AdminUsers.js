@@ -66,8 +66,8 @@ const AdminUsers = () => {
       api
         .post(`/company/delete/admin/${userId}`)
         .then((res) => {
-          if (res.data === "deleted") {
-            showSuccessToast("Deleted Successfully");
+          if (res.status === 200) {
+            showSuccessToast(res.data);
             getAddmins();
           }
         })

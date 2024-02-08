@@ -9,6 +9,7 @@ const usersInitState ={
     isLoggedIn:false,
     jobLikeUsers:[],
     jobMatchUsers:[],
+    suspendedUsers:[],
 }
 const usersSlice =createSlice({
     name:"users",
@@ -40,6 +41,9 @@ const usersSlice =createSlice({
         },
         resetUsers:(state)=>{
             return usersInitState
+        },
+        setSuspendedUsers:(state,{payload})=>{
+            state.suspendedUsers = payload
         }
     },
 })
@@ -52,6 +56,7 @@ export const {setLoggedInUser} = usersSlice.actions
 export const {setJobLikeUsers} = usersSlice.actions
 export const {setJobMatchUsers} = usersSlice.actions
 export const {resetUsers} = usersSlice.actions
+export const {setSuspendedUsers} = usersSlice.actions
 export const getUsers  =(state)=>state.users.users
 export const getSelectedUser =(state)=>state.users.selectedUser
 export const getAdmins  =(state)=>state.users.admins
@@ -60,5 +65,6 @@ export const getIsLoggedIn =(state)=>state.users.isLoggedIn
 export const getLoggedInUser =(state)=>state.users.loggedInUser
 export const getJobLikeUsers =(state)=>state.users.jobLikeUsers
 export const getJobMatchUsers =(state)=>state.users.jobMatchUsers
+export const getSuspendedUsers = (state)=>state.users.suspendedUsers
 
 export default usersSlice.reducer

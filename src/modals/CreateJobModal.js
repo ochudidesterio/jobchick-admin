@@ -48,6 +48,24 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobDa
 
     // You can update the state or perform other actions as needed
   };
+ 
+
+  const LEVELS =[
+    {
+      id: 1,
+      name: t('elementaryEducation'),
+    },
+    {id: 2, name: t('secondaryEducation')},
+    {
+      id: 3,
+      name: t('bachelorsDegree'),
+    },
+    {
+      id: 4,
+      name: t('mastersDegree'),
+    },
+  ]
+
 
   return (
     <Modal
@@ -107,6 +125,7 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobDa
                 <div dir="rtl" className="form-row-right">
                   <TextField
                     fullWidth
+                    select
                     label={t('level')}
                     placeholder="Senior/Junior/Experienced/Beginner"
                     margin="normal"
@@ -134,7 +153,13 @@ const CreateJobModal = ({ open, onClose, onSubmit, jobData, onChange,upDateJobDa
                         },
                       },
                     }}
-                  />
+                  >
+                    {LEVELS.map((level) => (
+                      <MenuItem key={level.id} value={level.name}>
+                        {level.name}
+                      </MenuItem>
+                    ))}
+                  </TextField>
                 </div>
               </div>
               <div className="form-row">

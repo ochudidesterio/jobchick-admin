@@ -18,7 +18,8 @@ import ViewProfileModal from "../../modals/ViewProfileModal";
 // import ChangePasswordModal from "../../modals/ChangePasswordModal";
 import { getCompany } from "../../redux/slices/CompaniesSlice";
 import PaginationItem from "../../components/PaginationItem";
-import { showSuccessToast } from "../../Constants/Toasts";
+import { showErrorToast, showSuccessToast } from "../../Constants/Toasts";
+import SuspendUserModal from "../../modals/SuspendUserModal";
 
 const Users = () => {
   const loggedUser = useSelector(getLoggedInUser);
@@ -41,6 +42,10 @@ const Users = () => {
     setPageSize(newSize);
   };
 
+  //suspend user modal
+  const [showSuspendUser, setShowSuspendUser] = useState(false);
+  const handleCloseSuspendUser = () => setShowSuspendUser(false);
+  const [selectedUserId,setSelectedUserId] = useState(null)
 
    //update  data
    const [userUpdateData, setUserUpdateData] = useState({
@@ -165,6 +170,25 @@ const Users = () => {
 
     }
   }
+  const suspendUser =(id)=>{
+    setSelectedUserId(id)
+    setShowSuspendUser(true);
+  }
+  const handleSuspendUser = async (e)=>{
+    try {
+      e.preventDefault()
+      const res = await api.post(`/user/suspend/${selectedUserId}`)
+      if(res.status === 200){
+        showSuccessToast(res.data)
+        handleCloseSuspendUser()
+      }else{
+        showErrorToast(res.data)
+      }
+      
+    } catch (error) {
+      showErrorToast("Something went wrong, try again")
+    }
+  }
  
 
   return (
@@ -179,6 +203,7 @@ const Users = () => {
         onChange = {handleSearchInputChange}
         totalUsers={entries}
         openEditProfile={openEditProfile}
+        suspendUser={suspendUser}
       />
 
 <PaginationItem page={page} pageCount={pageCount} handleChange={handleChange} startIndex={startIndex} endIndex={endIndex} entries={entries} />
@@ -187,7 +212,7 @@ const Users = () => {
         onClose={handleShowViewProfile}
       />
       <EditUserModal open={showEditModal} onClose={handleEditClose} onChange={handleEditUserInputChange} onSubmit={handleEditUserFormSubmit} data={userUpdateData}/>
-
+      <SuspendUserModal open={showSuspendUser} onClose={handleCloseSuspendUser} onSubmit={handleSuspendUser} />
     </div>
   );
 };

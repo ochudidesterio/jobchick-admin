@@ -1,26 +1,23 @@
 import React from "react";
 import { useSelector } from "react-redux/es/exports";
-import { getUsers } from "../../redux/slices/UsersSlice";
-import UsersTableComponent from "./UsersTableComponent";
+import { getSuspendedUsers} from "../../redux/slices/UsersSlice";
 import TextField from "@mui/material/TextField";
 import { Search } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
 import SelectPageSize from "../../components/SelectPageSize";
+import SuspendedUsersTableComponent from "./SuspendedTableCompnent";
 
-const UsersTable = ({
-  openViewProfile,
-  openEditProfile,
-  openChangePassword,
+const SuspendedUsersTable = ({
   pageSize,
   handlePageSize,
   param,
   onChange,
   totalUsers,
-  suspendUser
+  activateUser
 }) => {
   const { t } = useTranslation();
 
-  const users = useSelector(getUsers);
+  const users = useSelector(getSuspendedUsers);
   
   return (
     <div>
@@ -70,15 +67,12 @@ const UsersTable = ({
         </div>
       </div>
 
-      <UsersTableComponent
+      <SuspendedUsersTableComponent
         userList={users}
-        openChangePassword={openChangePassword}
-        openEditProfile={openEditProfile}
-        openViewProfile={openViewProfile}
-        suspendUser={suspendUser}
+        activateUser={activateUser}
       />
     </div>
   );
 };
 
-export default UsersTable;
+export default SuspendedUsersTable;
