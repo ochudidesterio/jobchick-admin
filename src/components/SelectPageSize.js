@@ -1,11 +1,13 @@
 import React from 'react'
 import {  Select, MenuItem } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 
 const SelectPageSize = ({pageSize,handlePageSizeChange}) => {
+  const {t} = useTranslation()
   return (
     <div className="select-box">
-          <p>Show</p>
+          <p>{t('show')}</p>
           <Select
             className="custom-select"
             value={pageSize}
@@ -17,7 +19,7 @@ const SelectPageSize = ({pageSize,handlePageSizeChange}) => {
             <MenuItem value={50}>50</MenuItem>
             <MenuItem value={100}>100</MenuItem>
           </Select>
-          <p>entries</p>
+          <p>{t('entries')}</p>
         </div>
   )
 }

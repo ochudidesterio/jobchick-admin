@@ -1,8 +1,10 @@
 import React from 'react'
 import { Pagination} from "@mui/material";
+import { useTranslation } from 'react-i18next';
 
 
 const PaginationItem = ({page,pageCount,handleChange,startIndex,endIndex,entries}) => {
+  const {t} = useTranslation()
   return (
     <div  className="pagination">
         <Pagination
@@ -15,7 +17,7 @@ const PaginationItem = ({page,pageCount,handleChange,startIndex,endIndex,entries
           shape="rounded"
         />
         <p>
-          Showing {startIndex} to {endIndex} of {entries} entries
+          {t('show')} {startIndex} {t('to')} {endIndex} {t('of')} {entries} {t('entries')}
         </p>
       </div>
   )

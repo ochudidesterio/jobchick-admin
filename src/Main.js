@@ -3,16 +3,16 @@ import { useState, useEffect, useCallback } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import {
   ContactsFilled,
-  ProfileFilled,
+  //ProfileFilled,
   BankFilled,
-  IdcardFilled,
+  //IdcardFilled,
   LogoutOutlined,
   GoldFilled,
   EnvironmentFilled,
   StarFilled,
   ScheduleFilled,
   PoundCircleFilled,
-  DropboxSquareFilled
+  // DropboxSquareFilled
 } from "@ant-design/icons";
 import Companies from "./pages/companies/Companies";
 import AdminUsers from "./pages/admin/AdminUsers";
@@ -24,7 +24,6 @@ import Category from "./pages/Categories/Category";
 import Regions from "./pages/regions/Regions";
 import JobTypes from "./pages/jobtypes/JobTypes";
 import ClosedJobs from "./pages/closed/ClosedJobs";
-import Archive from "./pages/archives/Archive";
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { getLoggedInUser } from "./redux/slices/UsersSlice";
@@ -37,10 +36,10 @@ import SuspendedUsers from "./pages/suspended/SuspendedUsers";
 
 const Main = ({ onLogout }) => {
   const { t } = useTranslation();
-
   const [selectedKey, setSelectedKey] = useState("/");
   const loggedUser = useSelector(getLoggedInUser);
   const dispatch = useDispatch();
+  const { SubMenu } = Menu;
 
   const navigate = useNavigate();
 
@@ -71,10 +70,11 @@ const Main = ({ onLogout }) => {
   return (
     <div style={{ display: "flex", flexDirection: "row-reverse" }}>
       <Menu
-        style={{ width: "200px" }}
-        mode="vertical"
+        style={{ width: "210px" }}
+        mode="inline"
         className="rtl"
         selectedKeys={[selectedKey]}
+        defaultSelectedKeys={window.location.pathname}
         onClick={({ key }) => handleMenuClick(key)}
       >
         <div
@@ -86,58 +86,78 @@ const Main = ({ onLogout }) => {
         >
           <Logo />
         </div>
-        <Menu.Item
+
+        <SubMenu
           key="/"
+          className="menu-item"
           icon={
             <ContactsFilled style={{ fontSize: "16px", color: "#179CBD" }} />
           }
-          className="menu-item"
+          title={t('accounts')}
         >
-          {t("users")}
-        </Menu.Item>
-        {loggedUser.role === "SUPERADMIN" && (
-          <Menu.Item
-            key="/companies"
-            icon={<BankFilled style={{ fontSize: "16px", color: "#179CBD" }} />}
-            className="menu-item"
-          >
-            {t("companies")}
+          <Menu.Item key="/" className="sub-menu-item">
+            {t('users')}
           </Menu.Item>
+
+          {loggedUser.role === "SUPERADMIN" && (
+            <>
+              <Menu.Item key="/adminusers"  className="sub-menu-item">
+                {t('admins')}
+              </Menu.Item>
+              <Menu.Item key="/suspended/users" className="sub-menu-item">
+                {t('suspended')}
+              </Menu.Item>
+            </>
+          )}
+        </SubMenu>
+
+        {loggedUser.role === "SUPERADMIN" && (
+          <SubMenu
+            key="/companies"
+            className="menu-item"
+            title={t('companies')}
+            icon={<BankFilled style={{ fontSize: "16px", color: "#179CBD" }} />}
+          >
+            <Menu.Item key="/companies" className="sub-menu-item">
+              {t('active')}
+            </Menu.Item>
+            <Menu.Item key="/deactivated/companies" className="sub-menu-item">
+              {t('deactivated')}
+            </Menu.Item>
+          </SubMenu>
         )}
-        <Menu.Item
+        <SubMenu
           key="/jobs"
+          className="menu-item"
           icon={
             <ScheduleFilled style={{ fontSize: "16px", color: "#179CBD" }} />
           }
-          className="menu-item"
-          direction="rtl"
+          title={t('jobs')}
         >
-          {t("publishedjobs")}
-        </Menu.Item>
+          <Menu.Item key="/jobs" className="sub-menu-item" direction="rtl">
+            {t('published')}
+          </Menu.Item>
+          <Menu.Item
+            key="/unpublished"
+            style={{ marginLeft: "20px" }}
+            className="sub-menu-item"
+          >
+            {t('unpublished')}
+          </Menu.Item>
+          {loggedUser && loggedUser.role === "SUPERADMIN" && (
+            <Menu.Item
+              key="/closedjobs"
+              style={{ marginLeft: "20px" }}
+              className="sub-menu-item"
+            >
+              {t('closed')}
+            </Menu.Item>
+          )}
+        </SubMenu>
 
-       
-
-        <Menu.Item
-          key="/unpublished"
-          icon={
-            <ProfileFilled style={{ fontSize: "16px", color: "#179CBD" }} />
-          }
-          className="menu-item"
-        >
-          {t("unpublishedjobs")}
-        </Menu.Item>
         {loggedUser.role === "SUPERADMIN" && (
           <>
             {" "}
-            <Menu.Item
-              key="/adminusers"
-              icon={
-                <IdcardFilled style={{ fontSize: "16px", color: "#179CBD" }} />
-              }
-              className="menu-item"
-            >
-              {t("adminusers")}
-            </Menu.Item>
             <Menu.Item
               key="/categories"
               icon={
@@ -178,17 +198,6 @@ const Main = ({ onLogout }) => {
             >
               {t("premium")}
             </Menu.Item>
-            <Menu.Item
-              key="/archive"
-              icon={
-                <DropboxSquareFilled
-                  style={{ fontSize: "16px", color: "#179CBD" }}
-                />
-              }
-              className="menu-item"
-            >
-              {t("archive")}
-            </Menu.Item>
           </>
         )}
 
@@ -219,10 +228,11 @@ function Content() {
         <Route path="/types" element={<JobTypes />} />
         <Route path="/closedjobs" element={<ClosedJobs />} />
         <Route path="/packages" element={<Packages />} />
-        <Route path="/archive" element={<Archive />} />
-        <Route path='/deactivated/companies' element={<DeactivatedCompanies/>}/>
-        <Route path='/suspended/users' element={<SuspendedUsers/>}/>
-
+        <Route
+          path="/deactivated/companies"
+          element={<DeactivatedCompanies />}
+        />
+        <Route path="/suspended/users" element={<SuspendedUsers />} />
       </Routes>
     </div>
   );

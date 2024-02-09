@@ -31,7 +31,7 @@ const SuspendedUsersTableComponent = ({
 
   const menu = (id) => (
     <Menu onClick={({ key }) => handleMenuClick(id, key)}>
-      <Menu.Item key="activate" >Activate</Menu.Item>
+      <Menu.Item key="activate" >{t('activate')}</Menu.Item>
       {/* {loggedUser && loggedUser.role === "SUPERADMIN" && (
         <Menu.Item key="edit">{t("edit")}</Menu.Item>
       )} */}

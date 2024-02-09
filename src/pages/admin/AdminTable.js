@@ -31,7 +31,7 @@ const AdminTable = ({openViewProfile,deleteAdminUser}) => {
         <Menu onClick={({ key }) => handleMenuClick(id, key)}>
           <Menu.Item key="profile">{t('viewprofile')}</Menu.Item>
           <Menu.Item key="delete" danger="true">
-            Delete
+            {t('delete')}
           </Menu.Item>
         </Menu>
       );

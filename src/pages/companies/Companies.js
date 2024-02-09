@@ -33,7 +33,7 @@ const Companies = () => {
   const [endIndex, setEndIndex] = useState(0);
   const [entries, setEntries] = useState(0);
   const [pageSize, setPageSize] = useState(10); // Default page size
-  const[modalTitle,setModalTitle] =useState('Add Company')
+  const[modalTitle,setModalTitle] =useState(t('addcompany'))
 
   const handlePageSizeChange = (event) => {
     const newSize = parseInt(event.target.value, 10); // Use radix 10
@@ -304,7 +304,7 @@ const Companies = () => {
   };
   const openEditCompany =(companyId)=>{
     try {
-      setModalTitle("Edit Company")
+      setModalTitle(t('editcompany'))
       api
       .get(`/company/get/${companyId}`)
       .then((res) => {
@@ -367,7 +367,7 @@ const Companies = () => {
       />
       <EditCompanyModal
       open={showEditCompanyModal}
-      onClose={handleCloseViewCompany}
+      onClose={handleEditCompanyClose}
       title={modalTitle}
       onSubmit={handleEditCompanyFormSubmit}
       formData={editFormData}

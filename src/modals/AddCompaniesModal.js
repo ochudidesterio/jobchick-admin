@@ -3,8 +3,9 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import CustomInput from "../components/CustomInput";
-
+import { useTranslation } from "react-i18next";
 const AddCompaniesModal = ({ open, onClose,title, onSubmit, formData, onChange }) => {
+  const {t} = useTranslation()
   return (
     <Modal
       open={open}
@@ -35,31 +36,31 @@ const AddCompaniesModal = ({ open, onClose,title, onSubmit, formData, onChange }
         >
           <form onSubmit={onSubmit}>
             <CustomInput
-            label="Name"
+            label={t('name')}
             name="name"
             onChange={onChange}
-            placeholder="name"
+            placeholder={t('name')}
             value={formData.name}
              />
              <CustomInput 
-             label="Email"
+             label={t('email')}
              name="email"
              onChange={onChange}
-             placeholder="email"
+             placeholder={t('email')}
              value={formData.email}
              />
              <CustomInput 
-             label="Contact"
+             label={t('contact')}
              name="contact"
              onChange={onChange}
-             placeholder="contact"
+             placeholder={t('contact')}
              value={formData.contact}
              />
              <CustomInput 
-             label="Location"
+             label={t('location')}
              name="location"
              onChange={onChange}
-             placeholder="location"
+             placeholder={t('location')}
              value={formData.location}
              />
 
@@ -69,7 +70,7 @@ const AddCompaniesModal = ({ open, onClose,title, onSubmit, formData, onChange }
               fullWidth
               type="submit"
             >
-              Save
+              {t('save')}
             </Button>
           </form>
         </div>

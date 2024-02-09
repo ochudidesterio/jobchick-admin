@@ -106,5 +106,36 @@
   "elementaryEducation":"Elementary Education",
   "secondaryEducation":"Secondary Education",
   "bachelorsDegree":"Bachelor's Degree",
-  "mastersDegree":"Masters Degree"
+  "mastersDegree":"Masters Degree",
+  "accounts":"Accounts",
+  "suspended":"Suspended",
+  "active":"Active",
+  "deactivated":"Deactivated",
+  "jobs":"Jobs",
+  "unpublished":"Unpublished",
+  "published":"Published",
+  "closed":"Closed",
+  "show":"Show",
+  "entries":"entries",
+  "to":"to",
+  "of":"of",
+  "suspend":"Suspend",
+  "accountType":"Account Type",
+  "status":"Status",
+  "changeuserpassword":"Change User Password",
+  "newpassword":"New Password",
+  "resetpassword":"Reset Password",
+  "update":"Update",
+  "activate":"Activate",
+  "suspenduser":"Suspend user",
+  "suspendwarning":"Are you sure you want to suspend this user?",
+  "deleteadmin":"Delete Admin",
+  "deleteadminwarning":"Are you sure you want to delete this admin?",
+  "editcompany":"Edit Company"
+
+  
+
+
+
+
 }

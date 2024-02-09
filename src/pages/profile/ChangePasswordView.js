@@ -4,8 +4,10 @@ import Box from "@mui/material/Box";
 import CustomInput from '../../components/CustomInput';
 import api from '../../api/api';
 import { showErrorToast, showSuccessToast } from '../../Constants/Toasts';
+import { useTranslation } from 'react-i18next';
 
 const ChangePasswordView = ({user}) => {
+  const {t} = useTranslation()
      //update  password
    const [updateData, setUpdateData] = useState({
     password: "",
@@ -39,7 +41,7 @@ const ChangePasswordView = ({user}) => {
             <Box sx={{ width: 400, p: 2,alignItems: "center",
           justifyContent: "center", bgcolor: "background.paper", borderRadius:2
  }}>
-          <h5>Change User password</h5>
+          <h5>{t('changeuserpassword')}</h5>
           <div style={{
             maxHeight: 300,
             overflow: "auto",
@@ -48,16 +50,16 @@ const ChangePasswordView = ({user}) => {
           <form onSubmit={handleChangePassword} >
             
             <CustomInput
-              label="New Password"
+              label={t('newpassword')}
               name="password"
               onChange={handleChangePasswordInputChange}
-              placeholder="enter password"
+              placeholder={t('enterpassword')}
               value={updateData.password}
             />
          
             
             <Button variant="contained" style={{backgroundColor:"#179CBD"}} fullWidth type="submit">
-              Reset Password
+              {t('resetpassword')}
             </Button>
           </form>
           </div>

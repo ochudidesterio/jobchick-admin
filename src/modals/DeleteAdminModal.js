@@ -4,7 +4,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { useTranslation } from "react-i18next";
 
-const SuspendUserModal = ({ open, onClose, onSubmit }) => {
+const DeleteAdminModal = ({ open, onClose, onSubmit }) => {
     const {t} = useTranslation()
   return (
     <Modal
@@ -27,7 +27,7 @@ const SuspendUserModal = ({ open, onClose, onSubmit }) => {
           borderRadius: 2,
         }}
       >
-        <h5 style={{color:'#b22222'}}>{t('suspenduser')}!!</h5>
+        <h5 style={{color:'#b22222'}}>{t('deleteadmin')}!!</h5>
         <div
           style={{
             maxHeight: 300,
@@ -36,7 +36,7 @@ const SuspendUserModal = ({ open, onClose, onSubmit }) => {
         >
           <form onSubmit={onSubmit}>
             <div>
-            <p>{t('suspendwarning')}</p>
+            <p>{t('deleteadminwarning')}</p>
 
             </div>
             <Button
@@ -45,7 +45,7 @@ const SuspendUserModal = ({ open, onClose, onSubmit }) => {
               fullWidth
               type="submit"
             >
-              {t('suspend')}
+              {t('delete')}
             </Button>
           </form>
         </div>
@@ -54,4 +54,4 @@ const SuspendUserModal = ({ open, onClose, onSubmit }) => {
   );
 };
 
-export default SuspendUserModal;
+export default DeleteAdminModal;

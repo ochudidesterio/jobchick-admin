@@ -40,7 +40,7 @@ const UsersTableComponent = ({
       {loggedUser && loggedUser.role === "SUPERADMIN" && (
         <>
         <Menu.Item key="edit">{t("edit")}</Menu.Item>
-        <Menu.Item key="suspend" danger='true'>Suspend</Menu.Item></>
+        <Menu.Item key="suspend" danger='true'>{t('suspend')}</Menu.Item></>
       )}
 
       {/* Add other menu items as needed */}

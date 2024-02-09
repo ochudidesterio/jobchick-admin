@@ -22,6 +22,8 @@ const ProfileView = ({ user }) => {
     languages: t('languages'),
     bio:t('biography'),
     location:t('from'),
+    accountType:t('accountType'),
+    status:t('status')
   };
 
 

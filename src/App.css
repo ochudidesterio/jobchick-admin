@@ -50,6 +50,14 @@
 
  
 }
+.sub-menu-item{
+  letter-spacing: 0.02em;
+  font-family: "Open Sans";
+  color: #696969;
+  font-weight: normal;
+  font-size: 12px;
+  
+}
 /* .content{
   flex: 1;
   overflow:auto;

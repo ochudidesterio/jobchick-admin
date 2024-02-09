@@ -13,6 +13,7 @@ import ViewProfileModal from "../../modals/ViewProfileModal";
 import { showSuccessToast } from "../../Constants/Toasts";
 import TextField from "@mui/material/TextField";
 import { Search } from "@mui/icons-material";
+import DeleteAdminModal from "../../modals/DeleteAdminModal";
 
 const AdminUsers = () => {
   const { t } = useTranslation();
@@ -46,6 +47,11 @@ const AdminUsers = () => {
   const [showViewProfile, setViewProfile] = useState(false);
   const handleShowViewProfile = () => setViewProfile(false);
 
+  //deleteAmin modal modal
+  const [showDeleteAdmin, setShowDeleteAdmin] = useState(false);
+  const handleCloseDeleteAdmin = () => setShowDeleteAdmin(false);
+  const [selectedUserId,setSelectedUserId] = useState(null)
+
   const openViewProfile = (userId) => {
     try {
       api
@@ -61,14 +67,21 @@ const AdminUsers = () => {
         });
     } catch (error) {}
   };
-  const deleteAdminUser = (userId) => {
+  const openDeleteAdminModal =(id)=>{
+    setSelectedUserId(id)
+    setShowDeleteAdmin(true)
+  }
+  const deleteAdminUser = (e) => {
+    e.preventDefault()
     try {
       api
-        .post(`/company/delete/admin/${userId}`)
+        .post(`/company/delete/admin/${selectedUserId}`)
         .then((res) => {
           if (res.status === 200) {
             showSuccessToast(res.data);
             getAddmins();
+            handleCloseDeleteAdmin()
+
           }
         })
         .catch((error) => {
@@ -155,8 +168,9 @@ const AdminUsers = () => {
       </div>
       <AdminTable
         openViewProfile={openViewProfile}
-        deleteAdminUser={deleteAdminUser}
+        deleteAdminUser={openDeleteAdminModal}
       />
+      <DeleteAdminModal open={showDeleteAdmin} onClose={handleCloseDeleteAdmin} onSubmit={deleteAdminUser} />
       <PaginationItem
         page={page}
         pageCount={pageCount}
