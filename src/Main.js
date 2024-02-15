@@ -144,7 +144,6 @@ const Main = ({ onLogout }) => {
           >
             {t('unpublished')}
           </Menu.Item>
-          {loggedUser && loggedUser.role === "SUPERADMIN" && (
             <Menu.Item
               key="/closedjobs"
               style={{ marginLeft: "20px" }}
@@ -152,7 +151,7 @@ const Main = ({ onLogout }) => {
             >
               {t('closed')}
             </Menu.Item>
-          )}
+         
         </SubMenu>
 
         {loggedUser.role === "SUPERADMIN" && (

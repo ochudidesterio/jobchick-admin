@@ -15,6 +15,7 @@ import ViewJobTable from "../components/ViewJobTable";
 import api from "../api/api";
 import { useTranslation } from "react-i18next";
 import { EditOutlined } from "@ant-design/icons";
+import { showErrorToast, showSuccessToast } from "../Constants/Toasts";
 
 const ViewJobModal = ({
   open,
@@ -33,9 +34,14 @@ const ViewJobModal = ({
     try {
       const response = await api.post(`/job/publish/${id}`);
       if (response.status === 200) {
-        window.location.reload();
+        showSuccessToast("Published")
+        onClose()
+      }else{
+        showErrorToast("Failed")
       }
-    } catch (error) {}
+    } catch (error) {
+      showErrorToast("An error occurred while publishing this job")
+    }
   };
 
   return (
