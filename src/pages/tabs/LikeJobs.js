@@ -7,6 +7,8 @@ import { getLoggedInUser } from "../../redux/slices/UsersSlice";
 import TextField from "@mui/material/TextField";
 import { Search } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
+import { exportJobsToExcel } from "../../xlsx/Xlsx";
+import ExelButton from "../../xlsx/ExelButton";
 
 const LikeJobs = ({ openViewJob, openViewLikes, openCloseJob }) => {
   const { t } = useTranslation();
@@ -62,9 +64,32 @@ const LikeJobs = ({ openViewJob, openViewLikes, openCloseJob }) => {
   if (filteredJobs.length === 0) {
     return <p>No jobs available.</p>;
   }
+
+  const transformDataToExport = (data) => {
+    return data.map(item => ({
+      id: item.id,
+      title: item.title,
+      category: item.category,
+      region: item.region,
+      type: item.type,
+      timestamp: item.timestamp,
+      salary: item.salary,
+      level: item.level,
+      status: item.status,
+      company: item.company.name,
+      latitude: item.latitude,
+      longitude: item.longitude
+    }));
+  };
+
+  const exportToExel =()=>{
+
+    exportJobsToExcel(transformDataToExport(filteredJobs),"Liked jobs.xlsx")
+  }
   return (
     <>
       <div className="seach-container">
+
         <TextField
           placeholder={t("search")}
           margin="normal"
@@ -97,6 +122,8 @@ const LikeJobs = ({ openViewJob, openViewLikes, openCloseJob }) => {
             },
           }}
         />
+        <ExelButton exportToExel={exportToExel}/>
+
       </div>
       <table className="table">
         <thead>

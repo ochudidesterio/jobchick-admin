@@ -30,6 +30,7 @@ import { useTranslation } from "react-i18next";
 import { showErrorToast, showSuccessToast } from "../../Constants/Toasts";
 import { ToastContainer } from "react-toastify";
 
+
 const Jobs = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -284,6 +285,7 @@ const Jobs = () => {
       showErrorToast("Failed");
     }
   };
+ 
   return (
     <div dir="rtl" className="jobshome">
       <ToastContainer position="top-right" />

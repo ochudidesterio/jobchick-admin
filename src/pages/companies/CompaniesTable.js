@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import { Search } from "@mui/icons-material";
 import { useTranslation } from 'react-i18next';
 import SelectPageSize from "../../components/SelectPageSize";
+import ExelButton from "../../xlsx/ExelButton";
 
 
 export const CompaniesTable = ({ openCompanyProfile,openCreateJob,openEditCompany, openCreateAdmin,pageSize, param,
@@ -109,6 +110,7 @@ export const CompaniesTable = ({ openCompanyProfile,openCreateJob,openEditCompan
           pageSize={pageSize}
           handlePageSizeChange={handlePageSizeChange}
         />
+        <ExelButton/>
       </div>
       <table className="table">
         <thead>

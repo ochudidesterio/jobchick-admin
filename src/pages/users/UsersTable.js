@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 import { Search } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
 import SelectPageSize from "../../components/SelectPageSize";
+import ExelButton from "../../xlsx/ExelButton";
 
 const UsersTable = ({
   openViewProfile,
@@ -67,7 +68,9 @@ const UsersTable = ({
               },
             }}
           />
+         
         </div>
+         <ExelButton />
       </div>
 
       <UsersTableComponent
